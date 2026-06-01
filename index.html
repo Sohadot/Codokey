@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codokey — The AI Code Governance Key</title>
+<meta name="description" content="A sovereign reference layer for code access, secrets, permissions, AI agents, and developer trust boundaries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,200&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f0ede6;
+    --acid: #b8ff3f;
+    --rust: #e84c1e;
+    --slate: #1a1a2e;
+    --mist: #c8d4d8;
+    --gold: #d4a843;
+    --dim: #3a3a4a;
+    --line: rgba(255,255,255,0.08);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--acid);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(184,255,63,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease, width 0.3s, height 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: var(--paper);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--acid); }
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--acid); }
+  .nav-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--acid);
+    border: 1px solid var(--acid);
+    padding: 6px 14px;
+  }
+
+  /* SECTIONS */
+  section {
+    display: none;
+    min-height: 100vh;
+    padding-top: 80px;
+  }
+  section.active { display: block; }
+
+  /* ============ HOME ============ */
+  #home {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 80px);
+  }
+
+  .home-left {
+    padding: 80px 48px 80px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+
+  .home-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .home-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--acid);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--acid);
+  }
+
+  .home-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--mist);
+    margin-top: 28px;
+    margin-bottom: 48px;
+    max-width: 420px;
+    line-height: 1.8;
+  }
+
+  .home-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--acid);
+    color: var(--ink);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--rust);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--paper); color: var(--acid); }
+
+  .home-right {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Key diagram */
+  .key-diagram {
+    position: relative;
+    width: 320px; height: 320px;
+  }
+
+  .key-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: rotate-ring 20s linear infinite;
+    top: 50%; left: 50%;
+    transform-origin: center;
+  }
+  .ring-1 {
+    width: 280px; height: 280px;
+    border-color: rgba(184,255,63,0.15);
+    margin-top: -140px; margin-left: -140px;
+    animation-duration: 30s;
+  }
+  .ring-2 {
+    width: 200px; height: 200px;
+    border-color: rgba(184,255,63,0.25);
+    margin-top: -100px; margin-left: -100px;
+    animation-duration: 20s; animation-direction: reverse;
+  }
+  .ring-3 {
+    width: 120px; height: 120px;
+    border-color: rgba(184,255,63,0.4);
+    margin-top: -60px; margin-left: -60px;
+    animation-duration: 12s;
+  }
+
+  @keyframes rotate-ring {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .key-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .key-symbol {
+    font-size: 56px;
+    line-height: 1;
+    filter: drop-shadow(0 0 20px rgba(184,255,63,0.6));
+    animation: pulse-key 3s ease-in-out infinite;
+  }
+  @keyframes pulse-key {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(184,255,63,0.6)); }
+    50% { filter: drop-shadow(0 0 40px rgba(184,255,63,1)); }
+  }
+
+  .key-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-top: 12px;
+  }
+
+  /* Orbit dots */
+  .orbit-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--acid);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+  }
+
+  /* Stats strip */
+  .home-stats {
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-item {
+    padding: 32px 48px;
+    border-right: 1px solid var(--line);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--acid);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 8px;
+  }
+
+  /* Marquee */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    background: var(--slate);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    padding: 0 40px;
+    border-right: 1px solid var(--line);
+  }
+  .marquee-item span { color: var(--acid); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ============ PROTOCOL ============ */
+  #protocol {
+    background: var(--ink);
+  }
+
+  .protocol-hero {
+    padding: 80px 48px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    padding-bottom: 64px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--acid);
+    display: block;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: var(--paper);
+  }
+  h2 em { font-style: italic; color: var(--acid); }
+
+  .protocol-intro {
+    font-size: 13px;
+    color: var(--mist);
+    line-height: 1.9;
+    align-self: end;
+  }
+
+  .protocol-steps {
+    padding: 0 48px 80px;
+  }
+
+  .step-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.3s;
+  }
+  .step-item:hover { background: rgba(184,255,63,0.03); }
+
+  .step-num {
+    padding: 40px 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--acid);
+    border-right: 1px solid var(--line);
+    display: flex; align-items: flex-start; padding-top: 40px;
+  }
+
+  .step-title-col {
+    padding: 40px 40px;
+    border-right: 1px solid var(--line);
+  }
+  .step-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+  .step-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    background: rgba(232,76,30,0.1);
+    padding: 3px 10px;
+    display: inline-block;
+  }
+
+  .step-desc {
+    padding: 40px 40px;
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.8;
+  }
+
+  .step-questions {
+    margin-top: 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .step-q {
+    font-size: 11px;
+    color: var(--dim);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .step-q::before {
+    content: '→';
+    color: var(--acid);
+    flex-shrink: 0;
+  }
+
+  /* ============ SECRETS ============ */
+  #secrets {
+    background: var(--ink);
+  }
+
+  .secrets-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .secrets-hero::before {
+    content: 'SECRETS';
+    position: absolute;
+    right: -20px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 180px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.02);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -5px;
+  }
+
+  .secrets-grid {
+    padding: 0 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .secret-card {
+    padding: 48px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .secret-card:nth-child(even) { border-right: none; }
+  .secret-card:hover { background: rgba(184,255,63,0.03); }
+
+  .secret-icon {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(184,255,63,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--acid);
+  }
+
+  .secret-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+
+  .secret-code {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--acid);
+    background: rgba(184,255,63,0.08);
+    padding: 2px 8px;
+    margin-bottom: 16px;
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .secret-desc {
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.8;
+  }
+
+  .risk-badge {
+    position: absolute;
+    top: 48px; right: 48px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+  .risk-critical { background: rgba(232,76,30,0.2); color: var(--rust); }
+  .risk-high { background: rgba(212,168,67,0.2); color: var(--gold); }
+
+  .secrets-warning {
+    margin: 0 48px;
+    padding: 40px;
+    border: 1px solid rgba(232,76,30,0.3);
+    background: rgba(232,76,30,0.05);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .warning-icon {
+    font-size: 32px;
+    color: var(--rust);
+  }
+  .warning-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rust);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+  .warning-text {
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.9;
+  }
+
+  /* ============ AGENT PERMISSIONS ============ */
+  #agents {
+    background: var(--ink);
+  }
+
+  .agents-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .permission-matrix {
+    padding: 0 48px 80px;
+  }
+
+  .matrix-header {
+    display: grid;
+    grid-template-columns: 200px repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 2px solid var(--acid);
+    padding-bottom: 16px;
+    margin-top: 48px;
+    margin-bottom: 0;
+  }
+
+  .matrix-col-head {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--acid);
+    text-align: center;
+    padding: 0 16px;
+  }
+  .matrix-col-head:first-child { text-align: left; padding: 0; }
+
+  .matrix-row {
+    display: grid;
+    grid-template-columns: 200px repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .matrix-row:hover { background: rgba(255,255,255,0.02); }
+
+  .matrix-agent {
+    padding: 20px 0;
+  }
+  .agent-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--paper);
+  }
+  .agent-type {
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .matrix-cell {
+    text-align: center;
+    padding: 20px 16px;
+  }
+
+  .perm-allow {
+    display: inline-block;
+    width: 28px; height: 28px;
+    background: rgba(184,255,63,0.15);
+    border: 1px solid rgba(184,255,63,0.4);
+    color: var(--acid);
+    font-size: 14px;
+    line-height: 28px;
+  }
+  .perm-deny {
+    display: inline-block;
+    width: 28px; height: 28px;
+    background: rgba(232,76,30,0.1);
+    border: 1px solid rgba(232,76,30,0.3);
+    color: var(--rust);
+    font-size: 14px;
+    line-height: 28px;
+  }
+  .perm-review {
+    display: inline-block;
+    width: 28px; height: 28px;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.3);
+    color: var(--gold);
+    font-size: 14px;
+    line-height: 28px;
+  }
+
+  .matrix-legend {
+    display: flex; gap: 32px; margin-top: 24px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px;
+    color: var(--mist);
+  }
+
+  /* ============ CHECKLIST ============ */
+  #checklist {
+    background: var(--ink);
+  }
+
+  .checklist-hero {
+    padding: 80px 48px 64px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .checklist-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0 48px 80px;
+  }
+
+  .checklist-section {
+    padding: 48px 48px 48px 0;
+    border-right: 1px solid var(--line);
+  }
+  .checklist-section:nth-child(even) {
+    padding: 48px 0 48px 48px;
+    border-right: none;
+  }
+
+  .cl-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cl-section-title .cl-icon {
+    width: 28px; height: 28px;
+    background: rgba(184,255,63,0.1);
+    border: 1px solid rgba(184,255,63,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  .cl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: none;
+    transition: opacity 0.2s;
+  }
+  .cl-item:last-child { border-bottom: none; }
+
+  .cl-check {
+    width: 18px; height: 18px;
+    border: 1px solid rgba(184,255,63,0.4);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: background 0.2s, border-color 0.2s;
+    position: relative;
+    cursor: none;
+  }
+  .cl-check.checked {
+    background: var(--acid);
+    border-color: var(--acid);
+  }
+  .cl-check.checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .cl-text {
+    font-size: 12px;
+    color: var(--mist);
+    line-height: 1.7;
+  }
+  .cl-item.done .cl-text {
+    color: var(--dim);
+    text-decoration: line-through;
+  }
+
+  .cl-severity {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 2px 8px;
+  }
+  .sev-c { background: rgba(232,76,30,0.15); color: var(--rust); }
+  .sev-h { background: rgba(212,168,67,0.15); color: var(--gold); }
+  .sev-m { background: rgba(184,255,63,0.1); color: var(--acid); }
+
+  /* Progress bar */
+  .checklist-progress {
+    margin: 0 48px 48px;
+    padding: 32px 40px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line);
+  }
+  .progress-label {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .progress-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .progress-count {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acid);
+  }
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--acid);
+    transition: width 0.4s ease;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--paper);
+  }
+  .footer-logo span { color: var(--acid); }
+  .footer-text {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.05em;
+  }
+  .footer-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--acid);
+    border: 1px solid rgba(184,255,63,0.3);
+    padding: 6px 14px;
+  }
+
+  /* Divider */
+  .section-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 0 48px;
+  }
+
+  /* Noise overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9997;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .home-grid { grid-template-columns: 1fr; }
+    .home-right { display: none; }
+    .home-left { padding: 40px 24px; }
+    .home-stats { grid-template-columns: repeat(2,1fr); }
+    .stat-item { padding: 24px; }
+    .protocol-hero, .secrets-grid { grid-template-columns: 1fr; }
+    .protocol-steps, .permission-matrix, .checklist-body,
+    .secrets-hero, .protocol-hero, .agents-hero, .checklist-hero {
+      padding-left: 24px; padding-right: 24px;
+    }
+    .step-item { grid-template-columns: 50px 1fr; }
+    .step-title-col { grid-column: 2; }
+    .step-desc { grid-column: 1/-1; padding-top: 0; }
+    .matrix-header, .matrix-row { grid-template-columns: 140px repeat(4, 1fr); font-size: 10px; }
+    .checklist-body { grid-template-columns: 1fr; }
+    .checklist-section { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--line); }
+    .secrets-warning { margin: 0 24px; grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showSection('home')">Codo<span>key</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showSection('home')">Home</a></li>
+    <li><a href="#" onclick="showSection('protocol')">Protocol</a></li>
+    <li><a href="#" onclick="showSection('secrets')">Secrets Boundary</a></li>
+    <li><a href="#" onclick="showSection('agents')">Agent Permissions</a></li>
+    <li><a href="#" onclick="showSection('checklist')">Checklist</a></li>
+  </ul>
+  <div class="nav-tag">Governance Reference</div>
+</nav>
+
+<!-- ======== HOME ======== -->
+<section id="home" class="active">
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">AI Code <span>Governance</span></span>
+      <span class="marquee-item">Secrets <span>Boundary</span></span>
+      <span class="marquee-item">Agent <span>Permissions</span></span>
+      <span class="marquee-item">Trust <span>Boundary</span></span>
+      <span class="marquee-item">Code <span>Access Control</span></span>
+      <span class="marquee-item">Deployment <span>Authority</span></span>
+      <span class="marquee-item">AI Code <span>Governance</span></span>
+      <span class="marquee-item">Secrets <span>Boundary</span></span>
+      <span class="marquee-item">Agent <span>Permissions</span></span>
+      <span class="marquee-item">Trust <span>Boundary</span></span>
+      <span class="marquee-item">Code <span>Access Control</span></span>
+      <span class="marquee-item">Deployment <span>Authority</span></span>
+    </div>
+  </div>
+
+  <div class="home-grid">
+    <div class="home-left">
+      <div class="home-eyebrow">Sovereign Reference Layer</div>
+      <h1>The AI Code<br><em>Governance</em><br>Key</h1>
+      <p class="home-subtitle">
+        Software used to be governed by who wrote the code.<br>
+        Now it must be governed by <strong style="color:var(--paper)">what the code can access.</strong><br><br>
+        Codokey defines the reference layer between code, credentials, AI agents, and deployment authority.
+      </p>
+      <div class="home-actions">
+        <a class="btn-primary" href="#" onclick="showSection('protocol')">Read the Protocol</a>
+        <a class="btn-ghost" href="#" onclick="showSection('checklist')">Run the Checklist</a>
+      </div>
+    </div>
+
+    <div class="home-right">
+      <div class="key-diagram">
+        <div class="key-ring ring-1"></div>
+        <div class="key-ring ring-2"></div>
+        <div class="key-ring ring-3"></div>
+        <div class="key-center">
+          <div class="key-symbol">⬡</div>
+          <div class="key-label">Codokey</div>
+        </div>
+      </div>
+
+      <!-- floating labels -->
+      <div style="position:absolute; top:18%; left:8%; font-size:10px; color:var(--acid); letter-spacing:0.1em; opacity:0.7;">API_KEY</div>
+      <div style="position:absolute; top:32%; right:10%; font-size:10px; color:var(--mist); letter-spacing:0.1em; opacity:0.6;">SSH_KEY</div>
+      <div style="position:absolute; bottom:28%; left:10%; font-size:10px; color:var(--gold); letter-spacing:0.1em; opacity:0.7;">TOKEN</div>
+      <div style="position:absolute; bottom:18%; right:12%; font-size:10px; color:var(--rust); letter-spacing:0.1em; opacity:0.7;">SECRET</div>
+    </div>
+  </div>
+
+  <div class="home-stats">
+    <div class="stat-item">
+      <span class="stat-num">06</span>
+      <div class="stat-label">Protocol Layers</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">08</span>
+      <div class="stat-label">Secret Categories</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">05</span>
+      <div class="stat-label">Agent Trust Levels</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">32</span>
+      <div class="stat-label">Governance Checks</div>
+    </div>
+  </div>
+
+  <!-- Three pillars -->
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line);">
+    <div style="padding:48px; border-right:1px solid var(--line);">
+      <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;">01 — Code Origin</div>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--paper);margin-bottom:12px;">Who Wrote the Code?</div>
+      <div style="font-size:12px;color:var(--mist);line-height:1.8;">Every line of code now carries provenance. Human, AI, or hybrid authorship changes the review obligation and audit requirements.</div>
+    </div>
+    <div style="padding:48px; border-right:1px solid var(--line);">
+      <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;">02 — Key Exposure</div>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--paper);margin-bottom:12px;">What Can It Touch?</div>
+      <div style="font-size:12px;color:var(--mist);line-height:1.8;">The risk is not just a bug. The risk is access. AI agents that read repositories can see environment variables, tokens, and signing keys.</div>
+    </div>
+    <div style="padding:48px;">
+      <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;">03 — Deployment Authority</div>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--paper);margin-bottom:12px;">Who Controls Production?</div>
+      <div style="font-size:12px;color:var(--mist);line-height:1.8;">Autonomous agents can now push code. Without governance boundaries, the pipeline from generation to deployment can become invisible.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-text">codokey.com — AI Code Governance Reference</div>
+    <div class="footer-tag">Sovereign Asset</div>
+  </footer>
+</section>
+
+<!-- ======== PROTOCOL ======== -->
+<section id="protocol">
+
+  <div class="protocol-hero">
+    <div>
+      <div class="section-eyebrow">Reference Framework</div>
+      <h2>The Codokey<br><em>Protocol</em></h2>
+    </div>
+    <div class="protocol-intro">
+      A six-layer reference model for governing code access, secrets, permissions, AI agents, and deployment authority. When AI can write, modify, and deploy code — the most valuable layer is no longer the code alone. It is the key that governs what the code can access, expose, change, and release.
+    </div>
+  </div>
+
+  <div class="protocol-steps">
+    <div class="step-item">
+      <div class="step-num">01</div>
+      <div class="step-title-col">
+        <div class="step-name">Code Origin</div>
+        <div class="step-tag">Provenance Layer</div>
+      </div>
+      <div class="step-desc">
+        Who authored this code? The answer determines the review obligation, audit requirement, and trust level before merge.
+        <div class="step-questions">
+          <div class="step-q">Was this written by a human, an AI agent, or a hybrid?</div>
+          <div class="step-q">Is AI authorship documented in the commit or PR?</div>
+          <div class="step-q">Does your policy require human review for AI-generated code?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">02</div>
+      <div class="step-title-col">
+        <div class="step-name">Key Exposure</div>
+        <div class="step-tag">Secrets Layer</div>
+      </div>
+      <div class="step-desc">
+        Does this code touch secrets, tokens, credentials, or signing keys? Every path to a secret is a governance decision.
+        <div class="step-questions">
+          <div class="step-q">Does the code read or reference environment variables?</div>
+          <div class="step-q">Are API keys, access tokens, or SSH keys in scope?</div>
+          <div class="step-q">Could the AI agent see secrets during its session?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">03</div>
+      <div class="step-title-col">
+        <div class="step-name">Agent Authority</div>
+        <div class="step-tag">Permission Layer</div>
+      </div>
+      <div class="step-desc">
+        What is the AI agent permitted to read, change, or execute? Undefined authority is a security gap.
+        <div class="step-questions">
+          <div class="step-q">What repository scope does the agent have?</div>
+          <div class="step-q">Can the agent push to branches? Create PRs?</div>
+          <div class="step-q">Is the agent connected to external systems via MCP?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">04</div>
+      <div class="step-title-col">
+        <div class="step-name">Review Boundary</div>
+        <div class="step-tag">Human Gate Layer</div>
+      </div>
+      <div class="step-desc">
+        Where must a human intervene before code proceeds? Without explicit gates, AI agents can create invisible paths.
+        <div class="step-questions">
+          <div class="step-q">Is human review required before merging AI-generated PRs?</div>
+          <div class="step-q">Is there a mandatory review step for code touching secrets?</div>
+          <div class="step-q">Are review requirements documented in your governance policy?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">05</div>
+      <div class="step-title-col">
+        <div class="step-name">Deployment Control</div>
+        <div class="step-tag">Authority Layer</div>
+      </div>
+      <div class="step-desc">
+        Can this code reach production? Who holds the deployment key, and under what conditions?
+        <div class="step-questions">
+          <div class="step-q">Is automated deployment gated by secret scanning?</div>
+          <div class="step-q">Can an AI-generated change deploy without human approval?</div>
+          <div class="step-q">Are production credentials separated from development environments?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">06</div>
+      <div class="step-title-col">
+        <div class="step-name">Audit Memory</div>
+        <div class="step-tag">Accountability Layer</div>
+      </div>
+      <div class="step-desc">
+        Can you reconstruct what happened, who authorized it, and what was exposed? Audit trails are governance proof.
+        <div class="step-questions">
+          <div class="step-q">Are AI agent actions logged with timestamps and scope?</div>
+          <div class="step-q">Can you trace which agent accessed which repository and when?</div>
+          <div class="step-q">Is there a record of what secrets were in scope during agent sessions?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-text">The Codokey Protocol — v1.0</div>
+    <div class="footer-tag">Reference Model</div>
+  </footer>
+</section>
+
+<!-- ======== SECRETS BOUNDARY ======== -->
+<section id="secrets">
+
+  <div class="secrets-hero">
+    <div class="section-eyebrow">Critical Reference</div>
+    <h2>Secrets<br><em>Boundary</em></h2>
+    <p style="max-width:560px;font-size:13px;color:var(--mist);line-height:1.9;margin-top:24px;">
+      Every codebase contains keys. The question is not whether they exist — it is whether they are governed. AI agents that access repositories encounter these boundaries constantly. Below is the definitive classification of what lives inside the secrets boundary.
+    </p>
+  </div>
+
+  <div class="secrets-grid">
+    <div class="secret-card">
+      <div class="risk-badge risk-critical">Critical</div>
+      <div class="secret-icon">⚿</div>
+      <div class="secret-name">API Keys</div>
+      <div class="secret-code">X-API-KEY / Authorization: Bearer</div>
+      <div class="secret-desc">Credentials that authenticate programmatic access to external services. A leaked API key grants an attacker full programmatic authority over the service — often irreversible without key rotation. AI agents that read codebases may encounter hardcoded API keys in configuration files, test fixtures, or commented code.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-critical">Critical</div>
+      <div class="secret-icon">🔑</div>
+      <div class="secret-name">Access Tokens</div>
+      <div class="secret-code">OAuth / JWT / Bearer / Session</div>
+      <div class="secret-desc">Time-limited credentials that authorize access to protected resources. Short-lived tokens still represent live attack surfaces during their validity window. AI coding assistants operating inside IDEs may inadvertently expose tokens present in open files or environment contexts.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-critical">Critical</div>
+      <div class="secret-icon">⌨</div>
+      <div class="secret-name">SSH Keys</div>
+      <div class="secret-code">~/.ssh/id_rsa / ed25519</div>
+      <div class="secret-desc">Cryptographic keys for authenticating to servers, git hosting, and infrastructure. Private key exposure means persistent unauthorized access until the key pair is rotated. An AI agent with filesystem read scope could access SSH key directories.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-critical">Critical</div>
+      <div class="secret-icon">✍</div>
+      <div class="secret-name">Signing Keys</div>
+      <div class="secret-code">GPG / Code Signing / TLS Cert Keys</div>
+      <div class="secret-desc">Keys that establish authenticity and integrity of releases, commits, or secure communications. Signing key exposure allows an attacker to produce artifacts that appear legitimate — a supply-chain attack vector of the highest severity.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-high">High</div>
+      <div class="secret-icon">⚙</div>
+      <div class="secret-name">Environment Variables</div>
+      <div class="secret-code">.env / process.env / os.environ</div>
+      <div class="secret-desc">Runtime configuration that frequently contains production credentials, database URIs, and service endpoints. Environment files are commonly present in development repositories and may be inadvertently committed. AI agents operating in development contexts should never have read access to production .env files.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-high">High</div>
+      <div class="secret-icon">🗄</div>
+      <div class="secret-name">Database Credentials</div>
+      <div class="secret-code">DB_USER / DB_PASS / CONNECTION_STRING</div>
+      <div class="secret-desc">Authentication credentials for database systems. Database credential exposure can lead to bulk data exfiltration. These credentials are frequently embedded in ORM configuration files, migration scripts, or legacy connection strings discovered by code-reading agents.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-high">High</div>
+      <div class="secret-icon">☁</div>
+      <div class="secret-name">Cloud Credentials</div>
+      <div class="secret-code">AWS_ACCESS_KEY / GCP_KEY / AZURE_CLIENT</div>
+      <div class="secret-desc">Provider credentials for cloud infrastructure. A leaked cloud access key can expose entire infrastructure environments, storage buckets, and managed services. Cloud credential files (e.g., ~/.aws/credentials) may fall within the filesystem scope of broad-permission AI agents.</div>
+    </div>
+
+    <div class="secret-card">
+      <div class="risk-badge risk-high">High</div>
+      <div class="secret-icon">⬡</div>
+      <div class="secret-name">GitHub / Git Secrets</div>
+      <div class="secret-code">GITHUB_TOKEN / GH_PAT / Deploy Keys</div>
+      <div class="secret-desc">Tokens and keys for repository access, CI/CD triggers, and deployment automation. Personal Access Tokens (PATs) with broad scopes are high-value targets. GitHub's own secret scanning initiative inside AI agents confirms this is an active and recognized risk surface.</div>
+    </div>
+  </div>
+
+  <div class="secrets-warning" style="margin-top:48px; margin-bottom:48px;">
+    <div class="warning-icon">⚠</div>
+    <div>
+      <div class="warning-title">AI Agent + Secrets = Active Governance Requirement</div>
+      <div class="warning-text">
+        GitHub's MCP Server integration enables AI agents to interact with repositories, issues, pull requests, and code. When an agent operates inside a codebase that contains any of the above secret categories — even as comments, test data, or legacy configuration — the secrets boundary is active. Governance cannot be retroactive. Secret scanning, scope restrictions, and audit logging must be in place before agent sessions begin, not after a disclosure event.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-text">Secrets Boundary — Codokey Reference</div>
+    <div class="footer-tag">Security Layer</div>
+  </footer>
+</section>
+
+<!-- ======== AGENT PERMISSIONS ======== -->
+<section id="agents">
+
+  <div class="agents-hero">
+    <div class="section-eyebrow">Permission Architecture</div>
+    <h2>Agent<br><em>Permissions</em></h2>
+    <p style="max-width:560px;font-size:13px;color:var(--mist);line-height:1.9;margin-top:24px;">
+      AI agents are not monolithic. A read-only suggestion agent and a deployment-adjacent autonomous agent carry fundamentally different risk profiles. The permission matrix below defines the authority boundaries for each agent class operating inside a codebase.
+    </p>
+  </div>
+
+  <div class="permission-matrix">
+    <div class="matrix-header">
+      <div class="matrix-col-head">Agent Class</div>
+      <div class="matrix-col-head">Read Repo</div>
+      <div class="matrix-col-head">Write / PR</div>
+      <div class="matrix-col-head">Access Secrets</div>
+      <div class="matrix-col-head">Deploy</div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-agent">
+        <div class="agent-name">Suggestion Agent</div>
+        <div class="agent-type">Copilot / Inline</div>
+      </div>
+      <div class="matrix-cell"><span class="perm-allow">✓</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-agent">
+        <div class="agent-name">Code Review Agent</div>
+        <div class="agent-type">PR Analysis</div>
+      </div>
+      <div class="matrix-cell"><span class="perm-allow">✓</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-agent">
+        <div class="agent-name">Task Agent</div>
+        <div class="agent-type">Issue → Branch</div>
+      </div>
+      <div class="matrix-cell"><span class="perm-allow">✓</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-agent">
+        <div class="agent-name">MCP-Connected Agent</div>
+        <div class="agent-type">External Tool Access</div>
+      </div>
+      <div class="matrix-cell"><span class="perm-allow">✓</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-deny">✕</span></div>
+    </div>
+
+    <div class="matrix-row">
+      <div class="matrix-agent">
+        <div class="agent-name">Autonomous Agent</div>
+        <div class="agent-type">Full Pipeline</div>
+      </div>
+      <div class="matrix-cell"><span class="perm-allow">✓</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+      <div class="matrix-cell"><span class="perm-review">⊙</span></div>
+    </div>
+
+    <div class="matrix-legend">
+      <div class="legend-item"><span class="perm-allow" style="display:inline-block;width:20px;height:20px;line-height:20px;font-size:11px;">✓</span> Permitted</div>
+      <div class="legend-item"><span class="perm-deny" style="display:inline-block;width:20px;height:20px;line-height:20px;font-size:11px;">✕</span> Denied</div>
+      <div class="legend-item"><span class="perm-review" style="display:inline-block;width:20px;height:20px;line-height:20px;font-size:11px;">⊙</span> Human Review Required</div>
+    </div>
+  </div>
+
+  <!-- Forbidden zones -->
+  <div style="padding:0 48px 80px;">
+    <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);margin-bottom:24px;padding-top:48px;border-top:1px solid var(--line);">Forbidden Access Zones — No Agent Class</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(232,76,30,0.2);">
+      <div style="padding:32px;border-right:1px solid rgba(232,76,30,0.2);">
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--paper);margin-bottom:10px;">Production Secrets</div>
+        <div style="font-size:11px;color:var(--mist);line-height:1.7;">No agent should have access to production credentials, live database connections, or production signing keys under any automated workflow.</div>
+      </div>
+      <div style="padding:32px;border-right:1px solid rgba(232,76,30,0.2);">
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--paper);margin-bottom:10px;">Unscoped Repository Access</div>
+        <div style="font-size:11px;color:var(--mist);line-height:1.7;">Agents must operate with the minimum repository scope required. Organization-wide read access for a single-repository task is always a governance failure.</div>
+      </div>
+      <div style="padding:32px;">
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--paper);margin-bottom:10px;">Unsupervised Deployment</div>
+        <div style="font-size:11px;color:var(--mist);line-height:1.7;">No agent should have the authority to deploy to production without a human authorization gate. Automation and autonomy are different things.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-text">Agent Permissions — Codokey Reference</div>
+    <div class="footer-tag">Permission Layer</div>
+  </footer>
+</section>
+
+<!-- ======== CHECKLIST ======== -->
+<section id="checklist">
+
+  <div class="checklist-hero">
+    <div class="section-eyebrow">Governance Tool</div>
+    <h2>AI Code Governance<br><em>Checklist</em></h2>
+    <p style="max-width:560px;font-size:13px;color:var(--mist);line-height:1.9;margin-top:24px;">
+      32 governance checks across six domains. Run this before enabling AI agents in your development environment. Each item corresponds to a layer in the Codokey Protocol.
+    </p>
+  </div>
+
+  <div class="checklist-progress" id="progressBar">
+    <div class="progress-label">
+      <span class="progress-title">Governance Completion</span>
+      <span class="progress-count" id="progressCount">0 / 32</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="checklist-body">
+
+    <!-- Col 1 -->
+    <div class="checklist-section">
+
+      <div class="cl-section-title">
+        <span class="cl-icon">①</span> Code Origin
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">AI-generated code is labeled or tagged in commits and PRs</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Human review is explicitly required for all AI-generated merges</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">AI authorship is documented in your SDLC policy</div>
+        <span class="cl-severity sev-m">Medium</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Mixed human/AI code is distinguishable in the diff history</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+
+      <div class="cl-section-title" style="margin-top:32px;">
+        <span class="cl-icon">②</span> Key Exposure
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Secret scanning is enabled on all active repositories</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Pre-commit hooks block secrets from entering the codebase</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Environment files (.env) are excluded from AI agent read scope</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Hardcoded credentials audit has been performed in the last 90 days</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">API key rotation policy is documented and enforced</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+
+      <div class="cl-section-title" style="margin-top:32px;">
+        <span class="cl-icon">③</span> Agent Authority
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Each agent has a documented scope — repository, branch, action type</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Agents operate with minimum-privilege repository access</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">MCP server connections are inventoried and reviewed</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Agent token scopes are reviewed and restricted quarterly</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Organization-wide agent access is disabled by default</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Forbidden access zones are defined in writing and enforced technically</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+
+    </div>
+
+    <!-- Col 2 -->
+    <div class="checklist-section">
+
+      <div class="cl-section-title">
+        <span class="cl-icon">④</span> Review Boundary
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Branch protection rules require review before merge for AI PRs</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Code touching secrets paths triggers mandatory security review</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Reviewers are trained to identify AI-generated code patterns</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Review bypass is technically prevented — not just policy-prohibited</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Human review gates are documented in your SDLC governance policy</div>
+        <span class="cl-severity sev-m">Medium</span>
+      </div>
+
+      <div class="cl-section-title" style="margin-top:32px;">
+        <span class="cl-icon">⑤</span> Deployment Control
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">No agent has direct production deployment authority without human gate</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Production credentials are separated from development environments</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">CI/CD pipeline includes secret scanning as a blocking step</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Deployment rollback procedures are tested and documented</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Infrastructure-as-code changes require separate review from application code</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+
+      <div class="cl-section-title" style="margin-top:32px;">
+        <span class="cl-icon">⑥</span> Audit Memory
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">AI agent actions are logged with identity, timestamp, and scope</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Audit logs are immutable and protected from agent modification</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Log retention policy meets your compliance requirements</div>
+        <span class="cl-severity sev-h">High</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Secret exposure events trigger an incident response workflow</div>
+        <span class="cl-severity sev-c">Critical</span>
+      </div>
+      <div class="cl-item" onclick="toggleCheck(this)">
+        <div class="cl-check"></div>
+        <div class="cl-text">Audit reviews are scheduled — not only performed after incidents</div>
+        <span class="cl-severity sev-m">Medium</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-text">AI Code Governance Checklist — Codokey v1.0</div>
+    <div class="footer-tag">32 Checks</div>
+  </footer>
+</section>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // Navigation
+  function showSection(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // Checklist
+  let checked = 0;
+  const total = 32;
+
+  function toggleCheck(item) {
+    const box = item.querySelector('.cl-check');
+    const isChecked = box.classList.toggle('checked');
+    item.classList.toggle('done', isChecked);
+    checked += isChecked ? 1 : -1;
+    document.getElementById('progressCount').textContent = checked + ' / ' + total;
+    document.getElementById('progressFill').style.width = (checked / total * 100) + '%';
+  }
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    const map = {'1':'home','2':'protocol','3':'secrets','4':'agents','5':'checklist'};
+    if (map[e.key]) showSection(map[e.key]);
+  });
+</script>
+</body>
+</html>
