@@ -88,9 +88,24 @@ Architectural and strategic decisions for the Codokey repository.
 
 ---
 
+## 2026-06-01 — Inevitability & Doctrine Sprint v1.3
+
+**Decision:** Deepen conceptual depth, buyer-loss logic, and strategic inevitability without new pages or visual redesign.
+
+**Changes:**
+- Cost pillar: future control failure framing, six sharpened failure modes, six-line governed/ungoverned diff
+- Buyer logic: gain / loss / why per category
+- Charter: First Law of Definition, sharper foundational doctrine
+- Briefs: Codokey Evidence Room framing, explicit doctrine hierarchy
+- Doctrine hierarchy block on charter, cost, buyer, briefs, category
+
+**Constraints preserved:** No SaaS claims, no PDF links without files, no new generic pages.
+
+---
+
 ## Pending Decisions
 
-_None at v1.2._
+_None at v1.3._
 
 ---
 

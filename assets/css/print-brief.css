@@ -51,8 +51,16 @@
 .cost-pillar-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--fg);margin-bottom:8px;}
 .cost-pillar-text{font-size:11px;color:var(--comment);line-height:1.75;}
 
+.buyer-gain{font-size:10px;color:var(--added-bar);margin-top:10px;line-height:1.7;}
+.buyer-gain strong{color:var(--added-bar);}
+.buyer-why{font-size:10px;color:var(--comment);margin-top:8px;line-height:1.7;}
+.buyer-why strong{color:var(--fg2);}
 .buyer-loss{font-size:10px;color:var(--removed-bar);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);line-height:1.7;}
 .buyer-loss strong{color:var(--removed-bar);}
+
+.doctrine-hierarchy{margin:28px 0;border:1px solid var(--border);}
+.doctrine-hierarchy-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--comment);padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.doctrine-hierarchy .ref-stack{border:none;margin:0;}
 
 .ref-stack{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--border);margin-top:24px;}
 .ref-stack-row{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--border);}

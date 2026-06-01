@@ -12,12 +12,20 @@
 
 **Sovereignty begins at the access boundary.**
 
-Codokey is not a product. It is a reference model — a sovereign governance layer designed to become the definitive language of AI Code Access Governance.
+Codokey is not a product. It is founding doctrine for AI Code Access Governance.
 
-Codokey is not a standard yet. It is a reference model designed to become the language of AI Code Access Governance — built to be adopted, cited, and extended by those who govern AI-assisted development responsibly.
+**AI agents are not merely faster developers.** They create a new authority layer. Governance models built for human authorship cannot govern machine-speed access without redefining where sovereignty begins.
 
 > You cannot govern what you cannot define.  
 > Codokey defines the boundary between code, keys, agents, and authority.
+
+---
+
+## The First Law
+
+**The first law of agentic software governance is definition.** Undefined authority cannot be audited, bounded, or trusted.
+
+An organization that has not defined what an agent may see, which secrets are excluded, which authority paths are forbidden, and what audit memory must capture — has no governance posture to assess. It has only incident response waiting to happen.
 
 ---
 
@@ -35,15 +43,11 @@ The Codokey Charter exists to establish a different principle: **governance must
 
 ## The Codokey Position
 
-**Governance is not the brake. It is the Express Lane.**
+**Governance is the permission structure for safe machine-speed development.**
 
-The most common objection to AI code governance is that it slows development. This objection misunderstands what governance is for.
-
-Codokey inverts this assumption: governance is the permission structure that lets AI agents move faster safely. An organization that has defined its secrets boundary, scoped its agent authority, established its review gates, and built its audit memory — can deploy AI agents with confidence, at speed, without constant manual oversight.
+Post-facto review cannot govern pre-session access. Governance is not the brake — it is the permission structure that lets AI agents move faster safely.
 
 The ungoverned organization must slow down after every incident. The governed organization moves faster because the boundaries are already defined.
-
-> Codokey is the constitutional layer for AI-touched codebases: it defines the boundary between machine speed and organizational accountability.
 
 ---
 
