@@ -12,12 +12,17 @@
 <meta property="og:title" content="The Cost of Undefined Agent Authority">
 <meta property="og:description" content="Strategic cost of ungoverned AI code access: governance debt, audit failure, supply-chain exposure, and lost category control.">
 <meta property="og:site_name" content="Codokey">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.svg">
+<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance. The boundary between code, keys, agents, and authority.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cost of Undefined Agent Authority — Codokey">
 <meta name="twitter:description" content="Every unscoped agent session creates governance debt. Strategic cost analysis for AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/codokey.css">
+<link rel="stylesheet" href="/assets/css/print-brief.css">
 </head>
 <body>
 
@@ -33,12 +38,12 @@
     <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
     <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
   </div>
-  <div class="nav-right"><div class="nav-badge">v1.1</div></div>
+  <div class="nav-right"><div class="nav-badge">v1.2</div></div>
 </nav>
 
 <main>
   <div class="file-header">
-    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">STRATEGIC COST · v1.1</span></div>
+    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">STRATEGIC PILLAR · v1.2</span></div>
     <div class="file-stats"><span class="stat-a">+5 governed paths</span><span class="stat-r">−5 ungoverned paths</span></div>
   </div>
 
@@ -46,21 +51,35 @@
     <div class="charter-label">The Cost of Undefined Agent Authority</div>
     <div class="charter-heading">Every unscoped agent session is governance debt.</div>
     <div class="content-body">
-      <p>This analysis frames the strategic cost of deferring <a href="/category/">AI Code Access Governance</a>. The URL remains <code>cost-of-inaction</code> — because inaction on agent authority definition <em>is</em> the cost.</p>
-      <p><strong>Governance debt</strong> is the accumulated risk created when AI-assisted code changes occur without defined access boundaries. Unlike technical debt, governance debt is often invisible until an incident forces retrospective investigation — and by then, <a href="/protocol/">audit memory</a> may be insufficient to reconstruct what was exposed.</p>
+      <p>This page is a <strong>main pillar</strong> of the Codokey reference asset. It frames the strategic cost of deferring <a href="/category/">AI Code Access Governance</a>. The URL remains <code>cost-of-inaction</code> — because inaction on agent authority definition <em>is</em> the cost.</p>
+      <p>Undefined agent authority is not a tooling gap. It is an institutional gap: permissions expand, audits fail, debt compounds, adoption stalls, and competitors who defined boundaries first move faster with control.</p>
     </div>
-  </div>
 
-  <div class="gap-section">
-    <div class="gap-inner">
-      <div class="gap-title">Strategic Cost Vectors</div>
-      <div class="gap-body">
-        <strong>Audit reconstruction failure.</strong> Without immutable agent session logs, breach response cannot answer: which agent accessed which repository, what secrets were in scope, who authorized scope expansion. Non-traceable breach is the worst accountability outcome.<br><br>
-        <strong>Governance debt compounding.</strong> Each unscoped session adds dependencies — undocumented AI authorship, undefined <a href="/agent-permissions/" style="color:var(--acid)">agent authority surface</a>, unbounded <a href="/secrets-boundary/" style="color:var(--acid)">secrets boundary</a>. Recovery cost grows non-linearly with agentic development scale.<br><br>
-        <strong>Supply-chain exposure.</strong> Agents with broad repository scope encounter signing keys, Git tokens, and deployment credentials. Undefined authority creates supply-chain attack vectors that code review cannot detect — because the exposure occurred before the PR existed.<br><br>
-        <strong>Delayed enterprise adoption of AI agents.</strong> Organizations without defined boundaries cannot deploy agents at scale. Security teams block adoption. Engineering teams operate in shadow agent usage. Both paths lose velocity.<br><br>
-        <strong>Loss of control over a new authority layer.</strong> Agent authority is a new organizational control surface. Organizations that defer definition inherit whatever defaults vendors, IDE configs, and individual developers establish ad hoc.<br><br>
-        <em>Competitor advantage through earlier boundary definition.</em> The organization — or platform — that defines AI Code Access Governance first owns the permission structure, the audit framework, and the category language. See <a href="/buyer-logic/" style="color:var(--acid)">buyer logic</a>.
+    <div class="cost-pillars">
+      <div class="cost-pillar">
+        <div class="cost-pillar-num">01</div>
+        <div class="cost-pillar-title">Authority Drift</div>
+        <div class="cost-pillar-text">Agent permissions expand without formal institutional decision. A task scoped to one repository gains org-wide access. An MCP connection adds filesystem scope. A PAT outlives its intended use. Each drift increment is invisible until an incident reveals the true authority surface.</div>
+      </div>
+      <div class="cost-pillar">
+        <div class="cost-pillar-num">02</div>
+        <div class="cost-pillar-title">Audit Reconstruction Failure</div>
+        <div class="cost-pillar-text">After an incident, the organization cannot reconstruct which agent accessed what, what secrets were in scope, or who authorized the authority path. Without <a href="/protocol/">audit memory</a>, breach response becomes guesswork — the worst accountability outcome for AI-touched codebases.</div>
+      </div>
+      <div class="cost-pillar">
+        <div class="cost-pillar-num">03</div>
+        <div class="cost-pillar-title">Governance Debt Compounding</div>
+        <div class="cost-pillar-text">Every unscoped session creates dependencies that become harder to unwind later: undocumented AI authorship, undefined <a href="/agent-permissions/">agent authority</a>, unbounded <a href="/secrets-boundary/">secrets boundary</a>. Recovery cost grows non-linearly. <a href="/charter/">Charter Principle 04</a>: governance debt compounds.</div>
+      </div>
+      <div class="cost-pillar">
+        <div class="cost-pillar-num">04</div>
+        <div class="cost-pillar-title">Delayed Agent Adoption</div>
+        <div class="cost-pillar-text">Organizations without defined boundaries either block AI agents entirely or use them informally in shadow workflows. Security teams cannot approve what they cannot define. Engineering teams cannot scale what compliance cannot govern. Both paths lose velocity and control.</div>
+      </div>
+      <div class="cost-pillar">
+        <div class="cost-pillar-num">05</div>
+        <div class="cost-pillar-title">Competitor Advantage</div>
+        <div class="cost-pillar-text">Organizations that define AI Code Access Governance early can move faster because their boundaries are already defined. The platform or enterprise that owns category language owns the permission structure, audit framework, and enterprise trust vocabulary. See <a href="/buyer-logic/">buyer logic</a>.</div>
       </div>
     </div>
   </div>
@@ -146,7 +165,7 @@
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">Cost of Undefined Agent Authority · v1.1 · AI Code Access Governance</div>
+    <div class="footer-meta">Cost of Undefined Agent Authority · v1.2 · AI Code Access Governance</div>
     <div class="footer-tag">Risk Analysis</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">
@@ -159,6 +178,7 @@
     <a href="/governance-scorecard/">Scorecard</a>
     <a href="/cost-of-inaction/" class="active">Cost of Inaction</a>
     <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
     <a href="/strategic-inquiries/">Strategic Inquiries</a>
   </nav>
 </footer>

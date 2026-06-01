@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Codokey  AI Code Access Governance">
+  <rect width="1200" height="630" fill="#0d1117"/>
+  <rect x="0" y="0" width="1200" height="3" fill="#b8ff3f"/>
+  <rect x="0" y="627" width="1200" height="3" fill="#30363d"/>
+  <rect x="60" y="80" width="480" height="470" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <rect x="60" y="80" width="480" height="36" fill="#1c2128"/>
+  <circle cx="82" cy="98" r="6" fill="#ff5f57"/>
+  <circle cx="102" cy="98" r="6" fill="#febc2e"/>
+  <circle cx="122" cy="98" r="6" fill="#28c840"/>
+  <text x="300" y="103" fill="#8b949e" font-family="monospace" font-size="14" text-anchor="middle">governance-console  social-preview.svg</text>
+  <rect x="76" y="132" width="88" height="18" fill="rgba(26,58,42,0.8)"/>
+  <text x="84" y="146" fill="#3fb950" font-family="monospace" font-size="12">+ governed</text>
+  <rect x="76" y="158" width="420" height="18" fill="rgba(58,26,31,0.6)"/>
+  <text x="84" y="172" fill="#f85149" font-family="monospace" font-size="12"> undefined authority</text>
+  <rect x="76" y="184" width="420" height="18" fill="rgba(26,58,42,0.8)"/>
+  <text x="84" y="198" fill="#3fb950" font-family="monospace" font-size="12">+ secrets boundary defined</text>
+  <rect x="76" y="210" width="420" height="18" fill="rgba(121,192,255,0.08)"/>
+  <text x="84" y="224" fill="#79c0ff" font-family="monospace" font-size="11">@@ AI Code Access Governance @@</text>
+  <rect x="76" y="250" width="8" height="280" fill="#b8ff3f"/>
+  <text x="580" y="200" fill="#e6edf3" font-family="system-ui,sans-serif" font-size="72" font-weight="900" letter-spacing="-2">Codo</text>
+  <text x="780" y="200" fill="#b8ff3f" font-family="system-ui,sans-serif" font-size="72" font-weight="900" letter-spacing="-2">key</text>
+  <text x="580" y="280" fill="#b8ff3f" font-family="monospace" font-size="16" letter-spacing="4">AI CODE ACCESS GOVERNANCE</text>
+  <text x="580" y="340" fill="#b1bac4" font-family="monospace" font-size="22">The boundary between code, keys,</text>
+  <text x="580" y="375" fill="#b1bac4" font-family="monospace" font-size="22">agents, and authority.</text>
+  <rect x="580" y="420" width="200" height="2" fill="#b8ff3f"/>
+  <text x="580" y="460" fill="#8b949e" font-family="monospace" font-size="14">codokey.com · sovereign reference model · v1.2</text>
+</svg>

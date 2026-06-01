@@ -17,7 +17,10 @@ Codokey.com is not merely a site about AI Code Access Governance — it is the c
 | `/governance-scorecard/` | Governance Scorecard v1.0 — 32-check self-assessment |
 | `/cost-of-inaction/` | Cost of Undefined Agent Authority — governance debt analysis |
 | `/buyer-logic/` | Strategic buyer categories |
+| `/briefs/` | Reference Briefs — institutional print-ready documents (v1.2) |
 | `/strategic-inquiries/` | Acquisition, licensing, partnership |
+
+Print-ready brief paths: `/briefs/charter/`, `/briefs/protocol/`, `/briefs/category-definition/`, `/briefs/buyer-brief/`
 
 ## Repository Documentation
 

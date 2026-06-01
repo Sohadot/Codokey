@@ -68,4 +68,4 @@ Pre-publish checklist for codokey.com pages and repository content.
 
 | Gate | Status | Date |
 |------|--------|------|
-| v1.1 category authority sprint | Pass | 2026-06-01 |
+| v1.2 authority evidence pack | Pass | 2026-06-01 |

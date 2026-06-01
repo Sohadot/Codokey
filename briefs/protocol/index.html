@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codokey Protocol v1.0 — Print Brief</title>
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<link rel="stylesheet" href="/assets/css/print-brief.css">
+</head>
+<body class="print-brief-doc">
+
+<div class="print-toolbar no-print">
+  <div class="print-toolbar-meta">Codokey Protocol v1.0 · Print-ready reference brief</div>
+  <div class="print-toolbar-actions">
+    <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    <a class="btn-back" href="/briefs/">← All Briefs</a>
+  </div>
+</div>
+
+<article class="print-document">
+  <header class="print-doc-header">
+    <div class="print-doc-eyebrow">Codokey Reference Brief</div>
+    <h1 class="print-doc-title">Codokey Protocol</h1>
+    <dl class="print-doc-meta">
+      <dt>Version:</dt><dd>1.0</dd>
+      <dt>Date:</dt><dd>2026-06-01</dd>
+      <dt>Status:</dt><dd>Reference Model</dd>
+      <dt>Scope:</dt><dd>How AI Code Access Governance is operationalized — six layers</dd>
+    </dl>
+  </header>
+
+  <div class="print-doc-note">Reference model document — not a formal certification, audit, or product specification. Vendor-agnostic. Applies to Copilot, Cursor, Claude Code, and future agents.</div>
+
+  <section class="print-section">
+    <h2>Overview</h2>
+    <p>When AI can write, modify, and deploy code — the most valuable layer is no longer the code alone. It is the key that governs what the code can access, expose, change, and release.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 01 — Code Origin</h2>
+    <p><em>Provenance Layer.</em> Who authored this code? Human, AI, or hybrid authorship determines review obligation before merge.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 02 — Key Exposure</h2>
+    <p><em>Secrets Layer.</em> Does code touch secrets, tokens, credentials, or signing keys? Secret classes: API keys, access tokens, SSH keys, signing keys, environment variables, cloud credentials, database credentials, Git tokens.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 03 — Agent Authority</h2>
+    <p><em>Permission Layer.</em> What is the agent permitted to read, change, or execute? Agent classes: suggestion, code review, task, MCP-connected, autonomous.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 04 — Review Boundary</h2>
+    <p><em>Human Gate Layer.</em> Where must a human intervene before code proceeds? Minimum accountability structure for AI-generated changes.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 05 — Deployment Control</h2>
+    <p><em>Authority Layer.</em> Can code reach production? No agent deploys without human authorization gate.</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Layer 06 — Audit Memory</h2>
+    <p><em>Accountability Layer.</em> Can you reconstruct what happened, who authorized it, and what was exposed?</p>
+  </section>
+
+  <section class="print-section">
+    <h2>Forbidden Zones</h2>
+    <ul>
+      <li>Production secrets accessible to agent</li>
+      <li>Organization-wide scope for single-repo task</li>
+      <li>Unsupervised production deployment</li>
+    </ul>
+    <p>Governance Scorecard: 32 checks across six layers. Grades C → A+. Self-assessment reference — not certification.</p>
+  </section>
+
+  <footer class="print-doc-footer">
+    Codokey.com · AI Code Access Governance · inquiry@codokey.com<br>
+    Canonical web reference: https://codokey.com/protocol/
+  </footer>
+</article>
+</body>
+</html>

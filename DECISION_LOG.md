@@ -74,9 +74,23 @@ Architectural and strategic decisions for the Codokey repository.
 
 ---
 
+## 2026-06-01 — Authority Evidence Pack v1.2
+
+**Decision:** Add evidence-ready institutional briefs, social preview asset, strengthened pillar pages, and search submission readiness.
+
+**New assets:**
+- `/briefs/` hub + four print-ready HTML briefs (charter, protocol, category-definition, buyer-brief)
+- `assets/social-preview.svg` — Open Graph / Twitter preview
+- `assets/css/print-brief.css` — print-ready brief styling
+- Strengthened `/cost-of-inaction/`, `/buyer-logic/`, `/category/` (Reference Stack)
+
+**Constraints preserved:** No PDF links without files. No visual redesign. No SaaS claims. Browser Print → Save as PDF for briefs.
+
+---
+
 ## Pending Decisions
 
-_None at v1.1._
+_None at v1.2._
 
 ---
 
