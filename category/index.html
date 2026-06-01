@@ -23,7 +23,6 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/codokey.css">
 <link rel="stylesheet" href="/assets/css/print-brief.css">
-<link rel="stylesheet" href="/assets/css/print-brief.css">
 </head>
 <body>
 
@@ -44,8 +43,8 @@
 
 <main>
   <div class="file-header">
-    <div class="file-path"><span>codokey / docs /</span><span class="file-name">category-definition.md</span><span class="file-lang">CANONICAL REFERENCE v1.1</span></div>
-    <div class="file-stats"><span class="stat-a">+7 category layers</span><span class="stat-r">−0 competing definitions</span></div>
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">category-definition.md</span><span class="file-lang">CANONICAL REFERENCE v1.2</span></div>
+    <div class="file-stats"><span class="stat-a">+8 category layers</span><span class="stat-r">−0 competing definitions</span></div>
   </div>
 
   <div class="charter-wrap">
@@ -54,6 +53,7 @@
       <div class="charter-heading">AI Code Access Governance</div>
       <div class="charter-body">
         <p><strong>AI Code Access Governance</strong> is the discipline of governing what AI agents, AI-touched code, and agentic development workflows can <em>access</em>, <em>expose</em>, <em>change</em>, and <em>move toward production</em>.</p>
+        <p><strong>This is not a subtopic</strong> of code review, application security, AI governance, or secrets management. It is the emerging discipline that addresses a question none of those fields ask: <em>what authority exists before the agent acts?</em></p>
         <p><strong>This page is the root definition</strong> for the category. Codokey is the canonical reference model. Codokey.com is not a site about AI Code Access Governance — it is the category-defining reference infrastructure for the discipline.</p>
       </div>
       <div class="charter-quote">
@@ -82,6 +82,44 @@
     </div>
 
     <div class="charter-section">
+      <div class="charter-label">Why This Requires Its Own Reference Model</div>
+      <div class="charter-heading">Adjacent disciplines answer different questions.</div>
+      <div class="charter-body">
+        <p>Each adjacent discipline asks a necessary question. None of them asks the governing question for this problem.</p>
+      </div>
+      <div class="charter-principles">
+        <div class="principle">
+          <div class="principle-num">−</div>
+          <div class="principle-title">Code Review asks: what changed?</div>
+          <div class="principle-text">It operates after the agent has acted. It cannot govern what the agent was authorized to access before the change existed.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">−</div>
+          <div class="principle-title">Secrets Management asks: where are credentials stored?</div>
+          <div class="principle-text">It governs credentials at rest. It does not define the agent-side boundary where AI workflows encounter secrets during execution.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">−</div>
+          <div class="principle-title">AppSec asks: is the code vulnerable?</div>
+          <div class="principle-text">It audits what exists. It does not define the authority scope under which the agent operated when the code was created.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">−</div>
+          <div class="principle-title">AI Governance asks: is AI used responsibly?</div>
+          <div class="principle-text">It frames ethics and policy. It does not specify what access boundaries, permission structures, or audit requirements govern an agent session in a codebase.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">+</div>
+          <div class="principle-title">AI Code Access Governance asks: what authority exists before the agent acts?</div>
+          <div class="principle-text">This is the question Codokey defines. The boundary that must be set before a session begins, the authority that must be scoped before code is written, the audit that must be designed before access occurs.</div>
+        </div>
+      </div>
+      <div class="charter-quote">
+        <p>The question that defines the discipline:<br>What was the agent allowed to see, before the change existed?</p>
+      </div>
+    </div>
+
+    <div class="charter-section">
       <div class="charter-label">The Codokey Reference Stack</div>
       <div class="charter-heading">How the category is operationalized.</div>
       <div class="charter-body">
@@ -91,6 +129,10 @@
         <div class="ref-stack-row">
           <div class="ref-stack-label"><a href="/charter/" style="color:var(--acid)">Charter</a></div>
           <div class="ref-stack-desc"><strong>Why</strong> the category exists — sovereignty at the access boundary, first law of definition, governance before autonomy.</div>
+        </div>
+        <div class="ref-stack-row">
+          <div class="ref-stack-label" style="color:var(--removed-bar)">Category</div>
+          <div class="ref-stack-desc"><strong>What</strong> the discipline is — root definition, seven category layers, why adjacent disciplines cannot substitute. <strong>This page.</strong></div>
         </div>
         <div class="ref-stack-row">
           <div class="ref-stack-label"><a href="/protocol/" style="color:var(--acid)">Protocol</a></div>
@@ -199,7 +241,7 @@
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">AI Code Access Governance · Root Definition · v1.3</div>
+    <div class="footer-meta">AI Code Access Governance · Root Definition · v1.4</div>
     <div class="footer-tag">Category Authority</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">

@@ -43,8 +43,8 @@
 
 <main>
   <div class="file-header">
-    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">DOCTRINE PILLAR · v1.3</span></div>
-    <div class="file-stats"><span class="stat-a">+6 governed paths</span><span class="stat-r">−6 failure modes</span></div>
+    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">DOCTRINE PILLAR · v1.4</span></div>
+    <div class="file-stats"><span class="stat-a">+6 governed paths</span><span class="stat-r">−7 failure modes</span></div>
   </div>
 
   <div class="content-wrap">
@@ -52,19 +52,19 @@
     <div class="charter-heading">Every unscoped agent session is governance debt.</div>
     <div class="content-body">
       <p>This page is a <strong>doctrine pillar</strong> of the Codokey reference asset — what failure costs when <a href="/category/">AI Code Access Governance</a> is deferred. The URL remains <code>cost-of-inaction</code> because inaction on agent authority definition <em>is</em> the cost.</p>
-      <p><strong>Undefined agent authority is not only a security gap. It is a future control failure.</strong> The organization loses the ability to define, bound, audit, and trust the new authority layer AI agents create — not eventually, but structurally, with every unscoped session.</p>
+      <p><strong>The loss is not only a breach. The deeper loss is control over a new authority layer.</strong> Undefined agent authority is not only a security gap — it is a future control failure. The organization loses the ability to define, bound, audit, and trust the new authority layer AI agents create — not eventually, but structurally, with every unscoped session.</p>
     </div>
 
     <div class="cost-pillars">
       <div class="cost-pillar">
         <div class="cost-pillar-num">01</div>
         <div class="cost-pillar-title">Control Surface Loss</div>
-        <div class="cost-pillar-text">AI agents are not merely faster developers. They create a <strong>new authority surface</strong> — read scope, secret exposure, deployment paths, external tool access. When the organization fails to define this surface, it does not merely accept risk; it surrenders control over a layer that did not exist in human-speed governance models.</div>
+        <div class="cost-pillar-text">AI agents are not merely faster developers. They create a <strong>new authority surface</strong> — read scope, secret exposure, deployment paths, external tool access. <strong>The loss is not only a breach.</strong> When the organization fails to define this surface, the deeper loss is structural: it surrenders control over an authority layer that no prior governance model was built to own.</div>
       </div>
       <div class="cost-pillar">
         <div class="cost-pillar-num">02</div>
         <div class="cost-pillar-title">Retrospective Governance Failure</div>
-        <div class="cost-pillar-text">Governance that begins after the agent has already accessed the codebase is <em>already late</em>. Post-facto review cannot govern pre-session access. By the time a PR exists, the agent has already encountered secrets, scope, and authority paths — the governance question is retrospective, not preventive.</div>
+        <div class="cost-pillar-text">Governance that begins after the agent has already accessed the codebase is <em>already late</em>. Post-facto review cannot govern pre-session access. By the time a PR exists, the agent has already encountered secrets, scope, and authority paths. <strong>Organizations that delay boundary definition may later need to reconstruct governance under incident pressure</strong> — a harder problem under worse conditions, with no clean audit trail to reconstruct.</div>
       </div>
       <div class="cost-pillar">
         <div class="cost-pillar-num">03</div>
@@ -74,17 +74,17 @@
       <div class="cost-pillar">
         <div class="cost-pillar-num">04</div>
         <div class="cost-pillar-title">Governance Debt Compounding</div>
-        <div class="cost-pillar-text">Every unscoped session creates dependencies harder to unwind: undocumented AI authorship, undefined <a href="/agent-permissions/">agent authority</a>, unbounded <a href="/secrets-boundary/">secrets boundary</a>. Recovery cost grows non-linearly. <a href="/charter/">Charter Principle 04</a>: governance debt compounds.</div>
+        <div class="cost-pillar-text">Every unscoped session creates dependencies harder to unwind: undocumented AI authorship, undefined <a href="/agent-permissions/">agent authority</a>, unbounded <a href="/secrets-boundary/">secrets boundary</a>. <strong>Undefined agent authority compounds into governance debt faster than ordinary technical debt</strong> because access decisions happen before code review — before any human can observe the session's scope. Recovery cost grows non-linearly. <a href="/charter/">Charter Principle 04</a>: governance debt compounds.</div>
       </div>
       <div class="cost-pillar">
         <div class="cost-pillar-num">05</div>
         <div class="cost-pillar-title">Strategic Velocity Penalty</div>
-        <div class="cost-pillar-text">Organizations without defined boundaries either slow down AI agent adoption — security cannot approve what it cannot define — or allow <strong>shadow agent use</strong> outside governed workflows. Both paths impose a velocity penalty: fear without structure, or speed without control.</div>
+        <div class="cost-pillar-text">Organizations without defined boundaries either slow down AI agent adoption — security cannot approve what it cannot define — or allow <strong>shadow agent use</strong> outside governed workflows. <strong>Competitors that define the boundary earlier gain trust, speed, and institutional confidence.</strong> The boundary-less organization pays a velocity penalty on both paths: fear without structure, or speed without control.</div>
       </div>
       <div class="cost-pillar">
         <div class="cost-pillar-num">06</div>
         <div class="cost-pillar-title">Category Ownership Risk</div>
-        <div class="cost-pillar-text">The organization or platform that defines the boundary first owns the language of the category — permission structure, audit framework, enterprise trust vocabulary. Defer definition and a competitor defines it for you. See <a href="/buyer-logic/">buyer logic</a>.</div>
+        <div class="cost-pillar-text">The organization or platform that defines the boundary first owns the language of the category — permission structure, audit framework, enterprise trust vocabulary. <strong>The company that owns the language of agent authority can shape how the market understands the risk.</strong> Defer definition and a competitor defines it for you. See <a href="/buyer-logic/">buyer logic</a>.</div>
       </div>
     </div>
   </div>
@@ -122,6 +122,10 @@
       <div class="diff-line line-remove">
         <div class="diff-gutter"><span>6</span><span></span></div><div class="diff-marker">−</div>
         <div class="diff-content">Category language owned by <span class="t-str">competitor</span> <span class="t-cm">// boundary defined elsewhere first</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>7</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">Governance reconstruction: <span class="t-str">attempted under incident pressure</span> <span class="t-cm">// no clean audit trail, no defined baseline</span></div>
       </div>
       <div class="diff-line line-hunk">
         <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
@@ -163,6 +167,10 @@
           <div class="ref-stack-desc">Why the category exists</div>
         </div>
         <div class="ref-stack-row">
+          <div class="ref-stack-label"><a href="/category/" style="color:var(--acid)">Category</a></div>
+          <div class="ref-stack-desc">What the discipline is</div>
+        </div>
+        <div class="ref-stack-row">
           <div class="ref-stack-label"><a href="/protocol/" style="color:var(--acid)">Protocol</a></div>
           <div class="ref-stack-desc">How the category is governed</div>
         </div>
@@ -199,7 +207,7 @@
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">Cost of Undefined Agent Authority · v1.3 · AI Code Access Governance</div>
+    <div class="footer-meta">Cost of Undefined Agent Authority · v1.4 · AI Code Access Governance</div>
     <div class="footer-tag">Doctrine Pillar</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">
