@@ -1,5 +1,8 @@
 # Project Doctrine
 
+**Version:** 1.1  
+**Date:** 2026-06-01
+
 Operating principles for the Codokey.com repository and reference infrastructure.
 
 ## 1. Reference Over Product
@@ -41,3 +44,14 @@ Monetization, partnerships, and inquiries use restrained institutional language.
 ## 10. Internal Linking as Architecture
 
 Strong internal linking is not SEO trickery — it is how reference infrastructure works. Every page connects to the protocol layers it implements.
+
+## 11. Category Language Authority
+
+Every future Codokey page, document, visual layer, and tool must reinforce Codokey as **the category language of AI Code Access Governance**.
+
+- No generic AI coding content
+- No generic cybersecurity blog content
+- No shallow affiliate or SEO pages
+- No product claims unless the product exists
+
+If a piece of content does not strengthen category authority, it does not ship.

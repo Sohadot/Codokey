@@ -1,6 +1,8 @@
-# Codokey Protocol v1.0
+# Codokey Protocol
 
+**Document:** Codokey Protocol  
 **Version:** 1.0  
+**Date:** 2026-06-01  
 **Status:** Reference Model  
 **Category:** AI Code Access Governance
 

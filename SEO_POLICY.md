@@ -31,12 +31,13 @@ Every public page must include:
 - Open Graph: type, url, title, description, site_name
 - Twitter card: summary with title and description
 - Internal links to related reference pages
-- Footer navigation to all 9 pages
+- Footer navigation to all 10 pages
 
 ## URL Structure
 
 ```
 https://codokey.com/
+https://codokey.com/category/
 https://codokey.com/charter/
 https://codokey.com/protocol/
 https://codokey.com/secrets-boundary/
@@ -54,8 +55,8 @@ Trailing slashes on all paths. No hash routing. No query-parameter pages.
 1. Every page links to at least 3 other reference pages
 2. Protocol layers link to secrets-boundary and agent-permissions where relevant
 3. Scorecard links to all six protocol layer groups
-4. Homepage links to all 9 pages via stats row and internal links section
-5. Footer nav present on every page with all 9 links
+4. Homepage links to all 10 pages via stats row and internal links section
+5. Footer nav present on every page with all 10 links
 
 ## Content Quality
 
@@ -67,7 +68,7 @@ Trailing slashes on all paths. No hash routing. No query-parameter pages.
 ## Technical SEO
 
 - `robots.txt` allows all public pages
-- `sitemap.xml` lists all 9 URLs with lastmod
+- `sitemap.xml` lists all 10 URLs with lastmod
 - Static HTML — no JavaScript-rendered content for core text
 - Mobile-responsive via CSS media queries
 - Semantic HTML: nav, main, footer, aria-labels

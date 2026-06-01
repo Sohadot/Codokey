@@ -1,6 +1,8 @@
 # Codokey Charter
 
+**Document:** Codokey Charter  
 **Version:** 1.0  
+**Date:** 2026-06-01  
 **Status:** Founding Doctrine  
 **Category:** AI Code Access Governance
 

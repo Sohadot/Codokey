@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Code Access Governance — Category Definition by Codokey</title>
+<meta name="description" content="Codokey defines AI Code Access Governance: the discipline of governing what AI agents, AI-touched code, and agentic development workflows can access, expose, change, and move toward production.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/category/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/category/">
+<meta property="og:title" content="AI Code Access Governance — Category Definition">
+<meta property="og:description" content="The discipline of governing what AI agents, AI-touched code, and agentic workflows can access, expose, change, and move toward production.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Code Access Governance — Codokey">
+<meta name="twitter:description" content="Codokey defines the category: governing agent access, secrets, authority, and production paths.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.1</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">category-definition.md</span><span class="file-lang">CANONICAL REFERENCE v1.1</span></div>
+    <div class="file-stats"><span class="stat-a">+7 category layers</span><span class="stat-r">−0 competing definitions</span></div>
+  </div>
+
+  <div class="charter-wrap">
+    <div class="charter-section">
+      <div class="charter-label">Category Definition</div>
+      <div class="charter-heading">AI Code Access Governance</div>
+      <div class="charter-body">
+        <p><strong>AI Code Access Governance</strong> is the discipline of governing what AI agents, AI-touched code, and agentic development workflows can <em>access</em>, <em>expose</em>, <em>change</em>, and <em>move toward production</em>.</p>
+        <p>Codokey is the canonical reference model for this category. Codokey.com is not a site about AI Code Access Governance — it is the category-defining reference infrastructure for the discipline.</p>
+      </div>
+      <div class="charter-quote">
+        <p>AI coding did not merely change who writes software.<br>It changed where authority begins.</p>
+      </div>
+    </div>
+
+    <div class="charter-section">
+      <div class="charter-label">Why This Category Emerged</div>
+      <div class="charter-heading">Authority moved from authorship to access.</div>
+      <div class="charter-body">
+        <p>For decades, software governance anchored on a single question: <strong>who wrote the code?</strong> Human authorship implied human intent. Review, branch protection, and deployment gates were built around human-initiated change at human speed.</p>
+        <p>AI coding agents dissolved that anchor. Code is written, modified, and prepared for deployment at machine speed — often before any human observes the change. Authority now distributes across agent capabilities, repository scope, credential exposure, deployment paths, and audit reconstruction.</p>
+        <p>The central governance question is no longer who wrote the code. It is: <em>what can the code and the agent access, expose, change, and release?</em></p>
+      </div>
+    </div>
+
+    <div class="charter-section">
+      <div class="charter-label">Why Code Review Is Insufficient</div>
+      <div class="charter-heading">Post-facto review cannot govern pre-session access.</div>
+      <div class="charter-body">
+        <p>Traditional code review asks whether logic is correct and whether the author is authorized. It operates <strong>after</strong> the change exists. AI Code Access Governance operates <strong>before</strong> the agent session begins — defining what the agent may see, which secrets are excluded, which authority paths are forbidden, and what audit memory must capture.</p>
+        <p>When an agent has already read your repository, already encountered environment variables, already modified a deployment workflow — code review becomes retrospective governance. In systems that move at machine speed, retrospective governance is a non-traceable breach waiting to be discovered.</p>
+        <p>Code review remains necessary. It is no longer sufficient. See the full structural analysis in <a href="/cost-of-inaction/">The Cost of Undefined Agent Authority</a>.</p>
+      </div>
+    </div>
+
+    <div class="charter-section">
+      <div class="charter-label">Seven Category Layers</div>
+      <div class="charter-heading">The definitional structure of the discipline.</div>
+      <div class="charter-principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">AI Agent Capabilities</div>
+          <div class="principle-text">What can the agent do? Suggestion, review, task execution, MCP-connected tools, autonomous pipeline operation — each capability carries distinct governance weight.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Codebase Access</div>
+          <div class="principle-text">What repositories, branches, and files may the agent read or modify? Repository trust boundaries must be defined before agent execution.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Secrets Boundary</div>
+          <div class="principle-text">Which credential classes must never enter agent read context? The code-key boundary separates code access from credential access.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Agent Authority</div>
+          <div class="principle-text">What is the total scope of agent permission? Undefined authority is a security gap. Minimum privilege is the default posture.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div class="principle-title">Deployment Authority</div>
+          <div class="principle-text">Can AI-touched code reach production? Automation and autonomy are not equivalent. Production authority requires human gates.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">06</div>
+          <div class="principle-title">Audit Memory</div>
+          <div class="principle-text">Can agent actions be reconstructed — who, what, when, what was in scope? Breach without audit memory is non-traceable breach.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">07</div>
+          <div class="principle-title">Organizational Accountability</div>
+          <div class="principle-text">Who owns the governance model? Who reviews governance debt? Category definition without accountability is documentation without enforcement.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="charter-section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+      <div class="charter-label">Reference Infrastructure</div>
+      <div class="charter-heading">Apply the category through Codokey.</div>
+      <div class="charter-body">
+        <p>The category definition is operationalized through Codokey reference assets:</p>
+        <p style="margin-top:16px;">
+          <a href="/charter/">Codokey Charter v1.0</a> — founding doctrine<br>
+          <a href="/protocol/">Codokey Protocol v1.0</a> — six-layer reference model<br>
+          <a href="/secrets-boundary/">Secrets Boundary</a> — eight credential classes<br>
+          <a href="/agent-permissions/">Agent Permissions</a> — five agent classes, forbidden zones<br>
+          <a href="/governance-scorecard/">Governance Scorecard v1.0</a> — 32-check self-assessment<br>
+          <a href="/cost-of-inaction/">Cost of Undefined Agent Authority</a> — governance debt analysis
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="file-header">
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">category-layers.diff</span></div>
+    <div class="file-stats"><span class="stat-a">+1 discipline defined</span><span class="stat-r">−1 assumption retired</span></div>
+  </div>
+
+  <div class="diff-block">
+    <div class="diff-line line-hunk">
+      <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+      <div class="diff-content">@@ category: AI_CODE_ACCESS_GOVERNANCE — canonical @ codokey.com/category/ @@</div>
+    </div>
+    <div class="diff-line line-remove">
+      <div class="diff-gutter"><span>1</span><span></span></div><div class="diff-marker">−</div>
+      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">governanceQuestion</span> <span class="t-op">=</span> <span class="t-str">"who wrote the code?"</span></div>
+    </div>
+    <div class="diff-line line-add">
+      <div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">governanceQuestion</span> <span class="t-op">=</span> <span class="t-str">"what can the agent access, expose, change, and release?"</span></div>
+    </div>
+    <div class="diff-line line-add">
+      <div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">canonicalReference</span> <span class="t-op">=</span> <span class="t-str">"codokey.com"</span> <span class="t-cm">// category-defining infrastructure</span></div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">AI Code Access Governance · Category Definition v1.1</div>
+    <div class="footer-tag">Category Authority</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/" class="active">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

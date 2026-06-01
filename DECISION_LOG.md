@@ -76,4 +76,21 @@ Architectural and strategic decisions for the Codokey repository.
 
 ## Pending Decisions
 
-_None at v1.0 launch._
+_None at v1.1._
+
+---
+
+## 2026-06-01 — Category Authority Sprint v1.1
+
+**Decision:** Elevate Codokey from reference site to category-defining infrastructure. Add canonical category definition, narrative document, `/category/` public page, and strengthened acquisition positioning.
+
+**New assets:**
+- `CODOKEY_CATEGORY_DEFINITION.md` v1.1 — seven category layers, canonical definition
+- `CODOKEY_NARRATIVE.md` v1.1 — three narrative pillars (Shift, Gap, Advantage)
+- `/category/` — public category definition page
+- Updated `ASSET_THESIS.md`, `BUYER_BRIEF.md`, `BUYER_LOGIC.md` v1.1
+- Strengthened `/cost-of-inaction/` as Cost of Undefined Agent Authority
+
+**Rationale:** Category language ownership is the primary strategic asset. Reference infrastructure without category authority is citable; with category authority it is canonical.
+
+**Constraints preserved:** No visual redesign. No generic pages. No SaaS claims. Footer nav expanded to 10 pages; top nav unchanged.
