@@ -4,499 +4,304 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Codokey — The AI Code Governance Key</title>
-<meta name="description" content="A sovereign reference layer for code access, secrets, permissions, AI agents, and developer trust boundaries.">
+<meta name="description" content="The sovereign reference model for defining the access boundary between AI agents, codebases, secrets, and production authority.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Code diff palette — from the screenshot */
-  --bg:        #0d1117;
-  --bg2:       #161b22;
-  --bg3:       #1c2128;
-  --added:     #1a3a2a;       /* git diff green bg */
-  --removed:   #3a1a1f;       /* git diff red bg */
-  --added-bar: #2ea043;       /* green line marker */
-  --removed-bar:#f85149;      /* red line marker */
-  --yellow:    #e3b341;       /* token/keyword yellow */
-  --cyan:      #79c0ff;       /* property cyan */
-  --orange:    #ffa657;       /* value orange */
-  --purple:    #d2a8ff;       /* function purple */
-  --green-txt: #3fb950;       /* string green */
-  --comment:   #8b949e;       /* comment gray */
-  --fg:        #e6edf3;       /* main text */
-  --fg2:       #b1bac4;
-  --border:    #30363d;
-  --terminal:  #010409;
-  --acid:      #b8ff3f;       /* codokey brand accent */
+  --bg:          #0d1117;
+  --bg2:         #161b22;
+  --bg3:         #1c2128;
+  --added:       #1a3a2a;
+  --removed:     #3a1a1f;
+  --added-bar:   #2ea043;
+  --removed-bar: #f85149;
+  --yellow:      #e3b341;
+  --cyan:        #79c0ff;
+  --orange:      #ffa657;
+  --purple:      #d2a8ff;
+  --green-txt:   #3fb950;
+  --comment:     #8b949e;
+  --fg:          #e6edf3;
+  --fg2:         #b1bac4;
+  --border:      #30363d;
+  --terminal:    #010409;
+  --acid:        #b8ff3f;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: none;
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;line-height:1.6;overflow-x:hidden;
 }
+@media(pointer:fine){body{cursor:none;}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 
-/* CURSOR */
-.cur { position:fixed; width:10px; height:10px; background:var(--acid); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s; }
-.cur-r { position:fixed; width:32px; height:32px; border:1px solid rgba(184,255,63,.35); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform .3s; }
+/* CURSOR — desktop only */
+.cur,.cur-r{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur{width:10px;height:10px;background:var(--acid);border-radius:50%;transition:transform .1s;}
+.cur-r{width:32px;height:32px;border:1px solid rgba(184,255,63,.35);border-radius:50%;z-index:9998;transition:transform .3s;}
+@media(pointer:coarse){.cur,.cur-r{display:none;}}
 
-/* NAV — terminal tab bar */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  display:flex; align-items:stretch;
-  height:42px;
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:stretch;height:42px;
 }
-.nav-tabs { display:flex; align-items:stretch; flex:1; overflow-x:auto; }
-.nav-tab {
-  display:flex; align-items:center; gap:8px;
-  padding:0 20px;
-  font-size:11px; color:var(--comment);
-  border-right:1px solid var(--border);
-  cursor:none; white-space:nowrap;
-  transition:background .15s, color .15s;
-  border-bottom: 2px solid transparent;
-  position:relative;
+.nav-tabs{display:flex;align-items:stretch;flex:1;overflow-x:auto;}
+.nav-tab{
+  display:flex;align-items:center;gap:8px;padding:0 18px;
+  font-size:11px;color:var(--comment);border-right:1px solid var(--border);
+  cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
+  border-bottom:2px solid transparent;
 }
-.nav-tab:hover { background:var(--bg3); color:var(--fg2); }
-.nav-tab.active {
-  background:var(--bg);
-  color:var(--fg);
-  border-bottom-color: var(--acid);
-}
-.nav-tab .tab-dot { width:8px; height:8px; border-radius:50%; background:var(--border); flex-shrink:0; }
-.nav-tab.active .tab-dot { background:var(--acid); }
-.nav-tab .tab-x { margin-left:6px; color:var(--comment); font-size:10px; }
-.nav-right {
-  display:flex; align-items:center; padding:0 16px; gap:12px;
-  border-left:1px solid var(--border);
-}
-.nav-badge {
-  font-size:9px; letter-spacing:.15em; text-transform:uppercase;
-  color:var(--acid); border:1px solid rgba(184,255,63,.3); padding:3px 10px;
-}
+.nav-tab:hover{background:var(--bg3);color:var(--fg2);}
+.nav-tab.active{background:var(--bg);color:var(--fg);border-bottom-color:var(--acid);}
+.tab-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;}
+.nav-tab.active .tab-dot{background:var(--acid);}
+.nav-right{display:flex;align-items:center;padding:0 16px;gap:12px;border-left:1px solid var(--border);}
+.nav-badge{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);border:1px solid rgba(184,255,63,.3);padding:3px 10px;}
 
 /* SECTIONS */
-section { display:none; min-height:100vh; padding-top:42px; }
-section.active { display:block; }
+section{display:none;min-height:100vh;padding-top:42px;}
+section.active{display:block;}
 
-/* ═══════════════════ HOME ═══════════════════ */
-#home {}
+/* ── shared components ── */
+.file-header{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:10px 20px;
+  flex-wrap:wrap;gap:8px;
+}
+.file-path{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--comment);}
+.file-name{color:var(--fg2);}
+.file-lang{background:rgba(184,255,63,.1);color:var(--acid);font-size:9px;padding:2px 8px;letter-spacing:.1em;}
+.file-stats{display:flex;gap:16px;font-size:11px;}
+.stat-a{color:var(--added-bar);}
+.stat-r{color:var(--removed-bar);}
 
-/* File header bar */
-.file-header {
-  background:var(--bg2); border-bottom:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 20px;
-}
-.file-path {
-  display:flex; align-items:center; gap:8px;
-  font-size:11px; color:var(--comment);
-}
-.file-path .file-name { color:var(--fg2); }
-.file-path .file-lang {
-  background:rgba(184,255,63,.1); color:var(--acid);
-  font-size:9px; padding:2px 8px; letter-spacing:.1em;
-}
-.file-stats { display:flex; gap:16px; font-size:11px; }
-.stat-a { color:var(--added-bar); }
-.stat-r { color:var(--removed-bar); }
+.diff-block{font-size:12px;line-height:1.7;}
+.diff-line{display:flex;align-items:stretch;min-height:24px;border-bottom:1px solid rgba(48,54,61,.4);transition:filter .1s;}
+.diff-line:hover{filter:brightness(1.08);}
+.diff-gutter{display:flex;align-items:center;width:76px;flex-shrink:0;padding:0 10px;border-right:1px solid var(--border);color:var(--comment);font-size:10px;user-select:none;}
+.diff-gutter span{width:28px;text-align:right;}
+.diff-marker{width:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;user-select:none;}
+.diff-content{flex:1;padding:4px 16px 4px 8px;display:flex;align-items:center;flex-wrap:wrap;}
 
-/* Diff viewer */
-.diff-block {
-  font-size:12px; line-height:1.7;
-}
-.diff-line {
-  display:flex; align-items:stretch; min-height:24px;
-  border-bottom:1px solid rgba(48,54,61,.4);
-  transition:background .15s;
-}
-.diff-line:hover { filter:brightness(1.1); }
-.diff-gutter {
-  display:flex; align-items:center;
-  width:80px; flex-shrink:0;
-  padding:0 12px;
-  border-right:1px solid var(--border);
-  color:var(--comment); font-size:10px;
-  user-select:none;
-}
-.diff-gutter span { width:28px; text-align:right; }
-.diff-marker {
-  width:20px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:13px; font-weight:700;
-  user-select:none;
-}
-.diff-content {
-  flex:1; padding:4px 16px 4px 8px;
-  display:flex; align-items:center; flex-wrap:wrap;
-}
+.line-add{background:var(--added);}
+.line-add .diff-marker{color:var(--added-bar);}
+.line-add .diff-gutter{background:rgba(26,58,42,.6);border-right-color:var(--added-bar);}
+.line-remove{background:var(--removed);}
+.line-remove .diff-marker{color:var(--removed-bar);}
+.line-remove .diff-gutter{background:rgba(58,26,31,.6);border-right-color:var(--removed-bar);}
+.line-context{background:var(--bg);}
+.line-hunk{background:rgba(121,192,255,.05);border-top:1px solid rgba(121,192,255,.15);border-bottom:1px solid rgba(121,192,255,.15);}
+.line-hunk .diff-gutter{color:var(--cyan);}
+.line-hunk .diff-content{color:var(--cyan);font-style:italic;font-size:11px;}
 
-/* Line types */
-.line-add { background:var(--added); }
-.line-add .diff-marker { color:var(--added-bar); }
-.line-add .diff-gutter { background:rgba(26,58,42,.6); border-right-color:var(--added-bar); }
-.line-remove { background:var(--removed); }
-.line-remove .diff-marker { color:var(--removed-bar); }
-.line-remove .diff-gutter { background:rgba(58,26,31,.6); border-right-color:var(--removed-bar); }
-.line-context { background:var(--bg); }
-.line-context .diff-marker { color:transparent; }
-.line-hunk { background:rgba(121,192,255,.06); border-top:1px solid rgba(121,192,255,.2); border-bottom:1px solid rgba(121,192,255,.2); }
-.line-hunk .diff-gutter { color:var(--cyan); }
-.line-hunk .diff-content { color:var(--cyan); font-style:italic; }
+.t-key{color:var(--cyan);}
+.t-val{color:var(--orange);}
+.t-str{color:var(--green-txt);}
+.t-fn{color:var(--purple);}
+.t-kw{color:var(--yellow);}
+.t-cm{color:var(--comment);font-style:italic;}
+.t-br{color:var(--acid);font-weight:700;}
+.t-op{color:var(--fg2);}
 
-/* Syntax tokens */
-.t-key { color:var(--cyan); }
-.t-val { color:var(--orange); }
-.t-str { color:var(--green-txt); }
-.t-fn  { color:var(--purple); }
-.t-kw  { color:var(--yellow); }
-.t-cm  { color:var(--comment); font-style:italic; }
-.t-br  { color:var(--acid); font-weight:700; }
-.t-num { color:var(--orange); }
-.t-op  { color:var(--fg2); }
+.eyebrow{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--acid);}
 
-/* Hero overlay on diff */
-.home-hero-overlay {
-  padding:60px 40px 40px;
-  background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
-  border-bottom:1px solid var(--border);
-  display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
-}
-.hero-left {}
-.hero-eyebrow {
-  font-size:9px; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--acid); margin-bottom:20px;
-  display:flex; align-items:center; gap:10px;
-}
-.hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--acid); }
-h1 {
-  font-family:'Outfit', sans-serif;
-  font-size:clamp(40px,5vw,72px);
-  font-weight:900; line-height:1.0;
-  letter-spacing:-2px; color:var(--fg);
-  margin-bottom:6px;
-}
-h1 em { font-style:italic; color:var(--acid); font-weight:300; }
-.hero-sub {
-  font-size:12px; color:var(--comment); margin-top:20px; margin-bottom:36px;
-  line-height:1.9; max-width:420px;
-}
-.hero-sub strong { color:var(--fg2); }
-.btn-p {
-  background:var(--acid); color:var(--bg); border:none;
-  padding:11px 28px; font-family:'JetBrains Mono',monospace;
-  font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  cursor:none; text-decoration:none; display:inline-block;
-  transition:transform .15s, box-shadow .15s;
-}
-.btn-p:hover { transform:translate(-2px,-2px); box-shadow:3px 3px 0 var(--added-bar); }
-.btn-g {
-  background:transparent; color:var(--fg2);
+h1{font-family:'Outfit',sans-serif;font-size:clamp(38px,5vw,70px);font-weight:900;line-height:1.0;letter-spacing:-2px;color:var(--fg);}
+h1 em{font-style:italic;color:var(--acid);font-weight:300;}
+h2{font-family:'Outfit',sans-serif;font-size:clamp(30px,3.5vw,52px);font-weight:900;line-height:1.0;letter-spacing:-1.5px;color:var(--fg);}
+h2 em{font-style:italic;color:var(--acid);font-weight:300;}
+
+.btn-p{background:var(--acid);color:var(--bg);border:none;padding:11px 28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .15s,box-shadow .15s;}
+.btn-p:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--added-bar);}
+.btn-g{background:transparent;color:var(--fg2);border:1px solid var(--border);padding:11px 28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;margin-left:12px;transition:border-color .15s,color .15s;}
+.btn-g:hover{border-color:var(--fg2);color:var(--acid);}
+
+footer{border-top:1px solid var(--border);background:var(--bg2);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--fg);}
+.footer-logo span{color:var(--acid);}
+.footer-meta{font-size:10px;color:var(--comment);}
+.footer-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);border:1px solid rgba(184,255,63,.25);padding:5px 12px;}
+
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border);}
+
+/* ════ HOME ════ */
+.hero-wrap{padding:52px 40px 40px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.hero-sub{font-size:12px;color:var(--comment);margin-top:18px;margin-bottom:32px;line-height:1.9;max-width:420px;}
+.hero-sub strong{color:var(--fg2);}
+
+/* terminal */
+.terminal{background:var(--terminal);border:1px solid var(--border);overflow:hidden;}
+.terminal-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 14px;display:flex;align-items:center;gap:7px;}
+.tbar-dot{width:10px;height:10px;border-radius:50%;}
+.tbar-dot.r{background:#ff5f57;}.tbar-dot.y{background:#febc2e;}.tbar-dot.g{background:#28c840;}
+.tbar-title{flex:1;text-align:center;font-size:10px;color:var(--comment);}
+.terminal-body{padding:18px;font-size:11px;line-height:2;}
+.t-prompt{color:var(--acid);}
+.t-cmd{color:var(--fg);}
+.t-out{color:var(--comment);}
+.t-err{color:var(--removed-bar);}
+.t-ok{color:var(--added-bar);}
+.t-warn{color:var(--yellow);}
+.blink{animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* governance gap */
+.gap-section{padding:40px;border-bottom:1px solid var(--border);background:rgba(248,81,73,.03);}
+.gap-inner{max-width:780px;}
+.gap-title{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--removed-bar);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.gap-title::before{content:'';width:20px;height:1px;background:var(--removed-bar);}
+.gap-body{font-size:13px;color:var(--fg2);line-height:2.0;}
+.gap-body strong{color:var(--fg);}
+.gap-body em{color:var(--acid);font-style:normal;}
+
+/* stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
+.stat-cell{padding:26px 28px;border-right:1px solid var(--border);position:relative;}
+.stat-cell:last-child{border-right:none;}
+.stat-cell::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.s-add::before{background:var(--added-bar);}
+.s-rem::before{background:var(--removed-bar);}
+.s-mod::before{background:var(--yellow);}
+.s-new::before{background:var(--acid);}
+.stat-n{font-family:'Outfit',sans-serif;font-weight:900;font-size:40px;line-height:1;color:var(--fg);}
+.stat-l{font-size:10px;color:var(--comment);letter-spacing:.12em;text-transform:uppercase;margin-top:6px;}
+
+/* cost section */
+.cost-section{padding:0;border-bottom:1px solid var(--border);}
+.cost-header{padding:28px 40px;border-bottom:1px solid var(--border);}
+.cost-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--removed-bar);margin-bottom:8px;}
+.cost-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;color:var(--fg);}
+
+/* ════ CHARTER ════ */
+.charter-wrap{padding:56px 40px;max-width:860px;}
+.charter-section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
+.charter-section:last-child{border-bottom:none;}
+.charter-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;}
+.charter-heading{font-family:'Outfit',sans-serif;font-weight:900;font-size:24px;color:var(--fg);margin-bottom:20px;line-height:1.2;}
+.charter-body{font-size:13px;color:var(--fg2);line-height:2.0;}
+.charter-body p{margin-bottom:16px;}
+.charter-body strong{color:var(--fg);}
+.charter-body em{color:var(--acid);font-style:normal;}
+.charter-quote{border-left:3px solid var(--acid);padding:20px 24px;margin:28px 0;background:rgba(184,255,63,.04);}
+.charter-quote p{font-size:14px;color:var(--fg);line-height:1.8;font-style:italic;}
+.charter-principles{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:28px;}
+.principle{padding:20px 24px;border:1px solid var(--border);border-right:none;border-bottom:none;}
+.principle:nth-child(even){border-right:1px solid var(--border);}
+.principle:nth-last-child(-n+2){border-bottom:1px solid var(--border);}
+.principle-num{font-size:10px;color:var(--acid);letter-spacing:.2em;margin-bottom:8px;}
+.principle-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--fg);margin-bottom:6px;}
+.principle-text{font-size:11px;color:var(--comment);line-height:1.7;}
+
+/* ════ PROTOCOL ════ */
+.proto-header{padding:48px 40px 40px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+.proto-desc{font-size:12px;color:var(--comment);line-height:1.9;align-self:end;}
+.layer-row{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid var(--border);transition:background .15s;}
+.layer-row:hover{background:rgba(184,255,63,.02);}
+.layer-num-col{display:flex;flex-direction:column;align-items:center;padding:18px 0;border-right:1px solid var(--border);position:relative;}
+.layer-num{font-size:10px;color:var(--comment);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.15em;text-transform:uppercase;}
+.layer-bar{position:absolute;left:0;top:0;bottom:0;width:3px;}
+.layer-content{display:grid;grid-template-columns:210px 1fr;}
+.layer-left{padding:22px;border-right:1px solid var(--border);}
+.layer-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--fg);margin-bottom:6px;}
+.layer-tag{font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:2px 8px;display:inline-block;}
+.tag-prov{background:rgba(121,192,255,.1);color:var(--cyan);}
+.tag-sec{background:rgba(248,81,73,.1);color:var(--removed-bar);}
+.tag-perm{background:rgba(210,168,255,.1);color:var(--purple);}
+.tag-gate{background:rgba(227,179,65,.1);color:var(--yellow);}
+.tag-auth{background:rgba(63,185,80,.1);color:var(--added-bar);}
+.tag-log{background:rgba(184,255,63,.1);color:var(--acid);}
+.layer-right{padding:22px 28px;}
+.layer-desc{font-size:12px;color:var(--comment);line-height:1.8;margin-bottom:12px;}
+.layer-qs{display:flex;flex-direction:column;gap:5px;}
+.layer-q{font-size:11px;background:var(--bg2);border-left:2px solid var(--border);padding:5px 10px;display:flex;gap:8px;align-items:flex-start;transition:border-color .2s;}
+.layer-row:hover .layer-q{border-left-color:var(--acid);}
+.layer-q .qa{color:var(--acid);flex-shrink:0;}
+.layer-q span{color:var(--fg2);}
+
+/* ════ SECRETS ════ */
+
+/* ════ AGENTS ════ */
+
+/* ════ CHECKLIST / SCORECARD ════ */
+.diff-summary-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:14px;font-size:11px;color:var(--comment);flex-wrap:wrap;}
+.dsb-label{color:var(--fg2);}
+.dsb-bar{flex:1;height:5px;background:var(--border);position:relative;max-width:280px;min-width:80px;}
+.dsb-fill{height:100%;background:var(--added-bar);transition:width .4s ease;position:relative;}
+.dsb-fill::after{content:'';position:absolute;right:0;top:-3px;bottom:-3px;width:2px;background:var(--acid);}
+.dsb-count{color:var(--acid);font-weight:600;}
+
+/* Scorecard output */
+.scorecard-output{
+  margin:0 20px 0;
   border:1px solid var(--border);
-  padding:11px 28px; font-family:'JetBrains Mono',monospace;
-  font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  cursor:none; text-decoration:none; display:inline-block;
-  margin-left:12px; transition:border-color .15s, color .15s;
+  display:none;
 }
-.btn-g:hover { border-color:var(--fg2); color:var(--acid); }
+.scorecard-output.visible{display:block;}
+.sc-bar{padding:20px 24px;display:flex;align-items:center;gap:20px;border-bottom:1px solid var(--border);}
+.sc-grade{
+  font-family:'Outfit',sans-serif;font-weight:900;font-size:52px;line-height:1;
+  width:72px;height:72px;display:flex;align-items:center;justify-content:center;
+  border:2px solid;flex-shrink:0;
+}
+.grade-c{color:var(--removed-bar);border-color:var(--removed-bar);background:rgba(248,81,73,.08);}
+.grade-b{color:var(--yellow);border-color:var(--yellow);background:rgba(227,179,65,.08);}
+.grade-a{color:var(--added-bar);border-color:var(--added-bar);background:rgba(63,185,80,.08);}
+.grade-ap{color:var(--acid);border-color:var(--acid);background:rgba(184,255,63,.08);}
+.sc-info{flex:1;}
+.sc-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:18px;color:var(--fg);}
+.sc-subtitle{font-size:11px;color:var(--comment);margin-top:4px;}
+.sc-pct{font-family:'Outfit',sans-serif;font-weight:900;font-size:28px;color:var(--fg2);flex-shrink:0;}
+.sc-details{padding:16px 24px;display:flex;flex-direction:column;gap:8px;}
+.sc-detail{font-size:11px;color:var(--comment);display:flex;gap:8px;}
+.sc-detail .sd-label{color:var(--yellow);flex-shrink:0;}
+.sc-detail .sd-val{color:var(--fg2);}
 
-/* Terminal block */
-.terminal {
-  background:var(--terminal); border:1px solid var(--border);
-  border-radius:0; overflow:hidden;
-}
-.terminal-bar {
-  background:var(--bg2); border-bottom:1px solid var(--border);
-  padding:10px 16px; display:flex; align-items:center; gap:8px;
-}
-.tbar-dot { width:10px; height:10px; border-radius:50%; }
-.tbar-dot.red { background:#ff5f57; }
-.tbar-dot.yellow { background:#febc2e; }
-.tbar-dot.green { background:#28c840; }
-.tbar-title { flex:1; text-align:center; font-size:10px; color:var(--comment); }
-.terminal-body { padding:20px; font-size:11px; line-height:2; }
-.t-prompt { color:var(--acid); }
-.t-cmd { color:var(--fg); }
-.t-out { color:var(--comment); }
-.t-err { color:var(--removed-bar); }
-.t-ok  { color:var(--added-bar); }
-.t-warn{ color:var(--yellow); }
-.blink { animation:blink 1s step-end infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-/* Stats row */
-.stats-row {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-}
-.stat-cell {
-  padding:28px 32px; border-right:1px solid var(--border);
-  position:relative;
-}
-.stat-cell:last-child { border-right:none; }
-.stat-cell::before {
-  content:''; position:absolute; left:0; top:0; bottom:0;
-  width:3px;
-}
-.stat-cell.s-add::before { background:var(--added-bar); }
-.stat-cell.s-rem::before { background:var(--removed-bar); }
-.stat-cell.s-mod::before { background:var(--yellow); }
-.stat-cell.s-new::before { background:var(--acid); }
-.stat-n {
-  font-family:'Outfit',sans-serif; font-weight:900;
-  font-size:42px; line-height:1; color:var(--fg);
-}
-.stat-l { font-size:10px; color:var(--comment); letter-spacing:.12em; text-transform:uppercase; margin-top:6px; }
-
-/* ═══════════════════ PROTOCOL ═══════════════════ */
-#protocol {}
-
-.proto-header {
-  padding:48px 40px 40px;
-  border-bottom:1px solid var(--border);
-  display:grid; grid-template-columns:1fr 1fr; gap:60px;
-}
-h2 {
-  font-family:'Outfit',sans-serif; font-weight:900;
-  font-size:clamp(32px,3.5vw,54px); line-height:1.0;
-  letter-spacing:-1.5px; color:var(--fg);
-}
-h2 em { font-style:italic; color:var(--acid); font-weight:300; }
-.proto-desc { font-size:12px; color:var(--comment); line-height:1.9; align-self:end; }
-
-.proto-layers {}
-.layer-row {
-  display:grid; grid-template-columns:56px 1fr;
-  border-bottom:1px solid var(--border);
-  transition:background .15s;
-}
-.layer-row:hover { background:rgba(184,255,63,.025); }
-
-.layer-num-col {
-  display:flex; flex-direction:column; align-items:center;
-  padding:20px 0; border-right:1px solid var(--border);
-  position:relative;
-}
-.layer-num {
-  font-size:10px; color:var(--comment); writing-mode:vertical-rl;
-  transform:rotate(180deg); letter-spacing:.15em; text-transform:uppercase;
-}
-.layer-bar {
-  position:absolute; left:0; top:0; bottom:0; width:3px;
-}
-
-.layer-content {
-  display:grid; grid-template-columns:220px 1fr; gap:0;
-}
-.layer-left {
-  padding:24px 24px; border-right:1px solid var(--border);
-}
-.layer-name {
-  font-family:'Outfit',sans-serif; font-weight:700;
-  font-size:15px; color:var(--fg); margin-bottom:6px;
-}
-.layer-tag {
-  font-size:9px; letter-spacing:.15em; text-transform:uppercase;
-  padding:2px 8px; display:inline-block;
-}
-.tag-prov { background:rgba(121,192,255,.1); color:var(--cyan); }
-.tag-sec  { background:rgba(248,81,73,.1); color:var(--removed-bar); }
-.tag-perm { background:rgba(210,168,255,.1); color:var(--purple); }
-.tag-gate { background:rgba(227,179,65,.1); color:var(--yellow); }
-.tag-auth { background:rgba(63,185,80,.1); color:var(--added-bar); }
-.tag-log  { background:rgba(184,255,63,.1); color:var(--acid); }
-
-.layer-right { padding:24px 32px; }
-.layer-desc { font-size:12px; color:var(--comment); line-height:1.8; margin-bottom:14px; }
-.layer-qs { display:flex; flex-direction:column; gap:6px; }
-.layer-q {
-  font-size:11px; color:var(--bg3);
-  background:var(--bg2); border-left:2px solid var(--border);
-  padding:6px 12px; display:flex; gap:8px; align-items:flex-start;
-  transition:border-color .2s, background .2s;
-}
-.layer-row:hover .layer-q { background:var(--bg3); }
-.layer-q .q-arrow { color:var(--acid); flex-shrink:0; }
-.layer-q span { color:var(--fg2); }
-
-/* ═══════════════════ SECRETS ═══════════════════ */
-#secrets {}
-
-.secrets-diff {
-  /* Full diff view of secrets */
-}
-
-.secret-group-header {
-  background:rgba(121,192,255,.06);
-  border-top:1px solid rgba(121,192,255,.2);
-  border-bottom:1px solid rgba(121,192,255,.2);
-  padding:10px 20px 10px 80px;
-  font-size:11px; color:var(--cyan); font-style:italic;
-}
-
-/* ═══════════════════ AGENTS ═══════════════════ */
-#agents {}
-
-/* Permission matrix as code blocks */
-.agent-file {
-  border:1px solid var(--border); margin:0 0 0 0;
-}
-.agent-file-header {
-  background:var(--bg2); border-bottom:1px solid var(--border);
-  padding:8px 16px; display:flex; align-items:center; gap:10px;
-  font-size:11px;
-}
-.agent-file-icon { color:var(--yellow); }
-.agent-file-name { color:var(--fg2); }
-.agent-file-badge {
-  margin-left:auto; font-size:9px; padding:2px 8px;
-  letter-spacing:.1em; text-transform:uppercase;
-}
-.badge-critical { background:rgba(248,81,73,.15); color:var(--removed-bar); }
-.badge-review   { background:rgba(227,179,65,.15); color:var(--yellow); }
-.badge-safe     { background:rgba(63,185,80,.15); color:var(--added-bar); }
-
-/* ═══════════════════ CHECKLIST ═══════════════════ */
-#checklist {}
-
-.cl-file-group {
-  border-bottom:1px solid var(--border);
-}
-.cl-file-group-header {
-  background:var(--bg2); border-bottom:1px solid var(--border);
-  padding:10px 20px; display:flex; align-items:center; gap:12px;
-  font-size:11px; color:var(--comment); cursor:none;
-  transition:background .15s;
-}
-.cl-file-group-header:hover { background:var(--bg3); }
-.cl-fg-icon { font-size:13px; }
-.cl-fg-name { color:var(--fg2); font-weight:600; }
-.cl-fg-count {
-  margin-left:auto; font-size:10px;
-  background:var(--bg3); border:1px solid var(--border);
-  padding:1px 8px; color:var(--comment);
-}
-
-.cl-line {
-  display:flex; align-items:center; min-height:36px;
-  border-bottom:1px solid rgba(48,54,61,.5);
-  cursor:none; transition:background .15s;
-  position:relative;
-}
-.cl-line:hover { background:rgba(255,255,255,.02); }
-.cl-line.done { background:rgba(26,58,42,.3); }
-.cl-line.done .cl-line-text { text-decoration:line-through; color:var(--comment); }
-
-.cl-line-gutter {
-  width:56px; flex-shrink:0; padding:0 12px;
-  border-right:1px solid var(--border);
-  display:flex; align-items:center; justify-content:center;
-  height:100%; color:var(--comment); font-size:10px;
-  user-select:none;
-}
-.cl-line.done .cl-line-gutter { color:var(--added-bar); }
-
-.cl-line-marker {
-  width:18px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  color:transparent; font-size:12px;
-}
-.cl-line.done .cl-line-marker { color:var(--added-bar); }
-
-.cl-checkbox {
-  width:14px; height:14px; flex-shrink:0;
-  border:1px solid var(--border); margin:0 12px;
-  position:relative; transition:background .15s, border-color .15s;
-}
-.cl-checkbox.ticked {
-  background:var(--added-bar); border-color:var(--added-bar);
-}
-.cl-checkbox.ticked::after {
-  content:'✓'; position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%); font-size:9px; color:var(--bg); font-weight:700;
-}
-
-.cl-line-text { flex:1; font-size:11px; color:var(--fg2); padding:0 8px 0 0; }
-.cl-sev {
-  flex-shrink:0; font-size:9px; letter-spacing:.12em;
-  text-transform:uppercase; padding:2px 8px; margin-right:16px;
-}
-.sev-c { background:rgba(248,81,73,.12); color:var(--removed-bar); }
-.sev-h { background:rgba(227,179,65,.12); color:var(--yellow); }
-.sev-m { background:rgba(184,255,63,.08); color:var(--acid); }
-
-/* Progress bar — like a diff summary bar */
-.diff-summary-bar {
-  background:var(--bg2); border-bottom:1px solid var(--border);
-  padding:14px 20px; display:flex; align-items:center; gap:16px;
-  font-size:11px; color:var(--comment);
-}
-.dsb-label { color:var(--fg2); }
-.dsb-bar {
-  flex:1; height:6px; background:var(--border); position:relative; max-width:320px;
-}
-.dsb-fill {
-  height:100%; background:var(--added-bar);
-  transition:width .4s ease; position:relative;
-}
-.dsb-fill::after {
-  content:''; position:absolute; right:0; top:-3px; bottom:-3px;
-  width:2px; background:var(--acid);
-}
-.dsb-count { color:var(--acid); font-weight:600; min-width:60px; }
-.dsb-pct { color:var(--comment); }
-
-/* FOOTER */
-footer {
-  border-top:1px solid var(--border);
-  background:var(--bg2);
-  padding:28px 40px; display:flex; align-items:center; justify-content:space-between;
-}
-.footer-logo {
-  font-family:'Outfit',sans-serif; font-weight:900; font-size:16px;
-  color:var(--fg);
-}
-.footer-logo span { color:var(--acid); }
-.footer-meta { font-size:10px; color:var(--comment); }
-.footer-tag {
-  font-size:9px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--acid); border:1px solid rgba(184,255,63,.25); padding:5px 12px;
-}
-
-/* section eyebrow */
-.eyebrow {
-  font-size:9px; letter-spacing:.25em; text-transform:uppercase;
-  color:var(--acid); margin-bottom:16px;
-  display:flex; align-items:center; gap:10px;
-}
-.eyebrow::before { content:''; width:20px; height:1px; background:var(--acid); }
-
-/* ─── scrollbar ─── */
-::-webkit-scrollbar { width:6px; height:6px; }
-::-webkit-scrollbar-track { background:var(--bg2); }
-::-webkit-scrollbar-thumb { background:var(--border); }
+.cl-file-group{border-bottom:1px solid var(--border);}
+.cl-fg-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:12px;font-size:11px;color:var(--comment);}
+.cl-fg-name{color:var(--fg2);font-weight:600;}
+.cl-fg-count{margin-left:auto;font-size:10px;background:var(--bg3);border:1px solid var(--border);padding:1px 8px;color:var(--comment);}
+.cl-line{display:flex;align-items:center;min-height:34px;border-bottom:1px solid rgba(48,54,61,.4);cursor:pointer;transition:background .12s;position:relative;}
+.cl-line:hover{background:rgba(255,255,255,.02);}
+.cl-line.done{background:rgba(26,58,42,.25);}
+.cl-line.done .cl-text{text-decoration:line-through;color:var(--comment);}
+.cl-gutter{width:52px;flex-shrink:0;padding:0 10px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--comment);font-size:10px;user-select:none;height:100%;}
+.cl-line.done .cl-gutter{color:var(--added-bar);}
+.cl-marker{width:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:transparent;font-size:12px;}
+.cl-line.done .cl-marker{color:var(--added-bar);}
+.cl-box{width:13px;height:13px;flex-shrink:0;border:1px solid var(--border);margin:0 11px;position:relative;transition:background .12s,border-color .12s;}
+.cl-box.ticked{background:var(--added-bar);border-color:var(--added-bar);}
+.cl-box.ticked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;color:var(--bg);font-weight:700;}
+.cl-text{flex:1;font-size:11px;color:var(--fg2);padding:0 8px 0 0;}
+.cl-sev{flex-shrink:0;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;margin-right:14px;}
+.sev-c{background:rgba(248,81,73,.12);color:var(--removed-bar);}
+.sev-h{background:rgba(227,179,65,.12);color:var(--yellow);}
+.sev-m{background:rgba(184,255,63,.08);color:var(--acid);}
 
 /* responsive */
 @media(max-width:768px){
-  nav { height:auto; flex-wrap:wrap; }
-  .nav-tabs { overflow-x:scroll; }
-  .home-hero-overlay { grid-template-columns:1fr; gap:32px; padding:32px 20px 24px; }
-  .proto-header { grid-template-columns:1fr; gap:24px; padding:32px 20px; }
-  .layer-content { grid-template-columns:1fr; }
-  .layer-left { border-right:none; border-bottom:1px solid var(--border); }
-  .stats-row { grid-template-columns:1fr 1fr; }
-  footer { flex-direction:column; gap:12px; text-align:center; padding:20px; }
-  .diff-gutter { width:50px; }
-  .file-header { flex-direction:column; gap:8px; align-items:flex-start; }
+  .hero-wrap,.proto-header{grid-template-columns:1fr;gap:28px;padding:28px 20px;}
+  .layer-content{grid-template-columns:1fr;}
+  .layer-left{border-right:none;border-bottom:1px solid var(--border);}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stat-cell{padding:18px;}
+  .charter-principles{grid-template-columns:1fr;}
+  .principle{border-right:1px solid var(--border)!important;border-bottom:none!important;}
+  .principle:last-child{border-bottom:1px solid var(--border)!important;}
+  footer{padding:20px;flex-direction:column;text-align:center;}
+  .diff-gutter{width:44px;}
+  .gap-section,.cost-header,.charter-wrap{padding:24px 20px;}
 }
 </style>
 </head>
@@ -505,335 +310,268 @@ footer {
 <div class="cur" id="cur"></div>
 <div class="cur-r" id="curR"></div>
 
-<!-- NAV — terminal tab bar -->
 <nav>
   <div class="nav-tabs">
-    <div class="nav-tab active" onclick="show('home')" id="tab-home">
-      <div class="tab-dot"></div>
-      codokey.com
-      <span class="tab-x">×</span>
-    </div>
-    <div class="nav-tab" onclick="show('protocol')" id="tab-protocol">
-      <div class="tab-dot"></div>
-      protocol.md
-      <span class="tab-x">×</span>
-    </div>
-    <div class="nav-tab" onclick="show('secrets')" id="tab-secrets">
-      <div class="tab-dot"></div>
-      secrets-boundary.diff
-      <span class="tab-x">×</span>
-    </div>
-    <div class="nav-tab" onclick="show('agents')" id="tab-agents">
-      <div class="tab-dot"></div>
-      agent-permissions.json
-      <span class="tab-x">×</span>
-    </div>
-    <div class="nav-tab" onclick="show('checklist')" id="tab-checklist">
-      <div class="tab-dot"></div>
-      governance-checklist.sh
-      <span class="tab-x">×</span>
-    </div>
+    <div class="nav-tab active" onclick="show('home')" id="tab-home"><div class="tab-dot"></div>codokey.com</div>
+    <div class="nav-tab" onclick="show('charter')" id="tab-charter"><div class="tab-dot"></div>charter.md</div>
+    <div class="nav-tab" onclick="show('protocol')" id="tab-protocol"><div class="tab-dot"></div>protocol.md</div>
+    <div class="nav-tab" onclick="show('secrets')" id="tab-secrets"><div class="tab-dot"></div>secrets-boundary.diff</div>
+    <div class="nav-tab" onclick="show('agents')" id="tab-agents"><div class="tab-dot"></div>agent-permissions.json</div>
+    <div class="nav-tab" onclick="show('checklist')" id="tab-checklist"><div class="tab-dot"></div>governance-scorecard.sh</div>
   </div>
-  <div class="nav-right">
-    <div class="nav-badge">v1.0</div>
-  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
 </nav>
 
-<!-- ════════════════════════════════════════ HOME ════════════════════════════════════════ -->
+<!-- ══════════════════════════ HOME ══════════════════════════ -->
 <section id="home" class="active">
 
   <div class="file-header">
-    <div class="file-path">
-      <span>codokey /</span>
-      <span class="file-name">README.md</span>
-      <span class="file-lang">SOVEREIGN ASSET</span>
-    </div>
-    <div class="file-stats">
-      <span class="stat-a">+247 additions</span>
-      <span class="stat-r">−0 deletions</span>
-    </div>
+    <div class="file-path"><span>codokey /</span><span class="file-name">README.md</span><span class="file-lang">SOVEREIGN REFERENCE MODEL</span></div>
+    <div class="file-stats"><span class="stat-a">+6 layers defined</span><span class="stat-r">−0 undefined authority</span></div>
   </div>
 
-  <!-- Hero -->
-  <div class="home-hero-overlay">
-    <div class="hero-left">
-      <div class="hero-eyebrow">AI Code Governance Key</div>
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">AI Code Governance Key</div>
       <h1>The <em>boundary</em><br>between code,<br>keys &amp; authority</h1>
       <p class="hero-sub">
         Software used to be governed by who wrote the code.<br>
         Now it must be governed by <strong>what the code can access.</strong><br><br>
-        Codokey defines the reference layer between code, credentials, AI agents, and deployment authority.
+        Codokey is the sovereign reference model for defining the access boundary between AI agents, codebases, secrets, and production authority.
       </p>
-      <a class="btn-p" href="#" onclick="show('protocol')">→ Read the Protocol</a>
-      <a class="btn-g" href="#" onclick="show('checklist')">Run Checklist</a>
+      <a class="btn-p" href="#" onclick="show('charter')">→ Read the Charter</a>
+      <a class="btn-g" href="#" onclick="show('checklist')">Run Scorecard</a>
     </div>
     <div class="terminal">
       <div class="terminal-bar">
-        <div class="tbar-dot red"></div>
-        <div class="tbar-dot yellow"></div>
-        <div class="tbar-dot green"></div>
-        <div class="tbar-title">codokey — governance audit</div>
+        <div class="tbar-dot r"></div><div class="tbar-dot y"></div><div class="tbar-dot g"></div>
+        <div class="tbar-title">governance-audit — reference simulation</div>
       </div>
       <div class="terminal-body">
-        <div><span class="t-prompt">$ </span><span class="t-cmd">codokey audit --scope=full</span></div>
-        <div class="t-out">Scanning codebase... 847 files</div>
-        <div class="t-out">Checking agent permissions...</div>
-        <div class="t-err">✗ CRITICAL: .env exposed to agent session</div>
-        <div class="t-err">✗ HIGH: API key found in commit history</div>
-        <div class="t-warn">⚠ REVIEW: MCP server scope undefined</div>
-        <div class="t-warn">⚠ REVIEW: No audit log for agent PRs</div>
-        <div class="t-ok">✓ Secret scanning: enabled</div>
-        <div class="t-ok">✓ Branch protection: configured</div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">codokey reference-audit --example</span></div>
+        <div class="t-out">Loading Codokey Protocol v1.0...</div>
+        <div class="t-out">Scanning sample codebase — 847 files</div>
+        <div class="t-out"> </div>
+        <div class="t-err">✗ CRITICAL  .env exposed to agent session scope</div>
+        <div class="t-err">✗ CRITICAL  No audit log for AI-generated PRs</div>
+        <div class="t-warn">⚠ REVIEW   MCP server allow-list undefined</div>
+        <div class="t-warn">⚠ REVIEW   Agent token scope: organization-wide</div>
+        <div class="t-ok">✓ PASS      Secret scanning: enabled</div>
+        <div class="t-ok">✓ PASS      Branch protection: configured</div>
         <div class="t-out"> </div>
         <div><span class="t-out">Governance Score: </span><span style="color:var(--yellow);font-weight:700">B — Partially Governed</span></div>
-        <div><span class="t-out">Run </span><span class="t-cmd">codokey fix --critical</span><span class="t-out"> to resolve.</span></div>
+        <div class="t-out">Primary gap: Key Exposure layer (2 critical unresolved)</div>
+        <div class="t-out">Next: Review <span style="color:var(--acid)">secrets-boundary.diff</span> →</div>
         <div><span class="t-prompt">$ </span><span class="blink">▌</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Diff block — the 3 pillars as diff -->
-  <div class="file-header" style="margin-top:0;">
-    <div class="file-path">
-      <span>codokey / docs /</span>
-      <span class="file-name">governance-model.diff</span>
+  <!-- GOVERNANCE GAP -->
+  <div class="gap-section">
+    <div class="gap-inner">
+      <div class="gap-title">The Governance Gap</div>
+      <div class="gap-body">
+        Most AI coding workflows define <strong>what an agent can do</strong> after the agent is already inside the codebase.<br>
+        <em>That is the governance gap.</em><br><br>
+        The boundary between what an agent can see, what it can modify, what secrets it may encounter, and what authority path it can move toward production — is often <strong>undefined</strong>.<br><br>
+        Codokey exists to define that boundary <em>before autonomy scales.</em>
+      </div>
     </div>
-    <div class="file-stats">
-      <span class="stat-a">+3 concepts</span>
-      <span class="stat-r">−0 excuses</span>
-    </div>
+  </div>
+
+  <!-- Diff — the shift -->
+  <div class="file-header">
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">governance-model.diff</span></div>
+    <div class="file-stats"><span class="stat-a">+3 definitions</span><span class="stat-r">−3 assumptions</span></div>
   </div>
 
   <div class="diff-block">
     <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ Code Origin, Key Exposure, Deployment Authority @@</div>
-    </div>
-    <div class="diff-line line-context">
-      <div class="diff-gutter"><span>1</span><span>1</span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content"><span class="t-cm">// The governance question has changed</span></div>
+      <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+      <div class="diff-content">@@ The governance question has changed — codokey/docs/governance-model.diff @@</div>
     </div>
     <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>2</span><span></span></div>
-      <div class="diff-marker">−</div>
+      <div class="diff-gutter"><span>1</span><span></span></div><div class="diff-marker">−</div>
       <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">riskModel</span> <span class="t-op">=</span> <span class="t-str">"who wrote the code?"</span></div>
     </div>
     <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>2</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">riskModel</span> <span class="t-op">=</span> <span class="t-str">"what can the code access, expose, and deploy?"</span></div>
-    </div>
-    <div class="diff-line line-context">
-      <div class="diff-gutter"><span>3</span><span>3</span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content"></div>
+      <div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">riskModel</span> <span class="t-op">=</span> <span class="t-str">"what can the code access, expose, change, and deploy?"</span></div>
     </div>
     <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>4</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-fn">humanReview</span><span class="t-op">(</span><span class="t-str">"code logic only"</span><span class="t-op">)</span></div>
+      <div class="diff-gutter"><span>2</span><span></span></div><div class="diff-marker">−</div>
+      <div class="diff-content"><span class="t-fn">humanReview</span><span class="t-op">(</span><span class="t-str">"code logic only"</span><span class="t-op">)</span> <span class="t-cm">// post-facto governance</span></div>
     </div>
     <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>4</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-fn">codokey</span><span class="t-op">.</span><span class="t-fn">govern</span><span class="t-op">({</span> <span class="t-key">origin</span><span class="t-op">:</span> <span class="t-str">"AI"</span><span class="t-op">,</span> <span class="t-key">secrets</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">agents</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">deploy</span><span class="t-op">:</span> <span class="t-str">"gated"</span> <span class="t-op">})</span></div>
-    </div>
-    <div class="diff-line line-context">
-      <div class="diff-gutter"><span>5</span><span>5</span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content"></div>
+      <div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-fn">codokey</span><span class="t-op">.</span><span class="t-fn">define</span><span class="t-op">({</span> <span class="t-key">origin</span><span class="t-op">:</span> <span class="t-str">"AI"</span><span class="t-op">,</span> <span class="t-key">secrets</span><span class="t-op">:</span> <span class="t-str">"bounded"</span><span class="t-op">,</span> <span class="t-key">agents</span><span class="t-op">:</span> <span class="t-str">"scoped"</span><span class="t-op">,</span> <span class="t-key">deploy</span><span class="t-op">:</span> <span class="t-str">"gated"</span> <span class="t-op">})</span></div>
     </div>
     <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>6</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-cm">// You cannot govern what you cannot define.</span></div>
+      <div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-cm">// Governance is not the brake. It is the permission structure that lets agents move faster safely.</span></div>
     </div>
     <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>7</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-cm">// Codokey defines the boundary between code, keys, agents, and authority.</span></div>
+      <div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div>
+      <div class="diff-content"><span class="t-cm">// You cannot govern what you cannot define. — The Codokey Charter</span></div>
     </div>
   </div>
 
-  <!-- Stats -->
+  <!-- COST OF INACTION -->
+  <div class="cost-section">
+    <div class="cost-header">
+      <div class="cost-label">The Cost of Ungoverned AI Code</div>
+      <div class="cost-title">Every unscoped agent session is governance debt.</div>
+    </div>
+    <div class="diff-block">
+      <div class="diff-line line-hunk">
+        <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+        <div class="diff-content">@@ without Codokey Protocol — ungoverned agentic development @@</div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>1</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">AI agent reads repository <span class="t-cm">// scope: undefined — entire org accessible</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>2</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">.env file visible during agent session <span class="t-cm">// production credentials in read context</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>3</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">PR opened without AI-authorship label <span class="t-cm">// reviewer cannot assess origin risk</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>4</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">Deployment workflow modified without human gate <span class="t-cm">// autonomy without authority boundary</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>5</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">Audit log cannot reconstruct agent access path <span class="t-cm">// non-traceable breach</span></div>
+      </div>
+      <div class="diff-line line-hunk">
+        <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+        <div class="diff-content">@@ with Codokey Protocol — governed agentic development @@</div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Codokey defines access scope before agent execution <span class="t-cm">// minimum-privilege by default</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Secrets boundary excludes .env from agent read context <span class="t-cm">// pre-session governance</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Human review lock enforced before AI-generated merge <span class="t-cm">// review boundary defined</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Deployment authority is gated — autonomy ≠ ungoverned <span class="t-cm">// speed preserved safely</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Audit memory remains traceable — breach is reconstructable <span class="t-cm">// accountability layer</span></div>
+      </div>
+    </div>
+  </div>
+
   <div class="stats-row">
-    <div class="stat-cell s-add">
-      <div class="stat-n">06</div>
-      <div class="stat-l">Protocol Layers</div>
-    </div>
-    <div class="stat-cell s-rem">
-      <div class="stat-n">08</div>
-      <div class="stat-l">Secret Categories</div>
-    </div>
-    <div class="stat-cell s-mod">
-      <div class="stat-n">05</div>
-      <div class="stat-l">Agent Trust Levels</div>
-    </div>
-    <div class="stat-cell s-new">
-      <div class="stat-n">32</div>
-      <div class="stat-l">Governance Checks</div>
-    </div>
+    <div class="stat-cell s-add"><div class="stat-n">06</div><div class="stat-l">Protocol Layers</div></div>
+    <div class="stat-cell s-rem"><div class="stat-n">08</div><div class="stat-l">Secret Categories</div></div>
+    <div class="stat-cell s-mod"><div class="stat-n">05</div><div class="stat-l">Agent Trust Levels</div></div>
+    <div class="stat-cell s-new"><div class="stat-n">32</div><div class="stat-l">Governance Checks</div></div>
   </div>
 
   <footer>
     <div class="footer-logo">Codo<span>key</span></div>
-    <div class="footer-meta">codokey.com — AI Code Governance Reference · v1.0</div>
+    <div class="footer-meta">codokey.com — Sovereign Reference Model · v1.0</div>
     <div class="footer-tag">Sovereign Asset</div>
   </footer>
 </section>
 
-<!-- ════════════════════════════════════════ PROTOCOL ════════════════════════════════════════ -->
-<section id="protocol">
+<!-- ══════════════════════════ CHARTER ══════════════════════════ -->
+<section id="charter">
   <div class="file-header">
-    <div class="file-path">
-      <span>codokey / docs /</span>
-      <span class="file-name">protocol.md</span>
-      <span class="file-lang">REFERENCE MODEL v1.0</span>
-    </div>
-    <div class="file-stats">
-      <span class="stat-a">+6 layers</span>
-      <span class="stat-r">−0 ambiguity</span>
-    </div>
+    <div class="file-path"><span>codokey /</span><span class="file-name">charter.md</span><span class="file-lang">DOCTRINE</span></div>
+    <div class="file-stats"><span class="stat-a">+5 principles</span><span class="stat-r">−0 ambiguity</span></div>
   </div>
 
-  <div class="proto-header">
-    <div>
-      <div class="eyebrow">The Codokey Protocol</div>
-      <h2>Six layers.<br><em>Zero ambiguity.</em></h2>
-    </div>
-    <div class="proto-desc">
-      When AI can write, modify, and deploy code — the most valuable layer is no longer the code alone. It is the key that governs what the code can access, expose, change, and release.<br><br>
-      The Codokey Protocol is a vendor-agnostic reference model for AI-assisted development governance. It applies today to GitHub Copilot, Cursor, Claude Code, and any agent that will exist tomorrow.
-    </div>
-  </div>
+  <div class="charter-wrap">
 
-  <div class="proto-layers">
-
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--cyan)"></div>
-        <div class="layer-num">01</div>
+    <div class="charter-section">
+      <div class="charter-label">Preamble</div>
+      <div class="charter-heading">Sovereignty begins at the access boundary.</div>
+      <div class="charter-body">
+        <p>Codokey is not a product. It is a <em>reference model</em> — a sovereign governance layer designed to become the definitive language of AI code access governance.</p>
+        <p>Codokey is not a standard yet. It is a reference model designed to become the language of AI code access governance — built to be adopted, cited, and extended by those who govern AI-assisted development responsibly.</p>
       </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Code Origin</div>
-          <span class="layer-tag tag-prov">Provenance Layer</span>
-        </div>
-        <div class="layer-right">
-          <div class="layer-desc">Who authored this code? The answer determines the review obligation, audit requirement, and trust level before merge. Human, AI, or hybrid authorship each carries a different governance weight.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>Was this written by a human, an AI agent, or a hybrid?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is AI authorship documented in the commit or PR?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Does policy require human review for AI-generated code?</span></div>
-          </div>
-        </div>
+      <div class="charter-quote">
+        <p>You cannot govern what you cannot define.<br>Codokey defines the boundary between code, keys, agents, and authority.</p>
       </div>
     </div>
 
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--removed-bar)"></div>
-        <div class="layer-num">02</div>
-      </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Key Exposure</div>
-          <span class="layer-tag tag-sec">Secrets Layer</span>
-        </div>
-        <div class="layer-right">
-          <div class="layer-desc">Does this code touch secrets, tokens, credentials, or signing keys? Every path to a secret is a governance decision. AI agents reading a repository can encounter secrets in comments, env files, test fixtures, and configuration.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>Does the code read or reference environment variables?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Are API keys, access tokens, or SSH keys in scope?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Could the AI agent see secrets during its session?</span></div>
-          </div>
-        </div>
+    <div class="charter-section">
+      <div class="charter-label">The Problem</div>
+      <div class="charter-heading">The governance gap is not a failure of tools. It is a failure of definition.</div>
+      <div class="charter-body">
+        <p>In the era before AI coding agents, governance happened through <strong>human review</strong> — slow, sequential, visible. In the era of autonomous agents, code is written, modified, and prepared for deployment at machine speed.</p>
+        <p><em>Post-facto governance is no longer sufficient.</em> When an agent has already read your repository, already encountered your environment variables, already prepared a pull request — the governance question has become retrospective. And retrospective governance, in systems that move at machine speed, is a non-traceable breach waiting to be discovered.</p>
+        <p>The Codokey Charter exists to establish a different principle: <strong>governance must precede autonomy</strong>, not follow it.</p>
       </div>
     </div>
 
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--purple)"></div>
-        <div class="layer-num">03</div>
+    <div class="charter-section">
+      <div class="charter-label">The Codokey Position</div>
+      <div class="charter-heading">Governance is not the brake. It is the Express Lane.</div>
+      <div class="charter-body">
+        <p>The most common objection to AI code governance is that it slows development. This objection misunderstands what governance is for.</p>
+        <p>Codokey inverts this assumption: <em>governance is the permission structure that lets AI agents move faster safely.</em> An organization that has defined its secrets boundary, scoped its agent authority, established its review gates, and built its audit memory — can deploy AI agents with confidence, at speed, without constant manual oversight.</p>
+        <p>The ungoverned organization must slow down after every incident. <strong>The governed organization moves faster because the boundaries are already defined.</strong></p>
       </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Agent Authority</div>
-          <span class="layer-tag tag-perm">Permission Layer</span>
+      <div class="charter-quote">
+        <p>Codokey is the constitutional layer for AI-touched codebases: it defines the boundary between machine speed and organizational accountability.</p>
+      </div>
+    </div>
+
+    <div class="charter-section">
+      <div class="charter-label">Five Founding Principles</div>
+      <div class="charter-heading">The doctrine that governs Codokey itself.</div>
+      <div class="charter-principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Define before you deploy</div>
+          <div class="principle-text">Access boundaries must be established before an AI agent is given repository scope. Governance that begins after agent execution is not governance — it is incident response.</div>
         </div>
-        <div class="layer-right">
-          <div class="layer-desc">What is the AI agent permitted to read, change, or execute? Undefined authority is a security gap. Every agent operating in a codebase must have an explicit, documented scope.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>What repository scope does the agent have?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Can the agent push to branches or create PRs?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is the agent connected to external systems via MCP?</span></div>
-          </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Secrets are not code</div>
+          <div class="principle-text">Credentials, tokens, keys, and environment variables are not part of the codebase in the governance sense. They are a separate layer with separate access rules. Every agent must be evaluated against the secrets boundary independently of its code access.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Autonomy requires authority definition</div>
+          <div class="principle-text">Autonomous is not ungoverned. Every agent class — from suggestion to deployment-adjacent — must have an explicitly documented scope. Undefined authority is a security gap, not a feature.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Governance debt compounds</div>
+          <div class="principle-text">Every AI-assisted code change made without defined access boundaries creates governance debt. The longer agentic development scales without a code-access model, the harder it becomes to reconstruct who changed what, what was exposed, and which authority path moved code toward production.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div class="principle-title">Vendor-agnostic by design</div>
+          <div class="principle-text">Codokey applies to GitHub Copilot today, and to any agent that will exist tomorrow. The protocol follows the logic of risk management, not the roadmap of any single vendor. Tools change. Access boundaries do not.</div>
         </div>
       </div>
     </div>
 
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--yellow)"></div>
-        <div class="layer-num">04</div>
-      </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Review Boundary</div>
-          <span class="layer-tag tag-gate">Human Gate Layer</span>
-        </div>
-        <div class="layer-right">
-          <div class="layer-desc">Where must a human intervene before code proceeds? Without explicit gates, AI agents can create invisible paths from generation to merge. The review boundary is not optional — it is the minimum accountability structure.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is human review required before merging AI-generated PRs?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is there a mandatory review step for code touching secrets?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Are review requirements documented in governance policy?</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--added-bar)"></div>
-        <div class="layer-num">05</div>
-      </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Deployment Control</div>
-          <span class="layer-tag tag-auth">Authority Layer</span>
-        </div>
-        <div class="layer-right">
-          <div class="layer-desc">Can this code reach production? Who holds the deployment key, and under what conditions? Automation and autonomy are different things. No agent should deploy to production without a human authorization gate.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is automated deployment gated by secret scanning?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Can an AI-generated change deploy without human approval?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Are production credentials separated from development environments?</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="layer-row">
-      <div class="layer-num-col">
-        <div class="layer-bar" style="background:var(--acid)"></div>
-        <div class="layer-num">06</div>
-      </div>
-      <div class="layer-content">
-        <div class="layer-left">
-          <div class="layer-name">Audit Memory</div>
-          <span class="layer-tag tag-log">Accountability Layer</span>
-        </div>
-        <div class="layer-right">
-          <div class="layer-desc">Can you reconstruct what happened, who authorized it, and what was exposed? Audit trails are governance proof. A breach without audit memory is a non-traceable breach — the worst possible outcome for organizational accountability.</div>
-          <div class="layer-qs">
-            <div class="layer-q"><span class="q-arrow">→</span><span>Are AI agent actions logged with timestamps and scope?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Can you trace which agent accessed which repository and when?</span></div>
-            <div class="layer-q"><span class="q-arrow">→</span><span>Is there a record of what secrets were in scope during agent sessions?</span></div>
-          </div>
-        </div>
+    <div class="charter-section" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+      <div class="charter-label">Strategic Inquiries</div>
+      <div class="charter-heading">Codokey is a sovereign asset.</div>
+      <div class="charter-body">
+        <p>Codokey.com is under active development as a sovereign reference infrastructure for AI code access governance. Organizations exploring strategic acquisition, partnership, or licensing of the Codokey reference model and brand are invited to make contact.</p>
+        <p style="margin-top:20px;"><a href="mailto:inquiry@codokey.com" style="color:var(--acid);text-decoration:none;border-bottom:1px solid rgba(184,255,63,.3);padding-bottom:2px;">inquiry@codokey.com</a></p>
       </div>
     </div>
 
@@ -841,310 +579,177 @@ footer {
 
   <footer>
     <div class="footer-logo">Codo<span>key</span></div>
-    <div class="footer-meta">The Codokey Protocol · v1.0 · Vendor-Agnostic</div>
+    <div class="footer-meta">The Codokey Charter · Doctrine v1.0</div>
+    <div class="footer-tag">Founding Doctrine</div>
+  </footer>
+</section>
+
+<!-- ══════════════════════════ PROTOCOL ══════════════════════════ -->
+<section id="protocol">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">protocol.md</span><span class="file-lang">REFERENCE MODEL v1.0</span></div>
+    <div class="file-stats"><span class="stat-a">+6 layers</span><span class="stat-r">−0 ambiguity</span></div>
+  </div>
+  <div class="proto-header">
+    <div><div class="eyebrow">The Codokey Protocol</div><h2>Six layers.<br><em>Zero ambiguity.</em></h2></div>
+    <div class="proto-desc">When AI can write, modify, and deploy code — the most valuable layer is no longer the code alone. It is the key that governs what the code can access, expose, change, and release.<br><br>The Codokey Protocol is a vendor-agnostic reference model. It applies today to Copilot, Cursor, Claude Code, and any agent that will exist tomorrow.</div>
+  </div>
+
+  <div class="proto-layers">
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--cyan)"></div><div class="layer-num">01</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Code Origin</div><span class="layer-tag tag-prov">Provenance Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Who authored this code? Human, AI, or hybrid authorship each carries a different governance weight. The answer determines the review obligation before merge.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Was this written by a human, an AI agent, or a hybrid workflow?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is AI authorship documented in the commit or PR metadata?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Does policy require human review for AI-generated code?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--removed-bar)"></div><div class="layer-num">02</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Key Exposure</div><span class="layer-tag tag-sec">Secrets Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Does this code touch secrets, tokens, credentials, or signing keys? Every path to a secret is a governance decision. AI agents reading a repository encounter secrets in comments, env files, test fixtures, and configuration.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Does the code read or reference environment variables?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are API keys, access tokens, or SSH keys in scope?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Could the AI agent see secrets during its session?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--purple)"></div><div class="layer-num">03</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Agent Authority</div><span class="layer-tag tag-perm">Permission Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">What is the AI agent permitted to read, change, or execute? Undefined authority is a security gap. Every agent must have an explicit, documented scope before execution.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>What repository scope does the agent have?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can the agent push to branches or create PRs?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is the agent connected to external systems via MCP?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--yellow)"></div><div class="layer-num">04</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Review Boundary</div><span class="layer-tag tag-gate">Human Gate Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Where must a human intervene before code proceeds? Without explicit gates, AI agents create invisible paths from generation to merge. The review boundary is the minimum accountability structure.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Is human review required before merging AI-generated PRs?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is there a mandatory review step for code touching secrets?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are review requirements documented in governance policy?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--added-bar)"></div><div class="layer-num">05</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Deployment Control</div><span class="layer-tag tag-auth">Authority Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Can this code reach production? Who holds the deployment key, and under what conditions? Automation and autonomy are different things. No agent deploys to production without a human authorization gate.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Is automated deployment gated by secret scanning?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can an AI-generated change deploy without human approval?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are production credentials separated from development environments?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--acid)"></div><div class="layer-num">06</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Audit Memory</div><span class="layer-tag tag-log">Accountability Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Can you reconstruct what happened, who authorized it, and what was exposed? Audit trails are governance proof. A breach without audit memory is a non-traceable breach — the worst outcome for organizational accountability.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Are AI agent actions logged with timestamps and scope?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can you trace which agent accessed which repository and when?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is there a record of what secrets were in scope during agent sessions?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Codo<span>key</span></div>
+    <div class="footer-meta">The Codokey Protocol · v1.0 · Vendor-Agnostic Reference Model</div>
     <div class="footer-tag">Reference Model</div>
   </footer>
 </section>
 
-<!-- ════════════════════════════════════════ SECRETS ════════════════════════════════════════ -->
+<!-- ══════════════════════════ SECRETS ══════════════════════════ -->
 <section id="secrets">
   <div class="file-header">
-    <div class="file-path">
-      <span>codokey / security /</span>
-      <span class="file-name">secrets-boundary.diff</span>
-      <span class="file-lang">CRITICAL REFERENCE</span>
-    </div>
-    <div class="file-stats">
-      <span class="stat-a">+8 categories</span>
-      <span class="stat-r">−∞ assumptions</span>
-    </div>
+    <div class="file-path"><span>codokey / security /</span><span class="file-name">secrets-boundary.diff</span><span class="file-lang">CRITICAL REFERENCE</span></div>
+    <div class="file-stats"><span class="stat-a">+8 categories defined</span><span class="stat-r">−8 assumptions removed</span></div>
   </div>
-
-  <div class="diff-block secrets-diff">
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ class: API_KEY — severity: CRITICAL @@ AI agents that read codebases encounter these</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>1</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-key">type</span> <span class="t-fn">APIKey</span> <span class="t-op">=</span> <span class="t-op">{</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>2</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">"X-API-KEY | Authorization: Bearer &lt;token&gt;"</span><span class="t-op">,</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>3</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"full programmatic authority over the service if leaked"</span><span class="t-op">,</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>4</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">aiExposureVector</span><span class="t-op">:</span> <span class="t-str">"hardcoded in config files, test fixtures, commented code"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>5</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">}</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ class: ACCESS_TOKEN — severity: CRITICAL @@ short-lived but live attack surface</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>6</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-key">type</span> <span class="t-fn">AccessToken</span> <span class="t-op">=</span> <span class="t-op">{</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>7</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">variants</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"OAuth"</span><span class="t-op">,</span> <span class="t-str">"JWT"</span><span class="t-op">,</span> <span class="t-str">"Bearer"</span><span class="t-op">,</span> <span class="t-str">"Session"</span><span class="t-op">],</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>8</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">aiExposureVector</span><span class="t-op">:</span> <span class="t-str">"open files or environment contexts during IDE agent sessions"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>9</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">}</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ class: SSH_KEY — severity: CRITICAL @@ persistent unauthorized access until rotated</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>10</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-key">type</span> <span class="t-fn">SSHKey</span> <span class="t-op">=</span> <span class="t-op">{</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>11</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">location</span><span class="t-op">:</span> <span class="t-str">"~/.ssh/id_rsa | ed25519"</span><span class="t-op">,</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>12</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">aiExposureVector</span><span class="t-op">:</span> <span class="t-str">"broad filesystem scope granted to agent — key directories accessible"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>13</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">}</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ class: ENV_VARIABLE — severity: HIGH @@ most common developer oversight</div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>14</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-cm">// "It's just a .env file, the agent won't read it"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>14</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-key">type</span> <span class="t-fn">EnvVariable</span> <span class="t-op">=</span> <span class="t-op">{</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>15</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">".env | process.env | os.environ"</span><span class="t-op">,</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>16</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">governance</span><span class="t-op">:</span> <span class="t-str">"MUST be excluded from AI agent read scope. Always."</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>17</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">}</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ class: CLOUD_CREDENTIAL — severity: HIGH @@ infrastructure exposure</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>18</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-key">type</span> <span class="t-fn">CloudCredential</span> <span class="t-op">=</span> <span class="t-op">{</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>19</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">providers</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"AWS_ACCESS_KEY"</span><span class="t-op">,</span> <span class="t-str">"GCP_KEY"</span><span class="t-op">,</span> <span class="t-str">"AZURE_CLIENT"</span><span class="t-op">],</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>20</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"entire infrastructure exposure — storage, compute, managed services"</span><span class="t-op">,</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>21</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;<span class="t-key">agentNote</span><span class="t-op">:</span> <span class="t-str">"~/.aws/credentials may be within broad-permission agent filesystem scope"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>22</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">}</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ GOVERNANCE RULE — applies to all secret classes @@</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>23</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-kw">const</span> <span class="t-key">rule</span> <span class="t-op">=</span> <span class="t-str">"Secret scanning, scope restrictions, and audit logging"</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>24</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-op">+</span> <span class="t-str">"must be in place BEFORE agent sessions begin, not after a disclosure event."</span></div>
-    </div>
+  <div class="diff-block">
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: API_KEY — severity: CRITICAL — exposure vector: hardcoded config, test fixtures @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">APIKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">"X-API-KEY | Authorization: Bearer"</span><span class="t-op">,</span> <span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"full service authority if leaked"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: ACCESS_TOKEN — severity: CRITICAL — live attack surface during validity window @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">AccessToken</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">variants</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"OAuth"</span><span class="t-op">,</span><span class="t-str">"JWT"</span><span class="t-op">,</span><span class="t-str">"Bearer"</span><span class="t-op">,</span><span class="t-str">"Session"</span><span class="t-op">],</span> <span class="t-key">agentVector</span><span class="t-op">:</span> <span class="t-str">"open files in IDE agent sessions"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: SSH_KEY — severity: CRITICAL — persistent access until key pair rotated @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">SSHKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">location</span><span class="t-op">:</span> <span class="t-str">"~/.ssh/id_rsa | ed25519"</span><span class="t-op">,</span> <span class="t-key">agentVector</span><span class="t-op">:</span> <span class="t-str">"broad filesystem scope exposes key directories"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: SIGNING_KEY — severity: CRITICAL — supply chain attack vector @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">SigningKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">types</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"GPG"</span><span class="t-op">,</span><span class="t-str">"CodeSigning"</span><span class="t-op">,</span><span class="t-str">"TLS"</span><span class="t-op">],</span> <span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"attacker can produce artifacts appearing legitimate"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: ENV_VARIABLE — severity: HIGH — most common developer oversight @@</div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>5</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// "the agent won't read .env files" — this assumption is the gap</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">EnvVariable</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">".env | process.env"</span><span class="t-op">,</span> <span class="t-key">governance</span><span class="t-op">:</span> <span class="t-str">"MUST be excluded from agent read scope. Always."</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: CLOUD_CREDENTIAL — severity: HIGH — entire infrastructure exposure @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>6</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">CloudCredential</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">providers</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"AWS_ACCESS_KEY"</span><span class="t-op">,</span><span class="t-str">"GCP_KEY"</span><span class="t-op">,</span><span class="t-str">"AZURE_CLIENT"</span><span class="t-op">],</span> <span class="t-key">agentNote</span><span class="t-op">:</span> <span class="t-str">"~/.aws/credentials within broad-scope agent filesystem"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: DATABASE_CREDENTIAL — severity: HIGH — bulk data exfiltration risk @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>7</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">DatabaseCredential</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">"DB_USER | DB_PASS | CONNECTION_STRING"</span><span class="t-op">,</span> <span class="t-key">foundIn</span><span class="t-op">:</span> <span class="t-str">"ORM config, migration scripts, legacy strings"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: GIT_TOKEN — severity: HIGH — repository access, CI/CD triggers, deployment keys @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>8</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">GitToken</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">variants</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"GITHUB_TOKEN"</span><span class="t-op">,</span><span class="t-str">"GH_PAT"</span><span class="t-op">,</span><span class="t-str">"Deploy Keys"</span><span class="t-op">],</span> <span class="t-key">note</span><span class="t-op">:</span> <span class="t-str">"broad-scope PATs are high-value targets for supply-chain attacks"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ GOVERNANCE RULE — applies to all secret classes without exception @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>9</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-kw">const</span> <span class="t-key">rule</span> <span class="t-op">=</span> <span class="t-str">"Secret scanning, scope restrictions, and audit logging must be in place BEFORE agent sessions begin."</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>10</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-cm">// Governance cannot be retroactive. Define the boundary before the agent enters the codebase.</span></div></div>
   </div>
-
   <footer>
     <div class="footer-logo">Codo<span>key</span></div>
-    <div class="footer-meta">Secrets Boundary · Codokey Security Reference</div>
+    <div class="footer-meta">Secrets Boundary · Codokey Security Reference · v1.0</div>
     <div class="footer-tag">Security Layer</div>
   </footer>
 </section>
 
-<!-- ════════════════════════════════════════ AGENTS ════════════════════════════════════════ -->
+<!-- ══════════════════════════ AGENTS ══════════════════════════ -->
 <section id="agents">
   <div class="file-header">
-    <div class="file-path">
-      <span>codokey / governance /</span>
-      <span class="file-name">agent-permissions.json</span>
-      <span class="file-lang">PERMISSION ARCHITECTURE</span>
-    </div>
-    <div class="file-stats">
-      <span class="stat-a">+5 agent classes</span>
-      <span class="stat-r">−0 undefined authority</span>
-    </div>
+    <div class="file-path"><span>codokey / governance /</span><span class="file-name">agent-permissions.json</span><span class="file-lang">PERMISSION ARCHITECTURE</span></div>
+    <div class="file-stats"><span class="stat-a">+5 agent classes</span><span class="stat-r">−0 undefined authority</span></div>
   </div>
-
-  <!-- Each agent as a JSON block with diff coloring -->
   <div class="diff-block">
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ agent_class: SUGGESTION — inline autocomplete agents (Copilot inline, Tab9) @@</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>1</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">{</span> <span class="t-key">"class"</span><span class="t-op">:</span> <span class="t-str">"suggestion_agent"</span><span class="t-op">,</span> <span class="t-key">"read_repo"</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">"write_pr"</span><span class="t-op">:</span> <span class="t-val">false</span><span class="t-op">,</span> <span class="t-key">"access_secrets"</span><span class="t-op">:</span> <span class="t-val">false</span><span class="t-op">,</span> <span class="t-key">"deploy"</span><span class="t-op">:</span> <span class="t-val">false</span> <span class="t-op">}</span></div>
-    </div>
-    <div class="diff-line line-context">
-      <div class="diff-gutter"><span>2</span><span>2</span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content"><span class="t-cm">// ✓ read_repo is permitted — restricted to open files only, never secrets dirs</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ agent_class: TASK_AGENT — issue→branch→PR (GitHub Copilot Agent, Claude Code) @@</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>3</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">{</span> <span class="t-key">"class"</span><span class="t-op">:</span> <span class="t-str">"task_agent"</span><span class="t-op">,</span> <span class="t-key">"read_repo"</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">"write_pr"</span><span class="t-op">:</span> <span class="t-str">"human_review_required"</span><span class="t-op">,</span> <span class="t-key">"access_secrets"</span><span class="t-op">:</span> <span class="t-val">false</span><span class="t-op">,</span> <span class="t-key">"deploy"</span><span class="t-op">:</span> <span class="t-val">false</span> <span class="t-op">}</span></div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>4</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-cm">// ✗ FORBIDDEN: organization-wide repo access for a single-repo task</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ agent_class: MCP_CONNECTED — external tool access (GitHub MCP, filesystem MCP) @@</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>5</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">{</span> <span class="t-key">"class"</span><span class="t-op">:</span> <span class="t-str">"mcp_connected_agent"</span><span class="t-op">,</span> <span class="t-key">"read_repo"</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">"write_pr"</span><span class="t-op">:</span> <span class="t-str">"human_review_required"</span><span class="t-op">,</span> <span class="t-key">"access_secrets"</span><span class="t-op">:</span> <span class="t-str">"scoped_vault_only"</span><span class="t-op">,</span> <span class="t-key">"deploy"</span><span class="t-op">:</span> <span class="t-val">false</span> <span class="t-op">}</span></div>
-    </div>
-    <div class="diff-line line-context">
-      <div class="diff-gutter"><span>6</span><span>6</span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content"><span class="t-cm">// ⚠ MCP server allow-list must be explicitly defined — no open-ended external access</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ agent_class: AUTONOMOUS — full pipeline agents (Devin, SWE-Agent class) @@</div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>7</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-op">{</span> <span class="t-key">"class"</span><span class="t-op">:</span> <span class="t-str">"autonomous_agent"</span><span class="t-op">,</span> <span class="t-key">"read_repo"</span><span class="t-op">:</span> <span class="t-val">true</span><span class="t-op">,</span> <span class="t-key">"write_pr"</span><span class="t-op">:</span> <span class="t-str">"human_review_required"</span><span class="t-op">,</span> <span class="t-key">"access_secrets"</span><span class="t-op">:</span> <span class="t-str">"human_review_required"</span><span class="t-op">,</span> <span class="t-key">"deploy"</span><span class="t-op">:</span> <span class="t-str">"human_gate_mandatory"</span> <span class="t-op">}</span></div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>8</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-cm">// ✗ NEVER: autonomous agent with unsupervised production deployment authority</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>8</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-cm">// ✓ Autonomous ≠ Ungoverned. Speed requires defined boundaries, not absent ones.</span></div>
-    </div>
-
-    <div class="diff-line line-hunk">
-      <div class="diff-gutter"><span>@@</span><span></span></div>
-      <div class="diff-marker"></div>
-      <div class="diff-content">@@ FORBIDDEN_ZONES — applies to ALL agent classes without exception @@</div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>9</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-key">"production_secrets"</span><span class="t-op">:</span> <span class="t-str">"accessible_to_any_agent"</span>  <span class="t-cm">// FORBIDDEN</span></div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>10</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-key">"org_wide_repo_scope"</span><span class="t-op">:</span> <span class="t-str">"for_single_repo_task"</span>   <span class="t-cm">// FORBIDDEN</span></div>
-    </div>
-    <div class="diff-line line-remove">
-      <div class="diff-gutter"><span>11</span><span></span></div>
-      <div class="diff-marker">−</div>
-      <div class="diff-content"><span class="t-key">"unsupervised_deploy"</span><span class="t-op">:</span> <span class="t-str">"to_production"</span>           <span class="t-cm">// FORBIDDEN</span></div>
-    </div>
-    <div class="diff-line line-add">
-      <div class="diff-gutter"><span></span><span>9</span></div>
-      <div class="diff-marker">+</div>
-      <div class="diff-content"><span class="t-cm">// Governance is not the brake. Governance is the permission structure that lets agents move faster safely.</span></div>
-    </div>
-
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: SUGGESTION — inline autocomplete (read-only, restricted to open file context) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"suggestion_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span> <span class="t-cm">// lowest risk — restricted to open file only</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: CODE_REVIEW — PR analysis, comment generation (read + limited annotate) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"code_review_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"comments_only"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: TASK_AGENT — issue→branch→PR (Claude Code, Copilot Agent class) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"task_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>4</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// FORBIDDEN: organization-wide repo access for a single-repository task</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: MCP_CONNECTED — external tool access (GitHub MCP, filesystem, browser) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"mcp_connected_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-str">"scoped_vault_only"</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-context"><div class="diff-gutter"><span>5</span><span>5</span></div><div class="diff-marker"></div><div class="diff-content"><span class="t-cm">// MCP server allow-list must be explicitly defined — no open-ended external access permitted</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: AUTONOMOUS — full pipeline agents, deployment-adjacent @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"autonomous_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-str">"human_gate_mandatory"</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>6</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// NEVER: autonomous agent with unsupervised production deployment authority</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>6</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-cm">// Autonomous ≠ Ungoverned. Governance is the permission structure that lets agents move faster safely.</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ FORBIDDEN_ZONES — no agent class, no exception, no override @@</div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>7</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"production_secrets_accessible_to_agent"</span><span class="t-op">:</span> <span class="t-val">true</span>  <span class="t-cm">// FORBIDDEN — no exception</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>8</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"org_wide_scope_for_single_repo_task"</span><span class="t-op">:</span> <span class="t-val">true</span>    <span class="t-cm">// FORBIDDEN — minimum privilege always</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>9</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"unsupervised_production_deployment"</span><span class="t-op">:</span> <span class="t-val">true</span>      <span class="t-cm">// FORBIDDEN — human gate mandatory</span></div></div>
   </div>
-
   <footer>
     <div class="footer-logo">Codo<span>key</span></div>
     <div class="footer-meta">Agent Permissions · Codokey Reference · Vendor-Agnostic</div>
@@ -1152,175 +757,171 @@ footer {
   </footer>
 </section>
 
-<!-- ════════════════════════════════════════ CHECKLIST ════════════════════════════════════════ -->
+<!-- ══════════════════════════ SCORECARD / CHECKLIST ══════════════════════════ -->
 <section id="checklist">
   <div class="file-header">
-    <div class="file-path">
-      <span>codokey / audit /</span>
-      <span class="file-name">governance-checklist.sh</span>
-      <span class="file-lang">32 CHECKS</span>
-    </div>
-    <div class="file-stats">
-      <span class="stat-a" id="doneCount">+0 resolved</span>
-      <span class="stat-r" id="remainCount">−32 pending</span>
-    </div>
+    <div class="file-path"><span>codokey / audit /</span><span class="file-name">governance-scorecard.sh</span><span class="file-lang">32 CHECKS</span></div>
+    <div class="file-stats"><span class="stat-a" id="doneCount">+0 resolved</span><span class="stat-r" id="remainCount">−32 pending</span></div>
   </div>
 
-  <!-- Summary bar -->
+  <!-- Progress bar -->
   <div class="diff-summary-bar">
     <span class="dsb-label">Governance completion</span>
     <div class="dsb-bar"><div class="dsb-fill" id="pFill" style="width:0%"></div></div>
     <span class="dsb-count" id="pCount">0 / 32</span>
-    <span class="dsb-pct" id="pPct">0%</span>
-    <span style="margin-left:auto;color:var(--comment);font-size:10px;">Click any line to check</span>
+    <span style="color:var(--comment)" id="pPct">0%</span>
+    <span style="margin-left:auto;color:var(--comment);font-size:10px;">Click any line to check · Score updates automatically</span>
   </div>
 
-  <!-- Group 1 -->
-  <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--cyan)">◈</span>
-      <span class="cl-fg-name">01 — code-origin.sh</span>
-      <span style="color:var(--comment)">Provenance &amp; authorship controls</span>
-      <span class="cl-fg-count" id="grp0">0/4</span>
+  <!-- SCORECARD OUTPUT -->
+  <div class="scorecard-output" id="scorecardOut">
+    <div class="sc-bar">
+      <div class="sc-grade" id="scGrade">C</div>
+      <div class="sc-info">
+        <div class="sc-title" id="scTitle">Ungoverned AI Code Access</div>
+        <div class="sc-subtitle" id="scSub">Complete more checks to improve your governance score.</div>
+      </div>
+      <div class="sc-pct" id="scPct">0%</div>
     </div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-line-gutter">1</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">AI-generated code is labeled or tagged in commits and PRs</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-line-gutter">2</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Human review is explicitly required for all AI-generated merges</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-line-gutter">3</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">AI authorship is documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-line-gutter">4</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Mixed human/AI code is distinguishable in the diff history</div><span class="cl-sev sev-h">High</span></div>
+    <div class="sc-details">
+      <div class="sc-detail"><span class="sd-label">Primary gap:</span><span class="sd-val" id="scGap">Key Exposure — 6 critical checks unresolved</span></div>
+      <div class="sc-detail"><span class="sd-label">Next action:</span><span class="sd-val" id="scNext">Exclude .env and production credentials from agent read scope</span></div>
+      <div class="sc-detail"><span class="sd-label">Reference:</span><span class="sd-val">Codokey Protocol v1.0 · Layer 02: Key Exposure</span></div>
+    </div>
   </div>
 
-  <!-- Group 2 -->
+  <!-- Groups -->
   <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--removed-bar)">◈</span>
-      <span class="cl-fg-name">02 — key-exposure.sh</span>
-      <span style="color:var(--comment)">Secrets &amp; credential boundary</span>
-      <span class="cl-fg-count" id="grp1">0/6</span>
-    </div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">5</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Secret scanning is enabled on all active repositories</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">6</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Pre-commit hooks block secrets from entering the codebase</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">7</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Environment files (.env) are excluded from AI agent read scope</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">8</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Hardcoded credentials audit performed in the last 90 days</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">9</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">API key rotation policy is documented and enforced</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-line-gutter">10</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Production .env files are in a separate, agent-inaccessible vault</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-fg-header"><span style="color:var(--cyan)">◈</span><span class="cl-fg-name">01 — code-origin.sh</span><span style="color:var(--comment)">Provenance &amp; authorship controls</span><span class="cl-fg-count" id="g0">0/4</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">1</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI-generated code is labeled or tagged in commits and PRs</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">2</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review is explicitly required for all AI-generated merges</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">3</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI authorship is documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">4</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Mixed human/AI code is distinguishable in the diff history</div><span class="cl-sev sev-h">High</span></div>
   </div>
 
-  <!-- Group 3 -->
   <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--purple)">◈</span>
-      <span class="cl-fg-name">03 — agent-authority.sh</span>
-      <span style="color:var(--comment)">Agent scope &amp; permission controls</span>
-      <span class="cl-fg-count" id="grp2">0/6</span>
-    </div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">11</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Each agent has a documented scope: repository, branch, action type</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">12</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Agents operate with minimum-privilege repository access</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">13</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">MCP server connections are inventoried and reviewed</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">14</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Agent token scopes are reviewed and restricted quarterly</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">15</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Organization-wide agent access is disabled by default</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-line-gutter">16</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Forbidden access zones are defined in writing and enforced technically</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-fg-header"><span style="color:var(--removed-bar)">◈</span><span class="cl-fg-name">02 — key-exposure.sh</span><span style="color:var(--comment)">Secrets &amp; credential boundary</span><span class="cl-fg-count" id="g1">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">5</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret scanning is enabled on all active repositories</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">6</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Pre-commit hooks block secrets from entering the codebase</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">7</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Environment files (.env) are excluded from AI agent read scope</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">8</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Hardcoded credentials audit performed in the last 90 days</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">9</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">API key rotation policy is documented and enforced</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">10</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production .env files are in a separate, agent-inaccessible vault</div><span class="cl-sev sev-c">Critical</span></div>
   </div>
 
-  <!-- Group 4 -->
   <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--yellow)">◈</span>
-      <span class="cl-fg-name">04 — review-boundary.sh</span>
-      <span style="color:var(--comment)">Human gate &amp; merge controls</span>
-      <span class="cl-fg-count" id="grp3">0/5</span>
-    </div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-line-gutter">17</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Branch protection rules require review before merge for AI PRs</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-line-gutter">18</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Code touching secrets paths triggers mandatory security review</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-line-gutter">19</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Reviewers are trained to identify AI-generated code patterns</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-line-gutter">20</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Review bypass is technically prevented — not just policy-prohibited</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-line-gutter">21</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Human review gates are documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
+    <div class="cl-fg-header"><span style="color:var(--purple)">◈</span><span class="cl-fg-name">03 — agent-authority.sh</span><span style="color:var(--comment)">Agent scope &amp; permission controls</span><span class="cl-fg-count" id="g2">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">11</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Each agent has a documented scope: repository, branch, action type</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">12</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agents operate with minimum-privilege repository access</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">13</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">MCP server connections are inventoried and reviewed</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">14</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agent token scopes are reviewed and restricted quarterly</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">15</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Organization-wide agent access is disabled by default</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">16</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Forbidden access zones are defined in writing and enforced technically</div><span class="cl-sev sev-c">Critical</span></div>
   </div>
 
-  <!-- Group 5 -->
   <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--added-bar)">◈</span>
-      <span class="cl-fg-name">05 — deployment-control.sh</span>
-      <span style="color:var(--comment)">Production authority &amp; pipeline gates</span>
-      <span class="cl-fg-count" id="grp4">0/5</span>
-    </div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-line-gutter">22</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">No agent has direct production deployment authority without human gate</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-line-gutter">23</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Production credentials are separated from development environments</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-line-gutter">24</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">CI/CD pipeline includes secret scanning as a blocking step</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-line-gutter">25</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Deployment rollback procedures are tested and documented</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-line-gutter">26</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Infrastructure-as-code changes require separate review from application code</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-fg-header"><span style="color:var(--yellow)">◈</span><span class="cl-fg-name">04 — review-boundary.sh</span><span style="color:var(--comment)">Human gate &amp; merge controls</span><span class="cl-fg-count" id="g3">0/5</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">17</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Branch protection rules require review before merge for AI PRs</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">18</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Code touching secrets paths triggers mandatory security review</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">19</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Reviewers are trained to identify AI-generated code patterns</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">20</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Review bypass is technically prevented — not just policy-prohibited</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">21</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review gates are documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
   </div>
 
-  <!-- Group 6 -->
   <div class="cl-file-group">
-    <div class="cl-file-group-header">
-      <span class="cl-fg-icon" style="color:var(--acid)">◈</span>
-      <span class="cl-fg-name">06 — audit-memory.sh</span>
-      <span style="color:var(--comment)">Logging, traceability &amp; accountability</span>
-      <span class="cl-fg-count" id="grp5">0/6</span>
-    </div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">27</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">AI agent actions are logged with identity, timestamp, and scope</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">28</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Audit logs are immutable and protected from agent modification</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">29</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Log retention policy meets your compliance requirements</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">30</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Secret exposure events trigger an incident response workflow</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">31</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Audit reviews are scheduled — not only performed after incidents</div><span class="cl-sev sev-m">Medium</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-line-gutter">32</div><div class="cl-line-marker">+</div><div class="cl-checkbox"></div><div class="cl-line-text">Governance debt is tracked and reviewed quarterly by leadership</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-fg-header"><span style="color:var(--added-bar)">◈</span><span class="cl-fg-name">05 — deployment-control.sh</span><span style="color:var(--comment)">Production authority &amp; pipeline gates</span><span class="cl-fg-count" id="g4">0/5</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">22</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">No agent has direct production deployment authority without human gate</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">23</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production credentials are separated from development environments</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">24</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">CI/CD pipeline includes secret scanning as a blocking step</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">25</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Deployment rollback procedures are tested and documented</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">26</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Infrastructure-as-code changes require separate review from application code</div><span class="cl-sev sev-h">High</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--acid)">◈</span><span class="cl-fg-name">06 — audit-memory.sh</span><span style="color:var(--comment)">Logging, traceability &amp; accountability</span><span class="cl-fg-count" id="g5">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">27</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI agent actions are logged with identity, timestamp, and scope</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">28</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit logs are immutable and protected from agent modification</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">29</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Log retention policy meets your compliance requirements</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">30</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret exposure events trigger a documented incident response workflow</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">31</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit reviews are scheduled — not only performed after incidents</div><span class="cl-sev sev-m">Medium</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">32</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Governance debt is tracked and reviewed quarterly by engineering leadership</div><span class="cl-sev sev-h">High</span></div>
   </div>
 
   <footer>
     <div class="footer-logo">Codo<span>key</span></div>
-    <div class="footer-meta">AI Code Governance Checklist · Codokey v1.0 · 32 Checks</div>
+    <div class="footer-meta">Governance Scorecard · Codokey v1.0 · 32 Checks</div>
     <div class="footer-tag">Audit Tool</div>
   </footer>
 </section>
 
 <script>
-// Cursor
-const cur = document.getElementById('cur');
-const curR = document.getElementById('curR');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
-  setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 70);
-});
+// Cursor — desktop only
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+if(window.matchMedia('(pointer:fine)').matches){
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+    setTimeout(()=>{curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px';},70);
+  });
+}
 
 // Nav
-function show(id) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+function show(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById('tab-' + id).classList.add('active');
-  window.scrollTo(0, 0);
+  document.getElementById('tab-'+id).classList.add('active');
+  window.scrollTo(0,0);
 }
 
-// Checklist
-const total = 32;
-const grpTotals = [4, 6, 6, 5, 5, 6];
-let done = 0;
-const grpDone = [0, 0, 0, 0, 0, 0];
+// Checklist + Scorecard
+const TOTAL=32;
+const grpTotals=[4,6,6,5,5,6];
+let done=0;
+const grpDone=[0,0,0,0,0,0];
 
-function tick(line, grpIdx) {
-  const box = line.querySelector('.cl-checkbox');
-  const checked = box.classList.toggle('ticked');
-  line.classList.toggle('done', checked);
-  done += checked ? 1 : -1;
-  grpDone[grpIdx] += checked ? 1 : -1;
+const grades=[
+  {min:0,  max:39,  grade:'C', cls:'grade-c', title:'Ungoverned AI Code Access',    sub:'Significant governance gaps. Agent sessions are creating untracked risk.',        gap:'Key Exposure — critical checks unresolved', next:'Exclude .env and production credentials from agent read scope'},
+  {min:40, max:69,  grade:'B', cls:'grade-b', title:'Partially Governed',            sub:'Core controls in place. Several high-risk gaps remain open.',                    gap:'Agent Authority — scope and permission definitions incomplete', next:'Document explicit scope for each agent class in your policy'},
+  {min:70, max:84,  grade:'A', cls:'grade-a', title:'Controlled With Gaps',          sub:'Strong governance posture. Minor gaps require attention before scaling agents.', gap:'Audit Memory — logging and retention not fully configured', next:'Ensure immutable audit logs cover all agent sessions'},
+  {min:85, max:100, grade:'A+',cls:'grade-ap',title:'Codokey Ready',                 sub:'Full governance posture achieved. Agents can operate with confidence at speed.', gap:'None — all critical checks resolved', next:'Schedule quarterly governance debt review and re-audit'},
+];
 
-  // Update group count
-  document.getElementById('grp' + grpIdx).textContent = grpDone[grpIdx] + '/' + grpTotals[grpIdx];
+function updateScorecard(){
+  const pct=Math.round(done/TOTAL*100);
+  document.getElementById('pFill').style.width=pct+'%';
+  document.getElementById('pCount').textContent=done+' / '+TOTAL;
+  document.getElementById('pPct').textContent=pct+'%';
+  document.getElementById('doneCount').textContent='+'+done+' resolved';
+  document.getElementById('remainCount').textContent='−'+(TOTAL-done)+' pending';
 
-  // Update progress
-  const pct = Math.round(done / total * 100);
-  document.getElementById('pFill').style.width = pct + '%';
-  document.getElementById('pCount').textContent = done + ' / ' + total;
-  document.getElementById('pPct').textContent = pct + '%';
-  document.getElementById('doneCount').textContent = '+' + done + ' resolved';
-  document.getElementById('remainCount').textContent = '−' + (total - done) + ' pending';
+  const sc=document.getElementById('scorecardOut');
+  sc.classList.add('visible');
+
+  const g=grades.find(x=>pct>=x.min&&pct<=x.max)||grades[0];
+  const gradeEl=document.getElementById('scGrade');
+  gradeEl.textContent=g.grade;
+  gradeEl.className='sc-grade '+g.cls;
+  document.getElementById('scTitle').textContent=g.title;
+  document.getElementById('scSub').textContent=g.sub;
+  document.getElementById('scGap').textContent=g.gap;
+  document.getElementById('scNext').textContent=g.next;
+  document.getElementById('scPct').textContent=pct+'%';
 }
 
-// Keyboard
-document.addEventListener('keydown', e => {
-  const m = {'1':'home','2':'protocol','3':'secrets','4':'agents','5':'checklist'};
-  if (m[e.key]) show(m[e.key]);
+function tick(line,gi){
+  const box=line.querySelector('.cl-box');
+  const checked=box.classList.toggle('ticked');
+  line.classList.toggle('done',checked);
+  done+=checked?1:-1;
+  grpDone[gi]+=checked?1:-1;
+  document.getElementById('g'+gi).textContent=grpDone[gi]+'/'+grpTotals[gi];
+  updateScorecard();
+}
+
+// Keyboard nav
+document.addEventListener('keydown',e=>{
+  const m={'1':'home','2':'charter','3':'protocol','4':'secrets','5':'agents','6':'checklist'};
+  if(m[e.key])show(m[e.key]);
 });
 </script>
 </body>
