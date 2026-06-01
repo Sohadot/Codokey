@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost of Inaction — Governance Debt in Ungoverned AI Code Access</title>
+<meta name="description" content="Every unscoped AI agent session creates governance debt. Governed vs ungoverned AI development explained through the Codokey reference model and diff-style analysis.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/cost-of-inaction/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/cost-of-inaction/">
+<meta property="og:title" content="Cost of Inaction — Governance Debt">
+<meta property="og:description" content="Ungoverned AI code access compounds governance debt. See the governed vs ungoverned development diff.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cost of Inaction — Codokey">
+<meta name="twitter:description" content="Governance debt compounds with every unscoped AI agent session.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">cost-of-inaction.diff</span><span class="file-lang">GOVERNANCE DEBT</span></div>
+    <div class="file-stats"><span class="stat-a">+5 governed paths</span><span class="stat-r">−5 ungoverned paths</span></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="charter-label">Governance Debt</div>
+    <div class="charter-heading">Every unscoped agent session is governance debt.</div>
+    <div class="content-body">
+      <p><strong>Governance debt</strong> is the accumulated risk created when AI-assisted code changes occur without defined access boundaries. Unlike technical debt, governance debt is often invisible until an incident forces retrospective investigation — and by then, audit memory may be insufficient to reconstruct what was exposed.</p>
+      <p>Each unscoped session adds to the debt: undefined <a href="/agent-permissions/">agent authority surface</a>, unbounded <a href="/secrets-boundary/">secrets boundary</a>, missing review gates, and absent <a href="/protocol/">audit memory</a>. The <a href="/charter/">Codokey Charter</a> Principle 04 states that this debt compounds — the longer agentic development scales without a code-access model, the harder recovery becomes.</p>
+    </div>
+  </div>
+
+  <div class="cost-section">
+    <div class="cost-header">
+      <div class="cost-label">Ungoverned vs Governed</div>
+      <div class="cost-title">The diff between undefined authority and defined boundaries.</div>
+    </div>
+    <div class="diff-block">
+      <div class="diff-line line-hunk">
+        <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+        <div class="diff-content">@@ without Codokey Protocol — ungoverned agentic development @@</div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>1</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">AI agent reads repository <span class="t-cm">// scope: undefined — entire org accessible</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>2</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">.env file visible during agent session <span class="t-cm">// production credentials in read context</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>3</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">PR opened without AI-authorship label <span class="t-cm">// reviewer cannot assess origin risk</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>4</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">Deployment workflow modified without human gate <span class="t-cm">// autonomy without authority boundary</span></div>
+      </div>
+      <div class="diff-line line-remove">
+        <div class="diff-gutter"><span>5</span><span></span></div><div class="diff-marker">−</div>
+        <div class="diff-content">Audit log cannot reconstruct agent access path <span class="t-cm">// non-traceable breach</span></div>
+      </div>
+      <div class="diff-line line-hunk">
+        <div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div>
+        <div class="diff-content">@@ with Codokey Protocol — governed agentic development @@</div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Codokey defines access scope before agent execution <span class="t-cm">// minimum-privilege by default</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Secrets boundary excludes .env from agent read context <span class="t-cm">// pre-session governance</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Human review lock enforced before AI-generated merge <span class="t-cm">// review boundary defined</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Deployment authority is gated — autonomy ≠ ungoverned <span class="t-cm">// speed preserved safely</span></div>
+      </div>
+      <div class="diff-line line-add">
+        <div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div>
+        <div class="diff-content">Audit memory remains traceable — breach is reconstructable <span class="t-cm">// accountability layer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="content-section">
+      <div class="charter-label">Compounding Risk</div>
+      <div class="charter-heading">Why governance debt is not linear.</div>
+      <div class="content-body">
+        <p>Each ungoverned session does not merely add one unit of risk. It creates dependencies: reviewers who cannot distinguish AI authorship, pipelines that cannot gate on secret exposure, and audit trails that cannot answer basic accountability questions.</p>
+        <p>Organizations that defer boundary definition pay twice — once in velocity lost to incident response, and again in the cost of retroactive governance reconstruction. The governed organization avoids both by defining the <strong>code-key boundary</strong> before scaling agent autonomy.</p>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="charter-label">Measure Your Posture</div>
+      <div class="charter-heading">From analysis to assessment.</div>
+      <div class="content-body">
+        <p>Use the <a href="/governance-scorecard/">Governance Scorecard</a> to assess your current alignment with the <a href="/protocol/">Codokey Protocol</a>. Thirty-two checks across six layers provide a reference-grade self-assessment — not a certification, but a structured starting point for defining repository trust boundaries.</p>
+        <p style="margin-top:24px;"><a class="btn-p" href="/governance-scorecard/">→ Run Scorecard</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Cost of Inaction · Governance Debt Analysis · v1.0</div>
+    <div class="footer-tag">Risk Analysis</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/cost-of-inaction/" class="active">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

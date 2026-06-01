@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secrets Boundary — Code-Key Boundary Reference for AI Code Access Governance</title>
+<meta name="description" content="Eight secret classes defined for the Codokey secrets boundary: API keys, tokens, SSH keys, signing keys, environment variables, cloud credentials, database credentials, and Git tokens.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/secrets-boundary/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/secrets-boundary/">
+<meta property="og:title" content="Secrets Boundary — Codokey Security Reference">
+<meta property="og:description" content="Define the code-key boundary between AI agents and eight critical secret classes.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Secrets Boundary — Codokey Reference">
+<meta name="twitter:description" content="Eight secret classes for AI Code Access Governance: API keys, tokens, SSH, signing keys, env vars, cloud, database, Git.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab active" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / security /</span><span class="file-name">secrets-boundary.diff</span><span class="file-lang">CRITICAL REFERENCE</span></div>
+    <div class="file-stats"><span class="stat-a">+8 categories defined</span><span class="stat-r">−8 assumptions removed</span></div>
+  </div>
+
+  <div class="content-wrap" style="padding-bottom:0;">
+    <div class="content-body" style="margin-bottom:24px;">
+      <p>The <strong>secrets boundary</strong> is Layer 02 of the <a href="/protocol/">Codokey Protocol</a>. It defines the code-key boundary: which credential classes must never enter an AI agent's read context, and which repository trust boundaries must exclude them by default.</p>
+    </div>
+  </div>
+
+  <div class="diff-block">
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: API_KEY — severity: CRITICAL — exposure vector: hardcoded config, test fixtures @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">APIKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">"X-API-KEY | Authorization: Bearer"</span><span class="t-op">,</span> <span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"full service authority if leaked"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: ACCESS_TOKEN — severity: CRITICAL — live attack surface during validity window @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">AccessToken</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">variants</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"OAuth"</span><span class="t-op">,</span><span class="t-str">"JWT"</span><span class="t-op">,</span><span class="t-str">"Bearer"</span><span class="t-op">,</span><span class="t-str">"Session"</span><span class="t-op">],</span> <span class="t-key">agentVector</span><span class="t-op">:</span> <span class="t-str">"open files in IDE agent sessions"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: SSH_KEY — severity: CRITICAL — persistent access until key pair rotated @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">SSHKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">location</span><span class="t-op">:</span> <span class="t-str">"~/.ssh/id_rsa | ed25519"</span><span class="t-op">,</span> <span class="t-key">agentVector</span><span class="t-op">:</span> <span class="t-str">"broad filesystem scope exposes key directories"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: SIGNING_KEY — severity: CRITICAL — supply chain attack vector @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">SigningKey</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">types</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"GPG"</span><span class="t-op">,</span><span class="t-str">"CodeSigning"</span><span class="t-op">,</span><span class="t-str">"TLS"</span><span class="t-op">],</span> <span class="t-key">risk</span><span class="t-op">:</span> <span class="t-str">"attacker can produce artifacts appearing legitimate"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: ENV_VARIABLE — severity: HIGH — most common developer oversight @@</div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>5</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// "the agent won't read .env files" — this assumption is the gap</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">EnvVariable</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">".env | process.env"</span><span class="t-op">,</span> <span class="t-key">governance</span><span class="t-op">:</span> <span class="t-str">"MUST be excluded from agent read scope. Always."</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: CLOUD_CREDENTIAL — severity: HIGH — entire infrastructure exposure @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>6</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">CloudCredential</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">providers</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"AWS_ACCESS_KEY"</span><span class="t-op">,</span><span class="t-str">"GCP_KEY"</span><span class="t-op">,</span><span class="t-str">"AZURE_CLIENT"</span><span class="t-op">],</span> <span class="t-key">agentNote</span><span class="t-op">:</span> <span class="t-str">"~/.aws/credentials within broad-scope agent filesystem"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: DATABASE_CREDENTIAL — severity: HIGH — bulk data exfiltration risk @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>7</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">DatabaseCredential</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">pattern</span><span class="t-op">:</span> <span class="t-str">"DB_USER | DB_PASS | CONNECTION_STRING"</span><span class="t-op">,</span> <span class="t-key">foundIn</span><span class="t-op">:</span> <span class="t-str">"ORM config, migration scripts, legacy strings"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ class: GIT_TOKEN — severity: HIGH — repository access, CI/CD triggers, deployment keys @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>8</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-key">type</span> <span class="t-fn">GitToken</span> <span class="t-op">=</span> <span class="t-op">{</span> <span class="t-key">variants</span><span class="t-op">:</span> <span class="t-op">[</span><span class="t-str">"GITHUB_TOKEN"</span><span class="t-op">,</span><span class="t-str">"GH_PAT"</span><span class="t-op">,</span><span class="t-str">"Deploy Keys"</span><span class="t-op">],</span> <span class="t-key">note</span><span class="t-op">:</span> <span class="t-str">"broad-scope PATs are high-value targets for supply-chain attacks"</span> <span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ GOVERNANCE RULE — applies to all secret classes without exception @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>9</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-kw">const</span> <span class="t-key">rule</span> <span class="t-op">=</span> <span class="t-str">"Secret scanning, scope restrictions, and audit logging must be in place BEFORE agent sessions begin."</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>10</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-cm">// Governance cannot be retroactive. Define the boundary before the agent enters the codebase.</span></div></div>
+  </div>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Related Reference</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/">Protocol Layer 02: Key Exposure</a>
+      <a href="/agent-permissions/">Agent Permission Boundaries</a>
+      <a href="/governance-scorecard/">Scorecard: key-exposure.sh checks</a>
+      <a href="/charter/">Charter Principle 02: Secrets are not code</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Secrets Boundary · Codokey Security Reference · v1.0</div>
+    <div class="footer-tag">Security Layer</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/" class="active">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

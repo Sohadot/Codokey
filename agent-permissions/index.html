@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Permissions — AI Agent Authority Surface Reference Model</title>
+<meta name="description" content="Five agent classes and forbidden zones for AI agent permissions: suggestion, code review, task, MCP-connected, and autonomous agents. Production authority boundaries defined.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/agent-permissions/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/agent-permissions/">
+<meta property="og:title" content="Agent Permissions — Codokey Reference Model">
+<meta property="og:description" content="Define the agent authority surface: five agent classes, forbidden zones, and production authority boundaries.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Agent Permissions — Codokey Reference">
+<meta name="twitter:description" content="Five AI agent classes and forbidden zones for AI Code Access Governance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab active" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / governance /</span><span class="file-name">agent-permissions.json</span><span class="file-lang">PERMISSION ARCHITECTURE</span></div>
+    <div class="file-stats"><span class="stat-a">+5 agent classes</span><span class="stat-r">−0 undefined authority</span></div>
+  </div>
+
+  <div class="content-wrap" style="padding-bottom:0;">
+    <div class="content-body" style="margin-bottom:24px;">
+      <p>The <strong>agent authority surface</strong> is Layer 03 of the <a href="/protocol/">Codokey Protocol</a>. Every agent class must have explicitly documented scope before execution. Undefined authority is a security gap — not a feature. See also the <a href="/secrets-boundary/">secrets boundary</a> for credential isolation rules.</p>
+    </div>
+  </div>
+
+  <div class="diff-block">
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: SUGGESTION — inline autocomplete (read-only, restricted to open file context) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>1</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"suggestion_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span> <span class="t-cm">// lowest risk — restricted to open file only</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: CODE_REVIEW — PR analysis, comment generation (read + limited annotate) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>2</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"code_review_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"comments_only"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: TASK_AGENT — issue→branch→PR (Claude Code, Copilot Agent class) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>3</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"task_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>4</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// FORBIDDEN: organization-wide repo access for a single-repository task</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: MCP_CONNECTED — external tool access (GitHub MCP, filesystem, browser) @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>4</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"mcp_connected_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-str">"scoped_vault_only"</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-val">false</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-context"><div class="diff-gutter"><span>5</span><span>5</span></div><div class="diff-marker"></div><div class="diff-content"><span class="t-cm">// MCP server allow-list must be explicitly defined — no open-ended external access permitted</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ agent_class: AUTONOMOUS — full pipeline agents, deployment-adjacent @@</div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>5</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-op">{</span><span class="t-key">"class"</span><span class="t-op">:</span><span class="t-str">"autonomous_agent"</span><span class="t-op">,</span><span class="t-key">"read_repo"</span><span class="t-op">:</span><span class="t-val">true</span><span class="t-op">,</span><span class="t-key">"write_pr"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"access_secrets"</span><span class="t-op">:</span><span class="t-str">"human_review_required"</span><span class="t-op">,</span><span class="t-key">"deploy"</span><span class="t-op">:</span><span class="t-str">"human_gate_mandatory"</span><span class="t-op">}</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>6</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-cm">// NEVER: autonomous agent with unsupervised production deployment authority</span></div></div>
+    <div class="diff-line line-add"><div class="diff-gutter"><span></span><span>6</span></div><div class="diff-marker">+</div><div class="diff-content"><span class="t-cm">// Autonomous ≠ Ungoverned. Governance is the permission structure that lets agents move faster safely.</span></div></div>
+    <div class="diff-line line-hunk"><div class="diff-gutter"><span>@@</span><span></span></div><div class="diff-marker"></div><div class="diff-content">@@ FORBIDDEN_ZONES — no agent class, no exception, no override @@</div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>7</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"production_secrets_accessible_to_agent"</span><span class="t-op">:</span> <span class="t-val">true</span>  <span class="t-cm">// FORBIDDEN — no exception</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>8</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"org_wide_scope_for_single_repo_task"</span><span class="t-op">:</span> <span class="t-val">true</span>    <span class="t-cm">// FORBIDDEN — minimum privilege always</span></div></div>
+    <div class="diff-line line-remove"><div class="diff-gutter"><span>9</span><span></span></div><div class="diff-marker">−</div><div class="diff-content"><span class="t-key">"unsupervised_production_deployment"</span><span class="t-op">:</span> <span class="t-val">true</span>      <span class="t-cm">// FORBIDDEN — human gate mandatory</span></div></div>
+  </div>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Related Reference</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/">Protocol Layer 03: Agent Authority</a>
+      <a href="/secrets-boundary/">Secrets Boundary</a>
+      <a href="/governance-scorecard/">Scorecard: agent-authority.sh checks</a>
+      <a href="/charter/">Charter Principle 03: Autonomy requires authority definition</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Agent Permissions · Codokey Reference · Vendor-Agnostic</div>
+    <div class="footer-tag">Permission Layer</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/" class="active">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

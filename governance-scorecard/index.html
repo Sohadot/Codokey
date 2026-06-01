@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Governance Scorecard — 32-Check AI Code Access Self-Assessment</title>
+<meta name="description" content="Static self-assessment scorecard with 32 governance checks across six protocol layers. Grades from C (Ungoverned) to A+ (Codokey Ready). Reference model, not formal certification.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/governance-scorecard/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codokey.com/governance-scorecard/">
+<meta property="og:title" content="Governance Scorecard — Codokey Self-Assessment">
+<meta property="og:description" content="32 checks across six protocol layers. Assess your AI Code Access Governance posture.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Governance Scorecard — Codokey">
+<meta name="twitter:description" content="32-check self-assessment for AI Code Access Governance. Reference model, not certification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab active" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / audit /</span><span class="file-name">governance-scorecard.sh</span><span class="file-lang">32 CHECKS</span></div>
+    <div class="file-stats"><span class="stat-a" id="doneCount">+0 resolved</span><span class="stat-r" id="remainCount">−32 pending</span></div>
+  </div>
+
+  <div class="scorecard-disclaimer">
+    <strong>Reference self-assessment only.</strong> This scorecard is a static governance reference model aligned with the <a href="/protocol/" style="color:var(--acid)">Codokey Protocol v1.0</a>. It is not a formal certification, audit, or security assessment. Grades indicate alignment with the reference model — not compliance with any regulatory standard.
+  </div>
+
+  <div class="diff-summary-bar">
+    <span class="dsb-label">Governance completion</span>
+    <div class="dsb-bar"><div class="dsb-fill" id="pFill" style="width:0%"></div></div>
+    <span class="dsb-count" id="pCount">0 / 32</span>
+    <span style="color:var(--comment)" id="pPct">0%</span>
+    <span style="margin-left:auto;color:var(--comment);font-size:10px;">Click any line to check · Score updates automatically</span>
+  </div>
+
+  <div class="scorecard-output" id="scorecardOut">
+    <div class="sc-bar">
+      <div class="sc-grade" id="scGrade">C</div>
+      <div class="sc-info">
+        <div class="sc-title" id="scTitle">Ungoverned AI Code Access</div>
+        <div class="sc-subtitle" id="scSub">Complete more checks to improve your governance score.</div>
+      </div>
+      <div class="sc-pct" id="scPct">0%</div>
+    </div>
+    <div class="sc-details">
+      <div class="sc-detail"><span class="sd-label">Primary gap:</span><span class="sd-val" id="scGap">Key Exposure — 6 critical checks unresolved</span></div>
+      <div class="sc-detail"><span class="sd-label">Next action:</span><span class="sd-val" id="scNext">Exclude .env and production credentials from agent read scope</span></div>
+      <div class="sc-detail"><span class="sd-label">Reference:</span><span class="sd-val"><a href="/protocol/" style="color:var(--fg2)">Codokey Protocol v1.0</a> · Layer 02: Key Exposure</span></div>
+    </div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--cyan)">◈</span><span class="cl-fg-name">01 — code-origin.sh</span><span style="color:var(--comment)">Provenance &amp; authorship controls</span><span class="cl-fg-count" id="g0">0/4</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">1</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI-generated code is labeled or tagged in commits and PRs</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">2</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review is explicitly required for all AI-generated merges</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">3</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI authorship is documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
+    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">4</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Mixed human/AI code is distinguishable in the diff history</div><span class="cl-sev sev-h">High</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--removed-bar)">◈</span><span class="cl-fg-name">02 — key-exposure.sh</span><span style="color:var(--comment)">Secrets &amp; credential boundary</span><span class="cl-fg-count" id="g1">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">5</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret scanning is enabled on all active repositories</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">6</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Pre-commit hooks block secrets from entering the codebase</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">7</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Environment files (.env) are excluded from AI agent read scope</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">8</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Hardcoded credentials audit performed in the last 90 days</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">9</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">API key rotation policy is documented and enforced</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">10</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production .env files are in a separate, agent-inaccessible vault</div><span class="cl-sev sev-c">Critical</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--purple)">◈</span><span class="cl-fg-name">03 — agent-authority.sh</span><span style="color:var(--comment)">Agent scope &amp; permission controls</span><span class="cl-fg-count" id="g2">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">11</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Each agent has a documented scope: repository, branch, action type</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">12</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agents operate with minimum-privilege repository access</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">13</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">MCP server connections are inventoried and reviewed</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">14</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agent token scopes are reviewed and restricted quarterly</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">15</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Organization-wide agent access is disabled by default</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">16</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Forbidden access zones are defined in writing and enforced technically</div><span class="cl-sev sev-c">Critical</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--yellow)">◈</span><span class="cl-fg-name">04 — review-boundary.sh</span><span style="color:var(--comment)">Human gate &amp; merge controls</span><span class="cl-fg-count" id="g3">0/5</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">17</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Branch protection rules require review before merge for AI PRs</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">18</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Code touching secrets paths triggers mandatory security review</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">19</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Reviewers are trained to identify AI-generated code patterns</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">20</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Review bypass is technically prevented — not just policy-prohibited</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">21</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review gates are documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--added-bar)">◈</span><span class="cl-fg-name">05 — deployment-control.sh</span><span style="color:var(--comment)">Production authority &amp; pipeline gates</span><span class="cl-fg-count" id="g4">0/5</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">22</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">No agent has direct production deployment authority without human gate</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">23</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production credentials are separated from development environments</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">24</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">CI/CD pipeline includes secret scanning as a blocking step</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">25</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Deployment rollback procedures are tested and documented</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">26</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Infrastructure-as-code changes require separate review from application code</div><span class="cl-sev sev-h">High</span></div>
+  </div>
+
+  <div class="cl-file-group">
+    <div class="cl-fg-header"><span style="color:var(--acid)">◈</span><span class="cl-fg-name">06 — audit-memory.sh</span><span style="color:var(--comment)">Logging, traceability &amp; accountability</span><span class="cl-fg-count" id="g5">0/6</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">27</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI agent actions are logged with identity, timestamp, and scope</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">28</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit logs are immutable and protected from agent modification</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">29</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Log retention policy meets your compliance requirements</div><span class="cl-sev sev-h">High</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">30</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret exposure events trigger a documented incident response workflow</div><span class="cl-sev sev-c">Critical</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">31</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit reviews are scheduled — not only performed after incidents</div><span class="cl-sev sev-m">Medium</span></div>
+    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">32</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Governance debt is tracked and reviewed quarterly by engineering leadership</div><span class="cl-sev sev-h">High</span></div>
+  </div>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Grade Reference</div>
+    <div class="internal-links-grid">
+      <span style="color:var(--removed-bar)">C — Ungoverned AI Code Access (0–39%)</span>
+      <span style="color:var(--yellow)">B — Partially Governed (40–69%)</span>
+      <span style="color:var(--added-bar)">A — Controlled With Gaps (70–84%)</span>
+      <span style="color:var(--acid)">A+ — Codokey Ready (85–100%)</span>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Governance Scorecard · Codokey v1.0 · 32 Checks · Self-Assessment Reference</div>
+    <div class="footer-tag">Audit Tool</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/" class="active">Scorecard</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/scorecard.js"></script>
+</body>
+</html>

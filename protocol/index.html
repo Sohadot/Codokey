@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codokey Protocol v1.0 — Six-Layer AI Code Access Governance Model</title>
+<meta name="description" content="The Codokey Protocol v1.0 defines six governance layers: Code Origin, Key Exposure, Agent Authority, Review Boundary, Deployment Control, and Audit Memory.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/protocol/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/protocol/">
+<meta property="og:title" content="Codokey Protocol v1.0 — Six-Layer Governance Model">
+<meta property="og:description" content="Vendor-agnostic reference model for AI Code Access Governance across six protocol layers.">
+<meta property="og:site_name" content="Codokey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Codokey Protocol v1.0">
+<meta name="twitter:description" content="Six layers of AI Code Access Governance: origin, secrets, agents, review, deployment, audit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab active" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+</nav>
+
+<main>
+  <div class="file-header">
+    <div class="file-path"><span>codokey / docs /</span><span class="file-name">protocol.md</span><span class="file-lang">REFERENCE MODEL v1.0</span></div>
+    <div class="file-stats"><span class="stat-a">+6 layers</span><span class="stat-r">−0 ambiguity</span></div>
+  </div>
+
+  <div class="proto-header">
+    <div><div class="eyebrow">The Codokey Protocol</div><h2>Six layers.<br><em>Zero ambiguity.</em></h2></div>
+    <div class="proto-desc">When AI can write, modify, and deploy code — the most valuable layer is no longer the code alone. It is the key that governs what the code can access, expose, change, and release.<br><br>The Codokey Protocol is a vendor-agnostic reference model for AI Code Access Governance. It applies today to Copilot, Cursor, Claude Code, and any agent that will exist tomorrow. Grounded in the <a href="/charter/" style="color:var(--acid)">Codokey Charter</a>.</div>
+  </div>
+
+  <div class="proto-layers">
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--cyan)"></div><div class="layer-num">01</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Code Origin</div><span class="layer-tag tag-prov">Provenance Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Who authored this code? Human, AI, or hybrid authorship each carries a different governance weight. The answer determines the review obligation before merge.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Was this written by a human, an AI agent, or a hybrid workflow?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is AI authorship documented in the commit or PR metadata?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Does policy require human review for AI-generated code?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--removed-bar)"></div><div class="layer-num">02</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Key Exposure</div><span class="layer-tag tag-sec">Secrets Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Does this code touch secrets, tokens, credentials, or signing keys? Every path to a secret is a governance decision. See the <a href="/secrets-boundary/" style="color:var(--acid)">secrets boundary</a> reference for eight secret classes.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Does the code read or reference environment variables?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are API keys, access tokens, or SSH keys in scope?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Could the AI agent see secrets during its session?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--purple)"></div><div class="layer-num">03</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Agent Authority</div><span class="layer-tag tag-perm">Permission Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">What is the AI agent permitted to read, change, or execute? Undefined authority is a security gap. See <a href="/agent-permissions/" style="color:var(--acid)">agent permissions</a> for five agent classes and forbidden zones.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>What repository scope does the agent have?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can the agent push to branches or create PRs?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is the agent connected to external systems via MCP?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--yellow)"></div><div class="layer-num">04</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Review Boundary</div><span class="layer-tag tag-gate">Human Gate Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Where must a human intervene before code proceeds? Without explicit gates, AI agents create invisible paths from generation to merge. The review boundary is the minimum accountability structure.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Is human review required before merging AI-generated PRs?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is there a mandatory review step for code touching secrets?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are review requirements documented in governance policy?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--added-bar)"></div><div class="layer-num">05</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Deployment Control</div><span class="layer-tag tag-auth">Authority Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Can this code reach production? Who holds the deployment key, and under what conditions? Automation and autonomy are different things. No agent deploys to production without a human authorization gate.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Is automated deployment gated by secret scanning?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can an AI-generated change deploy without human approval?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Are production credentials separated from development environments?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layer-row">
+      <div class="layer-num-col"><div class="layer-bar" style="background:var(--acid)"></div><div class="layer-num">06</div></div>
+      <div class="layer-content">
+        <div class="layer-left"><div class="layer-name">Audit Memory</div><span class="layer-tag tag-log">Accountability Layer</span></div>
+        <div class="layer-right">
+          <div class="layer-desc">Can you reconstruct what happened, who authorized it, and what was exposed? Audit trails are governance proof. A breach without audit memory is a non-traceable breach — the worst outcome for organizational accountability.</div>
+          <div class="layer-qs">
+            <div class="layer-q"><span class="qa">→</span><span>Are AI agent actions logged with timestamps and scope?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Can you trace which agent accessed which repository and when?</span></div>
+            <div class="layer-q"><span class="qa">→</span><span>Is there a record of what secrets were in scope during agent sessions?</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Apply the Protocol</div>
+    <div class="internal-links-grid">
+      <a href="/governance-scorecard/">Run the 32-check Governance Scorecard</a>
+      <a href="/secrets-boundary/">Secrets Boundary Reference</a>
+      <a href="/agent-permissions/">Agent Permission Architecture</a>
+      <a href="/cost-of-inaction/">Cost of Ungoverned Development</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">The Codokey Protocol · v1.0 · Vendor-Agnostic Reference Model</div>
+    <div class="footer-tag">Reference Model</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/" class="active">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
