@@ -8,7 +8,8 @@ Machine-readable source: `reference/versions.json`. Tests fail if the model, reg
 | Codokey Protocol | 1.1 | 2026-11-12 | Adds six layer specifications; layers unchanged from 1.0 |
 | Governance Scorecard model | 2.0.0 | 2026-11-12 | Breaking change in grade interpretation — see `SCORING.md` §7 |
 | Evidence Register | 1.0.0 | verified 2026-11-12 | `reference/evidence-register.json` |
-| Reference Cases / validator | 1.0.0 / 1.0.0 | 2026-11-12 | `cases/`, `tools/codokey-check.mjs` |
+| Reference Cases / validator | 1.0.0 / 1.1.0 | 2026-11-12 | `cases/`, `tools/codokey-check.mjs`; validator 1.1.0 hardens Cases B–D (see `docs/PR2_HARDENING.md`) |
+| Scorecard export schema | 2.0.0 | 2026-11-12 | `reference/schemas/scorecard-assessment-2.0.0.schema.json` (generated; versioned with the model) |
 | Reference Kit | 1.0.0 | 2026-11-12 | `kit/` |
 | Review package | 1.0.0 | 2026-11-12 | `review/` |
 | Charter | 1.0 | 2026-06-01 | |

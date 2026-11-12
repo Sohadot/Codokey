@@ -126,7 +126,7 @@ Architectural and strategic decisions for the Codokey repository.
 
 ## Pending Decisions
 
-- Reuse license for Reference Kit, cases and control catalog (see `IP_AND_PROVENANCE.md`).
+- Reuse license for Reference Kit, cases and control catalog — proposal in `LICENSING_PROPOSAL.md` (not operative; owner decision pending).
 - Whether and whom to invite for external review (see `review/`).
 
 ---

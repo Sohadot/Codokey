@@ -37,7 +37,7 @@ Authored in this repository; history in Git.
 - reference kit, control catalog and cases under an open content/code license (enables adoption and citation);
 - brand, name, domain and site design reserved.
 
-Until a decision is made, the kit states that redistribution requires contacting inquiry@codokey.com.
+Until a decision is made, the kit states that redistribution requires contacting inquiry@codokey.com. A file-level proposal (CC BY 4.0 / Apache 2.0 / reserved) is in `LICENSING_PROPOSAL.md`; it is **not operative** and grants no rights.
 
 ## 5. Provenance facts
 
