@@ -1,8 +1,8 @@
 # Codokey Protocol
 
 **Document:** Codokey Protocol  
-**Version:** 1.0  
-**Date:** 2026-06-01  
+**Version:** 1.1  
+**Date:** 2026-11-12 (v1.0: 2026-06-01)  
 **Status:** Reference Model  
 **Category:** AI Code Access Governance
 
@@ -106,14 +106,27 @@ No agent class, no exception, no override:
 
 ## Scorecard Alignment
 
-The Governance Scorecard maps 32 checks across these six layers:
-- 01 code-origin.sh — 4 checks
-- 02 key-exposure.sh — 6 checks
-- 03 agent-authority.sh — 6 checks
-- 04 review-boundary.sh — 5 checks
-- 05 deployment-control.sh — 5 checks
-- 06 audit-memory.sh — 6 checks
+The Governance Scorecard (model 2.0.0, see `SCORING.md`) maps 32 controls across these six layers:
+- 01 code-origin.sh — 4 controls (CK-OR-01…04)
+- 02 key-exposure.sh — 6 controls (CK-KE-01…06)
+- 03 agent-authority.sh — 6 controls (CK-AA-01…06)
+- 04 review-boundary.sh — 5 controls (CK-RB-01…05)
+- 05 deployment-control.sh — 5 controls (CK-DC-01…05)
+- 06 audit-memory.sh — 6 controls (CK-AM-01…06)
 
-Grades: C (Ungoverned) · B (Partially Governed) · A (Controlled With Gaps) · A+ (Codokey Ready)
+Forbidden-zone controls: CK-KE-06 and CK-DC-02 (FZ-1), CK-AA-05 (FZ-2), CK-DC-01 (FZ-3). A failure in any of them caps the grade at C.
+
+Grades: C (Ungoverned) · B (Partially Governed) · A (Controlled With Gaps) · A+ (Codokey Aligned — every control implemented). Results with unassessed controls are reported as provisional ranges, not grades.
 
 Self-assessment reference model — not formal certification.
+
+---
+
+## Layer Specifications (added in v1.1)
+
+Each layer has a reference specification at `https://codokey.com/protocol/<layer>/` (generated from `tools/content/layers.mjs` and the scorecard model): objective, governed boundary, failure scenarios, applicable agent capabilities, platform-neutral principles, required controls and acceptable evidence, labelled implementation examples, limitations, remediation and evidence-register references.
+
+## Changes in v1.1
+
+- Added the six layer specifications above. The six layers, their names, the forbidden zones and the governance questions are unchanged.
+- Scorecard alignment updated to model 2.0.0 (gates instead of percentages; "Codokey Ready" renamed "Codokey Aligned").

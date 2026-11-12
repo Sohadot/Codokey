@@ -70,7 +70,7 @@ Each page follows the governance console pattern:
 | agent authority surface | Total scope of what an agent can read, write, execute |
 | secrets boundary | Defined exclusion zone for credential classes |
 | governance debt | Accumulated risk from ungoverned agent sessions |
-| audit memory | Immutable record of agent actions and scope |
+| audit memory | Tamper-protected, session-correlated record of agent actions and scope |
 | production authority | Human-gated path from code to deployment |
 
 ## Scorecard Disclaimer
@@ -78,6 +78,12 @@ Each page follows the governance console pattern:
 Every scorecard reference must include:
 
 > Reference self-assessment only. Not a formal certification, audit, or security assessment.
+
+"Implemented" in the scorecard means self-attested with evidence available — never "verified".
+
+## Claims Standard
+
+Every factual statement is one of: (1) supported by a cited external source, (2) Codokey synthesis of cited sources, (3) Codokey doctrine, labelled as such, or (4) unverified — which is not published as fact. See `reference/evidence-register.json`.
 
 ## Review Checklist
 

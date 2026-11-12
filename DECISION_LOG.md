@@ -4,6 +4,27 @@ Architectural and strategic decisions for the Codokey repository.
 
 ---
 
+## 2026-11-12 — Evidence, Trust & Adoption Sprint (site 2.0)
+
+**Decision:** Shift Codokey's credibility from self-declared authority to inspectable substance. Baseline findings in `docs/BASELINE_AUDIT.md`.
+
+**Changes:**
+- Scorecard model 2.0.0: three states, critical/forbidden-zone gates, floor/ceiling handling of unknowns, dynamic gap list, keyboard-accessible form, local-only JSON export (`SCORING.md`).
+- Evidence Register 1.0.0 with verified passages and claim classes; online re-verification tool.
+- Protocol 1.1: six layer specifications generated from structured content and the scorecard model.
+- Reference Cases A–D with a zero-dependency validator and pinned expected outcomes.
+- Reference Kit 1.0.0 and review package (no review has occurred).
+- Fixed hidden top navigation, invalid social image, sitemap/noindex contradiction, hidden system cursor, inconsistent version labels, mobile overflow.
+- Removed or reclassified unsupported claims (canonical/category-defining status, pseudo-scan output, briefs-as-evidence, first-mover).
+
+**Architecture:** Still static, still no runtime dependencies. Added `tools/build.mjs` as a maintenance generator; generated files are committed and `--check` guards drift. Rejected: a static-site framework (new dependency), a backend for the scorecard (no requirement; privacy is better served locally).
+
+**Breaking:** Scorecard grades from v1.0 are not comparable with v2.0.0.
+
+**Open (owner decisions):** reuse license for kit and cases; whether to seek external review; trademark status (not evidenced in repository).
+
+---
+
 ## 2026-06-01 — Multi-Page Static Site Architecture
 
 **Decision:** Split single-page SPA prototype into 9 independent HTML pages with shared CSS/JS assets.
@@ -46,7 +67,7 @@ Architectural and strategic decisions for the Codokey repository.
 
 **Rationale:** Static site constraint. No backend, no localStorage requirement. Self-assessment is session-based reference tool, not audit record.
 
-**Grades:** C (0–39%) · B (40–69%) · A (70–84%) · A+ (85–100%)
+**Grades:** C (0–39%) · B (40–69%) · A (70–84%) · A+ (85–100%) — **superseded 2026-11-12** by scorecard model 2.0.0 (gate-based; see `SCORING.md`).
 
 ---
 
@@ -105,7 +126,8 @@ Architectural and strategic decisions for the Codokey repository.
 
 ## Pending Decisions
 
-_None at v1.3._
+- Reuse license for Reference Kit, cases and control catalog (see `IP_AND_PROVENANCE.md`).
+- Whether and whom to invite for external review (see `review/`).
 
 ---
 

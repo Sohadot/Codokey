@@ -31,32 +31,42 @@ Every public page must include:
 - Open Graph: type, url, title, description, site_name
 - Twitter card: summary with title and description
 - Internal links to related reference pages
-- Footer navigation to all 10 pages
+- Footer navigation (generated; identical on every non-print page)
 
 ## URL Structure
 
+Indexable URLs (the sitemap is generated from each page's robots meta by `tools/build.mjs`):
+
 ```
-https://codokey.com/
-https://codokey.com/category/
-https://codokey.com/charter/
-https://codokey.com/protocol/
-https://codokey.com/secrets-boundary/
-https://codokey.com/agent-permissions/
-https://codokey.com/governance-scorecard/
-https://codokey.com/cost-of-inaction/
-https://codokey.com/buyer-logic/
-https://codokey.com/strategic-inquiries/
+/  /category/  /charter/  /protocol/
+/protocol/code-origin/  /protocol/key-exposure/  /protocol/agent-authority/
+/protocol/review-boundary/  /protocol/deployment-control/  /protocol/audit-memory/
+/secrets-boundary/  /agent-permissions/  /governance-scorecard/
+/evidence/  /reference-cases/  /reference-kit/  /review/
+/cost-of-inaction/  /buyer-logic/  /briefs/  /strategic-inquiries/
 ```
 
-Trailing slashes on all paths. No hash routing. No query-parameter pages.
+Print briefs under `/briefs/<name>/` are `noindex, follow` and are not in the sitemap. Trailing slashes on all paths. No hash routing. No query-parameter pages. URLs are stable for citation; anchors (`#CK-KE-03`, `#EV-GH-PUSH-PROTECTION`) are stable IDs.
 
 ## Internal Linking Rules
 
-1. Every page links to at least 3 other reference pages
-2. Protocol layers link to secrets-boundary and agent-permissions where relevant
-3. Scorecard links to all six protocol layer groups
-4. Homepage links to all 10 pages via stats row and internal links section
-5. Footer nav present on every page with all 10 links
+1. Links follow conceptual relationships: control ↔ layer specification ↔ evidence entry ↔ reference case.
+2. Every page links to at least 3 related reference pages.
+3. Footer navigation is generated and identical on every non-print page.
+4. Acquisition pages (`/buyer-logic/`, `/strategic-inquiries/`) link to the reference work; technical pages do not carry acquisition calls to action.
+
+## Content Separation
+
+| Type | Pages | Rule |
+|---|---|---|
+| Original reference material | protocol, layer specs, scorecard, cases, kit | Technical, testable; no acquisition language |
+| Supporting evidence | `/evidence/` | External sources only, with claim classes |
+| Doctrine | charter, category, cost-of-inaction | Labelled as Codokey position |
+| Strategic acquisition | buyer-logic, strategic-inquiries, buyer brief | No traction or endorsement claims |
+
+## Structured Data
+
+JSON-LD where it accurately describes the page: `TechArticle` (layer specs, cases, kit, review), `Dataset` (evidence register), `WebApplication` (scorecard). No review, rating, or organization-endorsement markup.
 
 ## Content Quality
 
@@ -68,7 +78,7 @@ Trailing slashes on all paths. No hash routing. No query-parameter pages.
 ## Technical SEO
 
 - `robots.txt` allows all public pages
-- `sitemap.xml` lists all 10 URLs with lastmod
+- `sitemap.xml` is generated; lastmod is the release date of the generating build
 - Static HTML — no JavaScript-rendered content for core text
 - Mobile-responsive via CSS media queries
 - Semantic HTML: nav, main, footer, aria-labels
@@ -79,6 +89,10 @@ Trailing slashes on all paths. No hash routing. No query-parameter pages.
 
 Repository markdown files (ASSET_THESIS.md, etc.) are for repository documentation — not indexed as separate web pages unless explicitly published.
 
+## Measurement
+
+No claims about rankings, indexing, AI citations or referral traffic are made without measurement data. None has been collected as of 2026-11-12.
+
 ## Prohibited
 
 - Newsletter signup as primary CTA
@@ -86,3 +100,5 @@ Repository markdown files (ASSET_THESIS.md, etc.) are for repository documentati
 - "Start free trial" or SaaS conversion language
 - Keyword stuffing or hidden text
 - Broken internal links
+- Claims of certification, compliance, endorsement, or third-party validation
+- Static visuals presented as live scans
