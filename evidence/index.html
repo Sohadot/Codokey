@@ -72,7 +72,7 @@
     <div class="eyebrow">Evidence Register v1.0.0 · verified 2026-11-12</div>
     <h1 class="spec-h1">Evidence Register</h1>
     <p class="content-body">Every external source that Codokey relies on, with the exact passage, what it supports, and what it does not. Use it to check a claim rather than trust it. The machine-readable register is at <a href="/reference/evidence-register.json">/reference/evidence-register.json</a>.</p>
-    <p class="content-body"><strong>Method.</strong> Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted.</p>
+    <p class="content-body"><strong>Method.</strong> Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted. Passages from PDF documents are located in the document named in passageDocument; tools/verify-evidence.mjs re-checks HTML passages automatically and reports PDF-backed entries as status-only.</p>
     <table class="ref-table">
       <caption>Claim classes</caption>
       <tbody>
@@ -148,7 +148,7 @@
     <article class="ev-card" id="EV-SSDF-PO.3.3" aria-labelledby="EV-SSDF-PO.3.3-h">
       <h3 class="ev-id" id="EV-SSDF-PO.3.3-h">EV-SSDF-PO.3.3 <span class="ev-class">Class 2</span></h3>
       <p class="ev-src"><cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite> — National Institute of Standards and Technology · 2022-02</p>
-      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PO.3, task PO.3.3, Example 1</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PO.3, task PO.3.3, Example 1 (footnote marker 6 after &quot;artifacts&quot; omitted from quotation)</p>
       <blockquote class="ev-quote">PO.3.3: Configure tools to generate artifacts of their support of secure software development practices as defined by the organization. Example 1: Use existing tooling (e.g., workflow tracking, issue tracking, value stream mapping) to create an audit trail of the secure development-related actions that are performed for continuous improvement purposes.</blockquote>
       <dl class="ev-dl">
         <dt>Supports</dt><dd>Toolchains should produce audit-trail artifacts of secure development actions.</dd>
@@ -239,8 +239,8 @@
     <article class="ev-card" id="EV-OWASP-LLM06" aria-labelledby="EV-OWASP-LLM06-h">
       <h3 class="ev-id" id="EV-OWASP-LLM06-h">EV-OWASP-LLM06 <span class="ev-class">Class 1</span></h3>
       <p class="ev-src"><cite>LLM06:2025 Excessive Agency (OWASP Top 10 for LLM Applications 2025)</cite> — OWASP Gen AI Security Project · 2025 edition (living web page)</p>
-      <p class="ev-src"><a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" rel="noopener">https://genai.owasp.org/llmrisk/llm062025-excessive-agency/</a> · Description; Prevention and Mitigation Strategies 1–7</p>
-      <blockquote class="ev-quote">The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Require user approval: Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Complete mediation: Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.</blockquote>
+      <p class="ev-src"><a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" rel="noopener">https://genai.owasp.org/llmrisk/llm062025-excessive-agency/</a> · Description; Prevention and Mitigation Strategies 4 (Minimize extension permissions), 6 (Require user approval), 7 (Complete mediation)</p>
+      <blockquote class="ev-quote">The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.</blockquote>
       <dl class="ev-dl">
         <dt>Supports</dt><dd>LLM agents should have minimal functions and permissions, high-impact actions need human approval, and authorization belongs in downstream systems.</dd>
         <dt>Codokey application</dt><dd>Directly underpins Agent Authority controls and the rule that deployment needs a human gate enforced outside the agent (CK-AA-01, CK-AA-02, CK-AA-03, CK-AA-06, CK-DC-01).</dd>
@@ -513,7 +513,7 @@
       <h3 class="ev-id" id="EV-SLSA-SOURCE-1.2-h">EV-SLSA-SOURCE-1.2 <span class="ev-class">Class 2</span></h3>
       <p class="ev-src"><cite>SLSA Source Track: Requirements for producing source (SLSA v1.2)</cite> — OpenSSF SLSA project · v1.2, status: Approved (living web page)</p>
       <p class="ev-src"><a href="https://slsa.dev/spec/v1.2/source-requirements" rel="noopener">https://slsa.dev/spec/v1.2/source-requirements</a> · Source track levels</p>
-      <blockquote class="ev-quote">Source L2 — Preserve Change History and generate Source Provenance. … Source L4 — Require code review.</blockquote>
+      <blockquote class="ev-quote">Source L2 … Preserve Change History and generate Source Provenance. … Source L4 … Require code review.</blockquote>
       <dl class="ev-dl">
         <dt>Supports</dt><dd>Supply-chain source levels call for preserved change history, source provenance, and code review.</dd>
         <dt>Codokey application</dt><dd>Context for provenance of agent-authored changes (CK-OR-01, CK-OR-04). Codokey does not claim SLSA conformance for any control.</dd>

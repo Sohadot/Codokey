@@ -230,6 +230,17 @@ export function run(cmd, o) {
 
 if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
   const { cmd, opts } = parseArgs(process.argv.slice(2));
+  if (!cmd || cmd === '--help' || cmd === '-h') {
+    console.log(`codokey-check ${CHECK_VERSION} — reference-case validator (declared configuration only)
+
+  secrets-access    --repo <dir> --agent <agent-config.json>
+  excess-authority  --task <task.json> --grant <grant.json>
+  production-path   --change <change.json> --policy <policy.json>
+  audit-reconstruct --events <events.jsonl>
+
+Options: --json   Exit: 0 PASS, 1 FAIL, 2 usage/input error. Cases: https://codokey.com/reference-cases/`);
+    process.exit(0);
+  }
   try {
     const r = run(cmd, opts);
     if (opts.json) console.log(JSON.stringify(r, null, 2));

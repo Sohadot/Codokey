@@ -2,7 +2,7 @@
   "register": "codokey-evidence-register",
   "version": "1.0.0",
   "verifiedOn": "2026-11-12",
-  "method": "Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted.",
+  "method": "Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted. Passages from PDF documents are located in the document named in passageDocument; tools/verify-evidence.mjs re-checks HTML passages automatically and reports PDF-backed entries as status-only.",
   "claimClasses": {
     "1": "Directly supported by external evidence",
     "2": "Reasoned synthesis of multiple sources",
@@ -27,7 +27,8 @@
       ],
       "controls": [
         "CK-AA-02"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf"
     },
     {
       "id": "EV-SSDF-PO.5.1",
@@ -48,7 +49,8 @@
       "controls": [
         "CK-KE-06",
         "CK-DC-02"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf"
     },
     {
       "id": "EV-SSDF-PW.7",
@@ -69,7 +71,8 @@
       "controls": [
         "CK-OR-03",
         "CK-RB-05"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf"
     },
     {
       "id": "EV-SSDF-PO.3.3",
@@ -77,7 +80,7 @@
       "publisher": "National Institute of Standards and Technology",
       "date": "2022-02",
       "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
-      "section": "Practice PO.3, task PO.3.3, Example 1",
+      "section": "Practice PO.3, task PO.3.3, Example 1 (footnote marker 6 after \"artifacts\" omitted from quotation)",
       "passage": "PO.3.3: Configure tools to generate artifacts of their support of secure software development practices as defined by the organization. Example 1: Use existing tooling (e.g., workflow tracking, issue tracking, value stream mapping) to create an audit trail of the secure development-related actions that are performed for continuous improvement purposes.",
       "supports": "Toolchains should produce audit-trail artifacts of secure development actions.",
       "codokeyApplication": "Supports requiring agent tooling to produce session records (CK-AM-01).",
@@ -88,7 +91,8 @@
       ],
       "controls": [
         "CK-AM-01"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218.pdf"
     },
     {
       "id": "EV-SP80053-AC-6",
@@ -109,7 +113,8 @@
         "CK-AA-01",
         "CK-AA-02",
         "CK-AA-05"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-SP80053-AC-6-9",
@@ -128,7 +133,8 @@
       ],
       "controls": [
         "CK-AM-01"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-SP80053-AU-3",
@@ -149,7 +155,8 @@
       "controls": [
         "CK-AM-01",
         "CK-OR-02"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-SP80053-AU-9",
@@ -168,7 +175,8 @@
       ],
       "controls": [
         "CK-AM-02"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-SP80053-CM-5",
@@ -191,7 +199,8 @@
         "CK-AA-06",
         "CK-RB-04",
         "CK-DC-05"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-SP80053-AC-5",
@@ -210,7 +219,8 @@
       ],
       "controls": [
         "CK-RB-01"
-      ]
+      ],
+      "passageDocument": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf"
     },
     {
       "id": "EV-OWASP-LLM06",
@@ -218,8 +228,8 @@
       "publisher": "OWASP Gen AI Security Project",
       "date": "2025 edition (living web page)",
       "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
-      "section": "Description; Prevention and Mitigation Strategies 1–7",
-      "passage": "The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Require user approval: Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Complete mediation: Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.",
+      "section": "Description; Prevention and Mitigation Strategies 4 (Minimize extension permissions), 6 (Require user approval), 7 (Complete mediation)",
+      "passage": "The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.",
       "supports": "LLM agents should have minimal functions and permissions, high-impact actions need human approval, and authorization belongs in downstream systems.",
       "codokeyApplication": "Directly underpins Agent Authority controls and the rule that deployment needs a human gate enforced outside the agent (CK-AA-01, CK-AA-02, CK-AA-03, CK-AA-06, CK-DC-01).",
       "claimClass": 1,
@@ -274,7 +284,8 @@
       ],
       "controls": [
         "CK-OR-02"
-      ]
+      ],
+      "passageDocument": "https://genai.owasp.org/download/52117/?tmstv=1765059207"
     },
     {
       "id": "EV-OWASP-SECRETS-CS",
@@ -642,7 +653,7 @@
       "date": "v1.2, status: Approved (living web page)",
       "url": "https://slsa.dev/spec/v1.2/source-requirements",
       "section": "Source track levels",
-      "passage": "Source L2 — Preserve Change History and generate Source Provenance. … Source L4 — Require code review.",
+      "passage": "Source L2 … Preserve Change History and generate Source Provenance. … Source L4 … Require code review.",
       "supports": "Supply-chain source levels call for preserved change history, source provenance, and code review.",
       "codokeyApplication": "Context for provenance of agent-authored changes (CK-OR-01, CK-OR-04). Codokey does not claim SLSA conformance for any control.",
       "claimClass": 2,

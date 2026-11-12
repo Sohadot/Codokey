@@ -417,3 +417,6 @@ code{font-family:'JetBrains Mono',monospace;color:var(--fg);}
 }
 .diff-content{min-width:0;overflow-wrap:anywhere;}
 .cur-r{opacity:0;}
+p.content-body{margin-bottom:14px;}
+.spec-list a,.internal-links a,.sc-intro a,.ev-dl a{color:var(--acid);}
+.content-wrap + .content-wrap{padding-top:8px;}

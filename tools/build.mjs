@@ -534,7 +534,7 @@ ${c.refs.map(r => `- ${r} — ${evById[r].title} (${evById[r].publisher})`).join
 function casesPage() {
   const sections = CASES.map(c => {
     const exp = JSON.parse(readFileSync(join(ROOT, 'cases', c.dir, 'expected.json'), 'utf8'));
-    const runs = exp.runs.map(r => `node tools/codokey-check.mjs ${r.command} ${Object.entries(r.args).map(([k, v]) => `--${k} cases/${c.dir}/${v}`).join(' ')}\n# expect ${r.verdict}${r.failing.length ? ' — failing ' + r.failing.join(', ') : ''}`).join('\n\n');
+    const runs = exp.runs.map(r => `node tools/codokey-check.mjs ${r.command} \\\n  ${Object.entries(r.args).map(([k, v]) => `--${k} cases/${c.dir}/${v}`).join(' \\\n  ')}\n# expect ${r.verdict}${r.failing.length ? ' — failing ' + r.failing.join(', ') : ''}`).join('\n\n');
     return `  <section class="content-wrap case" id="${c.slug}" aria-labelledby="${c.slug}-h">
     <div class="eyebrow">Case ${c.letter} · layers ${c.layers.map(id => layerById[id].num).join(', ')}</div>
     <h2 class="spec-h2 case-h" id="${c.slug}-h">${esc(c.title)}</h2>
