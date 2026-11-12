@@ -1,9 +1,9 @@
 # Codokey Category Definition
 
 **Document:** Codokey Category Definition  
-**Version:** 1.1  
-**Date:** 2026-06-01  
-**Status:** Canonical Reference  
+**Version:** 1.2  
+**Date:** 2026-11-12 (v1.1: 2026-06-01)  
+**Status:** Codokey proposed definition (claim class 3 — see `reference/evidence-register.json`)  
 **Category:** AI Code Access Governance
 
 ---
@@ -12,7 +12,7 @@
 
 **AI Code Access Governance**
 
-## Canonical Definition
+## Definition
 
 AI Code Access Governance is the discipline of governing what AI agents, AI-touched code, and agentic development workflows can **access**, **expose**, **change**, and **move toward production**.
 
@@ -24,7 +24,7 @@ AI coding did not merely change who writes software. **It changed where authorit
 
 Before AI agents, authority was anchored in human authorship and human review. After AI agents, authority is distributed across agent capabilities, repository scope, credential exposure, deployment paths, and audit reconstruction — often before any human observes the change.
 
-Codokey is the **canonical reference model** for this category.
+Codokey offers its protocol, scorecard and reference cases as **one reference model** for this category. "AI Code Access Governance" is Codokey's proposed term, not an external standard; related practitioner guidance exists under other names, and Codokey claims no exclusive ownership of the phrase or the security principles it organizes.
 
 ---
 
@@ -107,20 +107,22 @@ Who owns the governance model? Who reviews governance debt? Who authorizes agent
 
 ---
 
-## Codokey as Category Authority
+## Codokey Reference Assets
 
-Codokey.com is not a site *about* AI Code Access Governance. It **is** the category-defining reference infrastructure:
+Codokey aims to be a useful, inspectable reference for this category. Authority, if it comes, comes from adoption and review — none is claimed here. Current assets:
 
 | Asset | Role in category |
 |-------|------------------|
 | Category Definition | Names and structures the discipline |
 | Charter v1.0 | Founding doctrine and principles |
-| Protocol v1.0 | Six-layer operational reference model |
-| Governance Scorecard v1.0 | 32-check self-assessment framework |
+| Protocol v1.1 | Six-layer operational reference model with layer specifications |
+| Governance Scorecard v2.0.0 | 32-control evidence-aware self-assessment with critical gates |
+| Evidence Register v1.0.0 | Sources, passages and claim classes |
+| Reference Cases A–D, Reference Kit v1.0.0 | Reproducible checks and adoption templates |
 | Reference pages | Secrets, agents, cost analysis, buyer logic |
 | Narrative v1.1 | Structural shift documentation |
 
-Organizations, platforms, and compliance teams that cite Codokey cite the category. That is the strategic asset.
+The strategic asset is the substance above: reference work others can verify, cite, challenge and adopt.
 
 ---
 
@@ -134,5 +136,5 @@ Organizations, platforms, and compliance teams that cite Codokey cite the catego
 
 ---
 
-**Canonical URL:** https://codokey.com/category/  
+**Web version:** https://codokey.com/category/  
 **Related:** `CODOKEY_NARRATIVE.md` · `ASSET_THESIS.md` · `CODOKEY_CHARTER.md`

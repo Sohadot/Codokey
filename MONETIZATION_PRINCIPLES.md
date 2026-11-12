@@ -28,7 +28,7 @@ Full transfer of brand, domain, content, documentation, and reference model IP t
 
 ### 4. Domain & Brand Value
 
-Appreciation of codokey.com as category-defining domain in AI Code Access Governance.
+Appreciation of codokey.com as a reference domain for AI Code Access Governance, to the extent the reference work is adopted.
 
 ## Prohibited Revenue Paths
 
@@ -54,7 +54,7 @@ Not:
 
 ## Asset Value Drivers
 
-1. **Category ownership** — first-mover in AI Code Access Governance definition
+1. **Reference adoption** — use and citation of the protocol, scorecard and kit (not yet measured; no first-mover claim is made, as related guidance exists elsewhere)
 2. **Citation density** — how often the reference model is cited in policies and docs
 3. **Documentation depth** — charter, protocol, scorecard, buyer brief completeness
 4. **Technical durability** — static, GitHub Pages ready, no dependency debt

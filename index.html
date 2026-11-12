@@ -64,23 +64,22 @@
     <div class="terminal">
       <div class="terminal-bar">
         <div class="tbar-dot r"></div><div class="tbar-dot y"></div><div class="tbar-dot g"></div>
-        <div class="tbar-title">governance-audit — reference simulation</div>
+        <div class="tbar-title">scorecard — illustrative example (static text, no scan)</div>
       </div>
       <div class="terminal-body">
-        <div><span class="t-prompt">$ </span><span class="t-cmd">codokey reference-audit --example</span></div>
-        <div class="t-out">Loading Codokey Protocol v1.0...</div>
-        <div class="t-out">Scanning sample codebase — 847 files</div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">example-assessment</span> <span class="t-out"># self-assessed answers</span></div>
+        <div class="t-out">Scorecard model v2.0.0 · hypothetical organization</div>
         <div class="t-out"> </div>
-        <div class="t-err">✗ CRITICAL  .env exposed to agent session scope</div>
-        <div class="t-err">✗ CRITICAL  No audit log for AI-generated PRs</div>
-        <div class="t-warn">⚠ REVIEW   MCP server allow-list undefined</div>
-        <div class="t-warn">⚠ REVIEW   Agent token scope: organization-wide</div>
-        <div class="t-ok">✓ PASS      Secret scanning: enabled</div>
-        <div class="t-ok">✓ PASS      Branch protection: configured</div>
+        <div class="t-err">✗ FAIL     CK-AA-05  agent token: all repos  [FZ-2]</div>
+        <div class="t-err">✗ FAIL     CK-KE-03  .env readable by agent</div>
+        <div class="t-err">✗ FAIL     CK-AM-01  actions not tied to sessions</div>
+        <div class="t-warn">? UNKNOWN  CK-AA-03  MCP inventory not assessed</div>
+        <div class="t-ok">✓ PASS     CK-KE-01  secret scanning enabled</div>
+        <div class="t-ok">✓ PASS     CK-RB-01  independent approval required</div>
         <div class="t-out"> </div>
-        <div><span class="t-out">Governance Score: </span><span style="color:var(--yellow);font-weight:700">B — Partially Governed</span></div>
-        <div class="t-out">Primary gap: Key Exposure layer (2 critical unresolved)</div>
-        <div class="t-out">Next: Review <a href="/secrets-boundary/" style="color:var(--acid)">secrets-boundary.diff</a> →</div>
+        <div><span class="t-out">Result: </span><span style="color:var(--removed-bar);font-weight:700">C — forbidden-zone gate failed</span></div>
+        <div class="t-out">Primary risk: CK-AA-05 → limit to selected repositories</div>
+        <div class="t-out">Next: <a href="/governance-scorecard/" style="color:var(--acid)">run the scorecard</a> on your own answers →</div>
         <div><span class="t-prompt">$ </span><span class="blink">▌</span></div>
       </div>
     </div>
@@ -175,7 +174,10 @@
     <div class="internal-links-grid">
       <a href="/category/">AI Code Access Governance</a>
       <a href="/charter/">Codokey Charter</a>
-      <a href="/protocol/">Codokey Protocol v1.0</a>
+      <a href="/protocol/">Codokey Protocol v1.1</a>
+      <a href="/evidence/">Evidence Register</a>
+      <a href="/reference-cases/">Reference Cases</a>
+      <a href="/reference-kit/">Reference Kit</a>
       <a href="/secrets-boundary/">Secrets Boundary</a>
       <a href="/agent-permissions/">Agent Permissions</a>
       <a href="/governance-scorecard/">Governance Scorecard</a>
@@ -190,7 +192,7 @@
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">codokey.com — Sovereign Reference Model · v1.0 · AI Code Access Governance</div>
+    <div class="footer-meta">codokey.com — Sovereign Reference Model · Protocol v1.1 · AI Code Access Governance</div>
     <div class="footer-tag">Sovereign Asset</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">

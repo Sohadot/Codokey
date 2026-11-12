@@ -3,7 +3,7 @@
 **Document:** Buyer Brief  
 **Asset:** Codokey.com  
 **Category:** AI Code Access Governance  
-**Type:** Category-Defining Sovereign Reference Digital Asset  
+**Type:** Sovereign Reference Digital Asset  
 **Version:** 1.1  
 **Date:** 2026-06-01
 
@@ -11,7 +11,7 @@
 
 ## Executive Summary
 
-Codokey is a privately held sovereign digital asset comprising category-defining language, reference model, charter, protocol, self-assessment scorecard, and strategic documentation for **AI Code Access Governance**.
+Codokey is a privately held sovereign digital asset comprising proposed category language, reference model, charter, protocol, self-assessment scorecard, and strategic documentation for **AI Code Access Governance**.
 
 For the right strategic buyer, Codokey is **not only a domain**. It is a **ready-made category asset** at the intersection of AI coding, code security, secrets governance, agent permissions, and production authority — positioned to own the language of a discipline that every AI-adjacent platform will need to address.
 
@@ -21,7 +21,7 @@ This is not a security product. It is reference infrastructure positioned for ad
 
 ## Category Authority Value
 
-Codokey.com is not a site about AI Code Access Governance. It **is** the category-defining reference infrastructure.
+Codokey.com aims to be inspectable reference infrastructure for AI Code Access Governance: protocol, scorecard, evidence register, reproducible cases and adoption templates.
 
 | Asset layer | Strategic value |
 |-------------|-----------------|
@@ -39,7 +39,7 @@ Codokey.com is not a site about AI Code Access Governance. It **is** the categor
 
 AI coding agents operate at machine speed inside codebases designed for human-speed governance. The result is a **governance gap**: undefined agent authority surfaces, unbounded secrets exposure during IDE sessions, missing review gates for AI-generated code, and absent audit memory for agent actions.
 
-Every major platform in the AI coding ecosystem will need to address this gap. The question is whether they **define the category themselves** — or **acquire the reference model** that already owns the language.
+Platforms in the AI coding ecosystem increasingly address this gap (see the vendor documentation in the evidence register). Codokey's proposition is a vendor-neutral reference model they can adopt, license or extend rather than build from scratch. No platform has expressed interest; this is reasoning, not traction.
 
 ---
 
@@ -57,7 +57,7 @@ A company that ignores Codokey may allow a competitor to own the clearest langua
 **What acquirers defer by waiting:**
 - Category language ownership
 - Citation density in enterprise AI governance policies
-- The codokey.com domain as category-defining real estate
+- The codokey.com domain
 - A complete documentation corpus ready for institutional due diligence
 
 Category windows close. The definitional layer is most valuable **before** the category fragments across vendor-specific dialects.
@@ -68,8 +68,8 @@ Category windows close. The definitional layer is most valuable **before** the c
 
 | Component | Description |
 |-----------|-------------|
-| **Brand & Domain** | codokey.com — category-defining name and URL |
-| **Category Definition v1.1** | Canonical discipline definition, seven layers |
+| **Brand & Domain** | codokey.com — name and URL |
+| **Category Definition v1.2** | Proposed discipline definition, seven layers |
 | **Narrative v1.1** | Structural shift documentation, three pillars |
 | **Charter v1.0** | Founding doctrine, five principles |
 | **Protocol v1.0** | Six-layer vendor-agnostic reference model |
