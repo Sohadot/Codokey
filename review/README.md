@@ -19,7 +19,7 @@ This package lets an external security engineer evaluate Codokey without relying
 ## How to reproduce (about 2 minutes, Node 18+, no dependencies)
 
 ```sh
-git clone <repository> && cd <repository>
+git clone https://github.com/Sohadot/Codokey.git && cd Codokey
 node --test tests/*.test.mjs                 # model, cases, site integrity
 node tools/codokey-check.mjs production-path \
   --change cases/c-production-path/change.self-approved.json \
@@ -36,5 +36,6 @@ Use the [feedback template](FEEDBACK_TEMPLATE.md) or open an issue with the "Rev
 ## What a reviewer should NOT assume
 
 - That "implemented" in the scorecard means verified — it means self-attested with evidence available.
+- That a validator PASS means a platform enforces anything — results are based on declared configuration and recorded history and carry `enforcementVerified: false`.
 - That any external source endorses Codokey — the register records only what each source says.
 - That example configurations were executed against live platforms — they were syntax-checked; see the register's `gaps`.

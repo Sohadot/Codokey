@@ -28,7 +28,7 @@ Codokey defines the boundary between AI coding agents, codebases, secrets, and p
 Node 18+; no dependencies to install.
 
 ```sh
-node --test tests/*.test.mjs        # scorecard model, reference cases, site integrity (40 tests)
+node --test tests/*.test.mjs        # scorecard model, export schema, reference cases, adversarial cases, site integrity
 node tests/ui/scorecard.ui.mjs      # browser test (needs Playwright + Chromium)
 node tools/build.mjs --check        # generated pages match their sources
 node tools/verify-evidence.mjs      # re-check evidence sources online
@@ -57,6 +57,8 @@ node tools/codokey-check.mjs --help # run a reference case (see /reference-cases
 | `SCORING.md` | Scorecard specification, rationale, breaking changes |
 | `VERSIONS.md` | Version scheme and current versions |
 | `IP_AND_PROVENANCE.md` | What is original, branded, or generally available; reuse status |
+| `LICENSING_PROPOSAL.md` | Proposed file-level licensing — **not operative, grants no rights** |
+| `docs/PR2_HARDENING.md` | Pre-merge defect record with regression tests |
 | `CODOKEY_PROTOCOL.md`, `CODOKEY_CHARTER.md`, `CODOKEY_CATEGORY_DEFINITION.md` | Source documents |
 | `ASSET_THESIS.md`, `BUYER_BRIEF.md`, `BUYER_LOGIC.md`, `CODOKEY_NARRATIVE.md`, `MONETIZATION_PRINCIPLES.md` | Strategic positioning (aspirational claims are marked as such) |
 | `SEO_POLICY.md`, `CONTENT_STANDARD.md`, `QUALITY_GATE.md`, `DECISION_LOG.md`, `PROJECT_DOCTRINE.md` | Operating standards |

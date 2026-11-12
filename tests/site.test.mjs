@@ -133,3 +133,12 @@ test('repository contains no real-looking secrets; fixtures are marked synthetic
     assert.match(readFileSync(join(ROOT, f), 'utf8'), /SYNTHETIC FIXTURE/);
   }
 });
+
+test('no operative license has been published (owner has not approved LICENSING_PROPOSAL.md)', () => {
+  const licenseFiles = files.map(f => relative(ROOT, f)).filter(f => /^(LICEN[CS]E|COPYING)(\.|$)|^LICENSES\//i.test(f));
+  assert.deepEqual(licenseFiles, []);
+  for (const f of files.filter(f => /\.(mjs|js|md|json|html|css)$/.test(f) && !f.endsWith('site.test.mjs'))) {
+    assert.doesNotMatch(readFileSync(f, 'utf8'), /SPDX-License-Identifier/, relative(ROOT, f));
+  }
+  assert.match(readFileSync(join(ROOT, 'LICENSING_PROPOSAL.md'), 'utf8'), /This document grants no rights to anyone/);
+});
