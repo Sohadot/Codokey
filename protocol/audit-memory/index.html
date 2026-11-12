@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Memory — Codokey Protocol Layer 06 Specification</title>
+<meta name="description" content="Can you reconstruct what the agent could reach, what it did, who authorized it, and what was exposed? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Audit Memory layer of AI Code Access Governance.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/protocol/audit-memory/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/protocol/audit-memory/">
+<meta property="og:title" content="Audit Memory — Codokey Protocol Layer 06 Specification">
+<meta property="og:description" content="Can you reconstruct what the agent could reach, what it did, who authorized it, and what was exposed? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Audit Memory layer of AI Code Access Governance.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Audit Memory — Codokey Protocol Layer 06 Specification">
+<meta name="twitter:description" content="Can you reconstruct what the agent could reach, what it did, who authorized it, and what was exposed? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Audit Memory layer of AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Audit Memory — Codokey Protocol Layer 06",
+  "description": "Retain enough tamper-protected, correlated records to answer, after the fact, the reconstruction questions defined in the Audit Evidence Specification — for every agent session.",
+  "url": "https://codokey.com/protocol/audit-memory/",
+  "version": "1.1",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab active" href="/protocol/" aria-current="page"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / protocol /</span><span class="file-name">06-audit-memory.md</span><span class="file-lang">LAYER 06 · v1.1</span></div>
+    <div class="file-stats"><span class="stat-a">+6 controls</span><span class="stat-r">−3 failure scenarios</span></div>
+  </div>
+
+  <article class="content-wrap spec" aria-labelledby="spec-h">
+    <p class="spec-breadcrumb"><a href="/protocol/">Codokey Protocol v1.1</a> / Layer 06</p>
+    <div class="eyebrow">Layer 06 · Accountability Layer · Reference specification</div>
+    <h1 class="spec-h1" id="spec-h">Audit Memory</h1>
+    <p class="spec-question">Can you reconstruct what the agent could reach, what it did, who authorized it, and what was exposed?</p>
+
+    <dl class="spec-meta">
+      <div><dt>Version</dt><dd>Protocol v1.1 · 2026-11-12</dd></div>
+      <div><dt>Scorecard controls</dt><dd>6 (3 critical)</dd></div>
+      <div><dt>Status</dt><dd>Codokey reference specification — not externally reviewed</dd></div>
+    </dl>
+
+    <section class="content-section"><h2 class="spec-h2">Security objective</h2><p class="content-body">Retain enough tamper-protected, correlated records to answer, after the fact, the reconstruction questions defined in the Audit Evidence Specification — for every agent session.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Boundary governed</h2><p class="content-body">The evidentiary boundary between events that happened and records the organization can produce about them, outside the control of the actors being recorded.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Failure scenarios</h2>
+      <dl class="spec-threats">
+        <dt>Uncorrelated logs</dt><dd>Platform audit events show a bot pushed a branch; the agent's session log shows commands; nothing links the two, so scope and delegation cannot be reconstructed.</dd>
+        <dt>Retention shortfall</dt><dd>An exposure is discovered after the platform's audit-log window has passed; the session that read the secret is no longer on record.</dd>
+        <dt>Self-editable records</dt><dd>Logs are written to a location the agent identity can modify or delete.</dd>
+      </dl>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Applicable agent capabilities</h2><p class="content-body">All agent classes that act on repositories; the record set expands with capability (tool calls, external requests, deployments).</p></section>
+    <section class="content-section"><h2 class="spec-h2">Platform-neutral principles</h2>
+      <ul class="spec-list">
+        <li>Every record carries a session identifier that links platform events, agent logs, and approvals.</li>
+        <li>Scope at session start is recorded, not only actions taken: exposure analysis needs to know what was readable.</li>
+        <li>Records live outside the reach of the identities they describe.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Required controls and acceptable evidence</h2>
+      <div class="table-scroll"><table class="ref-table">
+        <caption>Controls are defined once, in the scorecard model; this table is generated from it.</caption>
+        <thead><tr><th scope="col">Control</th><th scope="col">Requirement</th><th scope="col">Severity</th><th scope="col">Acceptable evidence</th></tr></thead>
+        <tbody>
+        <tr id="CK-AM-01-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-01">CK-AM-01</a></th><td>Agent actions are logged with agent identity, delegating human, timestamp, target, and outcome</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Sample audit records for an agent session containing each field (see Audit Evidence Specification).</td></tr>
+        <tr id="CK-AM-02-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-02">CK-AM-02</a></th><td>Audit logs are protected from modification or deletion by agents and the identities they use</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Log destination access policy showing agent identities lack write/delete; retention lock or append-only configuration.</td></tr>
+        <tr id="CK-AM-03-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-03">CK-AM-03</a></th><td>Log retention meets your documented requirement, including export beyond platform defaults</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Documented retention requirement and the configured retention of every log source used for reconstruction.</td></tr>
+        <tr id="CK-AM-04-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-04">CK-AM-04</a></th><td>Secret exposure events trigger a documented response: revoke, rotate, scope the exposure, record</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Incident runbook for secret exposure and a record of its last exercise or use.</td></tr>
+        <tr id="CK-AM-05-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-05">CK-AM-05</a></th><td>Audit reviews are scheduled — not only performed after incidents</td><td><span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></td><td>Review calendar and the most recent review record.</td></tr>
+        <tr id="CK-AM-06-spec"><th scope="row"><a href="/governance-scorecard/#CK-AM-06">CK-AM-06</a></th><td>Open governance gaps are tracked with owners and reviewed by engineering leadership (default: quarterly)</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Gap register (for example an exported scorecard result) with owners, dates, and review minutes.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Implementation examples</h2>
+      <p class="content-body">Examples show one way to implement a control on a specific platform. They are not universally secure configurations; adapt and test them in your environment.</p>
+      <figure class="spec-example">
+        <figcaption>Audit event (Codokey Audit Evidence Specification v1.0 — validated by Reference Case D)</figcaption>
+        <pre class="code-block"><code class="lang-json">{
+  &quot;event_id&quot;: &quot;evt-0004&quot;,
+  &quot;session_id&quot;: &quot;sess-7f3c2a&quot;,
+  &quot;timestamp&quot;: &quot;2026-11-02T10:14:07Z&quot;,
+  &quot;event_type&quot;: &quot;change.pushed&quot;,
+  &quot;actor&quot;: { &quot;type&quot;: &quot;agent&quot;, &quot;id&quot;: &quot;app:example-task-agent&quot; },
+  &quot;on_behalf_of&quot;: &quot;alice@example.test&quot;,
+  &quot;target&quot;: &quot;example-org/web@refs/heads/agent/orders-pagination&quot;,
+  &quot;outcome&quot;: &quot;success&quot;,
+  &quot;source&quot;: &quot;platform-audit-log&quot;
+}</code></pre>
+      </figure>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Known limitations</h2>
+      <ul class="spec-list">
+        <li>Vendor agent logs vary in content and export options; some fields may not be available.</li>
+        <li>Logging what was readable (scope) is often harder than logging what was done; the specification marks which fields are commonly unavailable.</li>
+        <li>Records support accountability; they do not prevent incidents.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Remediation path</h2>
+      <ol class="spec-list">
+        <li>Log agent actions with identity, delegating human, time, target, outcome (CK-AM-01).</li>
+        <li>Store logs outside agent reach with retention lock (CK-AM-02).</li>
+        <li>Export logs where platform retention is shorter than required (CK-AM-03).</li>
+        <li>Exercise the secret-exposure runbook (CK-AM-04).</li>
+        <li>Run Reference Case D against an export of one real session (with secrets removed).</li>
+      </ol>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">External references</h2>
+      <p class="content-body">Claim classes: 1 = directly supported, 2 = Codokey synthesis of the source. See the <a href="/evidence/">Evidence Register</a> for passages and limitations.</p>
+      <ul class="spec-list spec-refs">
+        <li><a href="/evidence/#EV-SSDF-PO.3.3">EV-SSDF-PO.3.3</a> — National Institute of Standards and Technology, <cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite>, Practice PO.3, task PO.3.3, Example 1. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-AC-6-9">EV-SP80053-AC-6-9</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, AC-6(9) Least Privilege | Log Use of Privileged Functions. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, AU-3 Content of Audit Records. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-AU-9">EV-SP80053-AU-9</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, AU-9 Protection of Audit Information. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-OWASP-ASI-2026">EV-OWASP-ASI-2026</a> — OWASP Gen AI Security Project — Agentic Security Initiative, <cite>OWASP Top 10 for Agentic Applications for 2026</cite>, Introduction (Least-Agency); ASI03 Identity &amp; Privilege Abuse. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-OWASP-SECRETS-CS">EV-OWASP-SECRETS-CS</a> — OWASP Cheat Sheet Series, <cite>Secrets Management Cheat Sheet</cite>, 2.7.2 Rotation. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-AUDIT-LOG">EV-GH-AUDIT-LOG</a> — GitHub Docs, <cite>Reviewing the audit log for your organization</cite>, Accessing the audit log. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GL-AUDIT-EVENTS">EV-GL-AUDIT-EVENTS</a> — GitLab Docs, <cite>Audit events</cite>, Overview; Retention. <span class="ev-class">Class 1</span></li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Continue</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/deployment-control/">← Layer 05: Deployment Control</a>
+      <a href="/reference-cases/">Reference Cases →</a>
+      <a href="/governance-scorecard/#grp-AM">Assess this layer in the scorecard</a>
+      <a href="/reference-kit/">Reference Kit</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Codokey Protocol v1.1 · Layer 06 · Audit Memory</div>
+    <div class="footer-tag">Specification</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

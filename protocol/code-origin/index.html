@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Origin — Codokey Protocol Layer 01 Specification</title>
+<meta name="description" content="Who — or what — produced this change, and on whose behalf? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Code Origin layer of AI Code Access Governance.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/protocol/code-origin/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/protocol/code-origin/">
+<meta property="og:title" content="Code Origin — Codokey Protocol Layer 01 Specification">
+<meta property="og:description" content="Who — or what — produced this change, and on whose behalf? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Code Origin layer of AI Code Access Governance.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Code Origin — Codokey Protocol Layer 01 Specification">
+<meta name="twitter:description" content="Who — or what — produced this change, and on whose behalf? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Code Origin layer of AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Code Origin — Codokey Protocol Layer 01",
+  "description": "Make every change attributable to the identity that produced it (human, agent, or both) and to the human who delegated the work, so review obligations and audit reconstruction can be applied to the right actor.",
+  "url": "https://codokey.com/protocol/code-origin/",
+  "version": "1.1",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab active" href="/protocol/" aria-current="page"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / protocol /</span><span class="file-name">01-code-origin.md</span><span class="file-lang">LAYER 01 · v1.1</span></div>
+    <div class="file-stats"><span class="stat-a">+4 controls</span><span class="stat-r">−3 failure scenarios</span></div>
+  </div>
+
+  <article class="content-wrap spec" aria-labelledby="spec-h">
+    <p class="spec-breadcrumb"><a href="/protocol/">Codokey Protocol v1.1</a> / Layer 01</p>
+    <div class="eyebrow">Layer 01 · Provenance Layer · Reference specification</div>
+    <h1 class="spec-h1" id="spec-h">Code Origin</h1>
+    <p class="spec-question">Who — or what — produced this change, and on whose behalf?</p>
+
+    <dl class="spec-meta">
+      <div><dt>Version</dt><dd>Protocol v1.1 · 2026-11-12</dd></div>
+      <div><dt>Scorecard controls</dt><dd>4 (1 critical)</dd></div>
+      <div><dt>Status</dt><dd>Codokey reference specification — not externally reviewed</dd></div>
+    </dl>
+
+    <section class="content-section"><h2 class="spec-h2">Security objective</h2><p class="content-body">Make every change attributable to the identity that produced it (human, agent, or both) and to the human who delegated the work, so review obligations and audit reconstruction can be applied to the right actor.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Boundary governed</h2><p class="content-body">The boundary between an authenticated identity and the changes recorded under it in version control. It is crossed whenever an agent commits, pushes, or opens a pull request.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Failure scenarios</h2>
+      <dl class="spec-threats">
+        <dt>Shared-credential attribution loss</dt><dd>An agent runs with a developer's personal access token. Its commits appear under the developer's name; reviewers apply the obligations for a human-authored change and audit logs cannot separate the two actors.</dd>
+        <dt>Silent assistance</dt><dd>A large AI-assisted change is merged with no marker. Later, an incident review cannot establish which code paths were generated or what review they received.</dd>
+        <dt>Delegation gap</dt><dd>An agent identity is distinct, but nothing records which human asked it to act, so accountability stops at a bot account.</dd>
+      </dl>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Applicable agent capabilities</h2><p class="content-body">Applies to task agents, MCP-connected agents, and autonomous agents that write commits or open pull requests. Suggestion-only agents (inline completion accepted by a human) are attributed to the human; record their use through the disclosure policy (CK-OR-03) rather than per-commit identity.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Platform-neutral principles</h2>
+      <ul class="spec-list">
+        <li>An agent never acts under a credential that also represents a person.</li>
+        <li>Attribution has two parts: the acting identity and the delegating human.</li>
+        <li>Disclosure must be machine-readable; free-text mentions in PR descriptions are not queryable evidence.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Required controls and acceptable evidence</h2>
+      <div class="table-scroll"><table class="ref-table">
+        <caption>Controls are defined once, in the scorecard model; this table is generated from it.</caption>
+        <thead><tr><th scope="col">Control</th><th scope="col">Requirement</th><th scope="col">Severity</th><th scope="col">Acceptable evidence</th></tr></thead>
+        <tbody>
+        <tr id="CK-OR-01-spec"><th scope="row"><a href="/governance-scorecard/#CK-OR-01">CK-OR-01</a></th><td>AI involvement in a change is recorded in commit or pull-request metadata</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Commit trailers, PR labels, or bot/app author identities that mark AI-generated or AI-assisted changes, observable on a sample of recent merged PRs.</td></tr>
+        <tr id="CK-OR-02-spec"><th scope="row"><a href="/governance-scorecard/#CK-OR-02">CK-OR-02</a></th><td>Each agent acts under a distinct, attributable identity — not a shared account or a reused personal credential</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Inventory mapping each agent integration to its own app, bot, or service identity, plus the human principal who delegated the task; sample audit events showing that identity.</td></tr>
+        <tr id="CK-OR-03-spec"><th scope="row"><a href="/governance-scorecard/#CK-OR-03">CK-OR-03</a></th><td>SDLC policy states how AI-assisted changes are disclosed and what review obligation they carry</td><td><span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></td><td>Current, approved policy text with owner and review date.</td></tr>
+        <tr id="CK-OR-04-spec"><th scope="row"><a href="/governance-scorecard/#CK-OR-04">CK-OR-04</a></th><td>Human-authored and agent-authored contributions are distinguishable in version-control history</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>History query that separates agent-authored commits (by identity or trailer) from human commits for a chosen period.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Implementation examples</h2>
+      <p class="content-body">Examples show one way to implement a control on a specific platform. They are not universally secure configurations; adapt and test them in your environment.</p>
+      <figure class="spec-example">
+        <figcaption>Git commit trailers recording agent involvement (example convention — tested with git 2.x)</figcaption>
+        <pre class="code-block"><code class="lang-text">feat(api): add pagination to /orders
+
+AI-Agent: example-task-agent
+Delegated-By: alice@example.test
+Agent-Session: 7f3c2a</code></pre>
+      </figure>
+      <figure class="spec-example">
+        <figcaption>Query history by agent trailer (tested)</figcaption>
+        <pre class="code-block"><code class="lang-shell">git log --format='%h %an %(trailers:key=AI-Agent,valueonly,separator=%x2C)'</code></pre>
+      </figure>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Known limitations</h2>
+      <ul class="spec-list">
+        <li>Git author and committer fields are self-asserted. Attribution is reliable only when tied to the authenticated identity that pushed (platform audit events) or to signed commits.</li>
+        <li>There is no industry-standard trailer for AI involvement; the convention below is an example, not a standard.</li>
+        <li>Assistance in an editor (accepted suggestions) is generally not detectable after the fact; policy disclosure is the realistic control.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Remediation path</h2>
+      <ol class="spec-list">
+        <li>Provision a dedicated app/bot identity per agent integration (CK-OR-02).</li>
+        <li>Adopt a commit-trailer or label convention and enforce it in the agent integration (CK-OR-01).</li>
+        <li>Record the delegating human in the trailer or session log (feeds CK-AM-01).</li>
+        <li>Publish the disclosure and review obligation in the SDLC policy (CK-OR-03).</li>
+      </ol>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">External references</h2>
+      <p class="content-body">Claim classes: 1 = directly supported, 2 = Codokey synthesis of the source. See the <a href="/evidence/">Evidence Register</a> for passages and limitations.</p>
+      <ul class="spec-list spec-refs">
+        <li><a href="/evidence/#EV-SSDF-PW.7">EV-SSDF-PW.7</a> — National Institute of Standards and Technology, <cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite>, Practice PW.7, tasks PW.7.1 and PW.7.2. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, AU-3 Content of Audit Records. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-OWASP-ASI-2026">EV-OWASP-ASI-2026</a> — OWASP Gen AI Security Project — Agentic Security Initiative, <cite>OWASP Top 10 for Agentic Applications for 2026</cite>, Introduction (Least-Agency); ASI03 Identity &amp; Privilege Abuse. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-SLSA-SOURCE-1.2">EV-SLSA-SOURCE-1.2</a> — OpenSSF SLSA project, <cite>SLSA Source Track: Requirements for producing source (SLSA v1.2)</cite>, Source track levels. <span class="ev-class">Class 2</span></li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Continue</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/">← Protocol overview</a>
+      <a href="/protocol/key-exposure/">Layer 02: Key Exposure →</a>
+      <a href="/governance-scorecard/#grp-OR">Assess this layer in the scorecard</a>
+      <a href="/reference-kit/">Reference Kit</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Codokey Protocol v1.1 · Layer 01 · Code Origin</div>
+    <div class="footer-tag">Specification</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>
