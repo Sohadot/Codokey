@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evidence Register — Sources Behind the Codokey Protocol</title>
+<meta name="description" content="34 verified external sources (NIST, OWASP, GitHub, GitLab, MCP, SLSA and others) with exact passages, supported claims, claim class and limitations for AI Code Access Governance.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/evidence/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/evidence/">
+<meta property="og:title" content="Evidence Register — Sources Behind the Codokey Protocol">
+<meta property="og:description" content="34 verified external sources (NIST, OWASP, GitHub, GitLab, MCP, SLSA and others) with exact passages, supported claims, claim class and limitations for AI Code Access Governance.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Evidence Register — Sources Behind the Codokey Protocol">
+<meta name="twitter:description" content="34 verified external sources (NIST, OWASP, GitHub, GitLab, MCP, SLSA and others) with exact passages, supported claims, claim class and limitations for AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Codokey Evidence Register",
+  "description": "External sources, exact passages and claim classifications supporting the Codokey Protocol and Governance Scorecard.",
+  "version": "1.0.0",
+  "dateModified": "2026-11-12",
+  "url": "https://codokey.com/evidence/",
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://codokey.com/reference/evidence-register.json"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Codokey"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / evidence /</span><span class="file-name">evidence-register.json</span><span class="file-lang">REGISTER v1.0.0</span></div>
+    <div class="file-stats"><span class="stat-a">+34 verified passages</span><span class="stat-r">−3 claims excluded</span></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="eyebrow">Evidence Register v1.0.0 · verified 2026-11-12</div>
+    <h1 class="spec-h1">Evidence Register</h1>
+    <p class="content-body">Every external source that Codokey relies on, with the exact passage, what it supports, and what it does not. Use it to check a claim rather than trust it. The machine-readable register is at <a href="/reference/evidence-register.json">/reference/evidence-register.json</a>.</p>
+    <p class="content-body"><strong>Method.</strong> Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted.</p>
+    <table class="ref-table">
+      <caption>Claim classes</caption>
+      <tbody>
+        <tr><th scope="row">1</th><td>Directly supported by external evidence</td></tr>
+        <tr><th scope="row">2</th><td>Reasoned synthesis of multiple sources</td></tr>
+        <tr><th scope="row">3</th><td>Original Codokey proposal or doctrine</td></tr>
+        <tr><th scope="row">4</th><td>Unverified or disputed</td></tr>
+      </tbody>
+    </table>
+    <p class="content-body">No source listed here endorses Codokey, and none of them defines "AI Code Access Governance". Mandatory force comes only from a regulation or contract that adopts a standard; the NIST and OWASP documents below are guidance unless your organization has adopted them.</p>
+  </div>
+
+  <section class="content-wrap" aria-labelledby="claims-h">
+    <h2 class="spec-h2" id="claims-h">Codokey's principal claims and their status</h2>
+    <div class="table-scroll"><table class="ref-table">
+      <thead><tr><th scope="col">Claim</th><th scope="col">Class</th><th scope="col">Evidence</th><th scope="col">Note</th></tr></thead>
+      <tbody>
+        <tr><td>AI coding agents should receive only the repository access their task requires.</td><td>2</td><td><a href="/evidence/#EV-SSDF-PS.1.1">EV-SSDF-PS.1.1</a>, <a href="/evidence/#EV-SP80053-AC-6">EV-SP80053-AC-6</a>, <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a></td><td>General least-privilege guidance applied by Codokey to coding agents.</td></tr>
+        <tr><td>Tool-level file exclusion for an agent is not a security boundary.</td><td>1</td><td><a href="/evidence/#EV-GH-CONTENT-EXCLUSION">EV-GH-CONTENT-EXCLUSION</a>, <a href="/evidence/#EV-CLAUDE-PERMISSIONS">EV-CLAUDE-PERMISSIONS</a></td><td>Stated by two vendors about their own products.</td></tr>
+        <tr><td>The person who requested an agent's change should not be the one who approves it.</td><td>2</td><td><a href="/evidence/#EV-SP80053-AC-5">EV-SP80053-AC-5</a>, <a href="/evidence/#EV-GH-COPILOT-AGENT-RISKS">EV-GH-COPILOT-AGENT-RISKS</a>, <a href="/evidence/#EV-GH-BRANCH-PROTECTION">EV-GH-BRANCH-PROTECTION</a></td><td>Separation of duties applied to agent workflows; one vendor implements it by default.</td></tr>
+        <tr><td>Production deployment of agent-produced changes should require human approval.</td><td>2</td><td><a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a>, <a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a>, <a href="/evidence/#EV-GL-DEPLOY-APPROVALS">EV-GL-DEPLOY-APPROVALS</a></td><td>OWASP recommends human approval of high-impact actions; platforms provide the mechanism.</td></tr>
+        <tr><td>Audit records for agent sessions need identity, delegating human, time, target, outcome and session scope.</td><td>2</td><td><a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a>, <a href="/evidence/#EV-SP80053-AU-9">EV-SP80053-AU-9</a></td><td>AU-3 fields plus Codokey's agent-specific additions (delegation, session scope).</td></tr>
+        <tr><td>The six-layer Codokey Protocol structure (Code Origin to Audit Memory).</td><td>3</td><td>—</td><td>Original Codokey organizing model.</td></tr>
+        <tr><td>Forbidden zones and their use as grade caps in the scorecard.</td><td>3</td><td>—</td><td>Codokey doctrine; each zone is supported by the least-privilege and human-approval sources above, the cap rule is not.</td></tr>
+        <tr><td>'AI Code Access Governance' is a distinct discipline.</td><td>3</td><td><a href="/evidence/#EV-MS-ZT-DS120">EV-MS-ZT-DS120</a></td><td>Codokey's framing. Related practitioner guidance on governing AI development tools exists; no standard defines this term. Codokey does not claim exclusive ownership of the phrase.</td></tr>
+        <tr><td>Codokey is the canonical or category-defining reference for the discipline.</td><td>4</td><td>—</td><td>Positioning statement with no independent evidence of adoption. Not used on technical reference pages.</td></tr>
+        <tr><td>Governance debt from unscoped agent sessions compounds over time.</td><td>3</td><td>—</td><td>Doctrine; no measurement supports a specific rate.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="content-wrap ev-list" aria-labelledby="entries-h">
+    <h2 class="spec-h2" id="entries-h">Register entries (34)</h2>
+    <article class="ev-card" id="EV-SSDF-PS.1.1" aria-labelledby="EV-SSDF-PS.1.1-h">
+      <h3 class="ev-id" id="EV-SSDF-PS.1.1-h">EV-SSDF-PS.1.1 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities (NIST SP 800-218)</cite> — National Institute of Standards and Technology · 2022-02</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PS.1, task PS.1.1</p>
+      <blockquote class="ev-quote">Store all forms of code – including source code, executable code, and configuration-as-code – based on the principle of least privilege so that only authorized personnel, tools, services, etc. have access.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Access to code repositories should follow least privilege for tools and services as well as people.</dd>
+        <dt>Codokey application</dt><dd>Codokey treats an AI coding agent as a tool/service under PS.1.1, so its repository access should be least-privilege (CK-AA-02). The application to AI agents is Codokey's synthesis; SP 800-218 does not mention AI agents.</dd>
+        <dt>Limitations</dt><dd>Recommendation framework, not a regulation. Does not specify how agent access is technically restricted.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-AA-02">CK-AA-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SSDF-PO.5.1" aria-labelledby="EV-SSDF-PO.5.1-h">
+      <h3 class="ev-id" id="EV-SSDF-PO.5.1-h">EV-SSDF-PO.5.1 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite> — National Institute of Standards and Technology · 2022-02</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PO.5, task PO.5.1</p>
+      <blockquote class="ev-quote">Separate and protect each environment involved in software development.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Development, build, and production environments should be separated and protected.</dd>
+        <dt>Codokey application</dt><dd>Basis for keeping production secrets out of development and agent environments (CK-KE-06, CK-DC-02).</dd>
+        <dt>Limitations</dt><dd>High-level task; the forbidden-zone framing and its use as a grade cap are Codokey doctrine.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a>, <a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-KE-06">CK-KE-06</a>, <a href="/governance-scorecard/#CK-DC-02">CK-DC-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SSDF-PW.7" aria-labelledby="EV-SSDF-PW.7-h">
+      <h3 class="ev-id" id="EV-SSDF-PW.7-h">EV-SSDF-PW.7 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite> — National Institute of Standards and Technology · 2022-02</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PW.7, tasks PW.7.1 and PW.7.2</p>
+      <blockquote class="ev-quote">PW.7.1: Determine whether code review (a person looks directly at the code to find issues) and/or code analysis (tools are used to find issues in code, either in a fully automated way or in conjunction with a person) should be used, as defined by the organization.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Organizations should define when human code review and/or automated analysis applies.</dd>
+        <dt>Codokey application</dt><dd>Codokey recommends that the organization's definition explicitly cover AI-generated changes (CK-OR-03, CK-RB-05).</dd>
+        <dt>Limitations</dt><dd>SSDF leaves the choice of review vs. analysis to the organization. It does NOT require human review of AI-generated code; that requirement is a Codokey recommendation.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/code-origin/">Code Origin</a>, <a href="/protocol/review-boundary/">Review Boundary</a> · <a href="/governance-scorecard/#CK-OR-03">CK-OR-03</a>, <a href="/governance-scorecard/#CK-RB-05">CK-RB-05</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SSDF-PO.3.3" aria-labelledby="EV-SSDF-PO.3.3-h">
+      <h3 class="ev-id" id="EV-SSDF-PO.3.3-h">EV-SSDF-PO.3.3 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite> — National Institute of Standards and Technology · 2022-02</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/218/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/218/final</a> · Practice PO.3, task PO.3.3, Example 1</p>
+      <blockquote class="ev-quote">PO.3.3: Configure tools to generate artifacts of their support of secure software development practices as defined by the organization. Example 1: Use existing tooling (e.g., workflow tracking, issue tracking, value stream mapping) to create an audit trail of the secure development-related actions that are performed for continuous improvement purposes.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Toolchains should produce audit-trail artifacts of secure development actions.</dd>
+        <dt>Codokey application</dt><dd>Supports requiring agent tooling to produce session records (CK-AM-01).</dd>
+        <dt>Limitations</dt><dd>Does not specify record content for AI agent sessions.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-AM-01">CK-AM-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-AC-6" aria-labelledby="EV-SP80053-AC-6-h">
+      <h3 class="ev-id" id="EV-SP80053-AC-6-h">EV-SP80053-AC-6 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · AC-6 Least Privilege</p>
+      <blockquote class="ev-quote">Employ the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) that are necessary to accomplish assigned organizational tasks.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Processes acting on behalf of users should receive only the access their task requires.</dd>
+        <dt>Codokey application</dt><dd>An AI agent is a process acting on behalf of a user; its scope should be task-bounded (CK-AA-01, CK-AA-02, CK-AA-05).</dd>
+        <dt>Limitations</dt><dd>Control catalog for information systems; mandatory only where an organization or regulation adopts it (e.g. US federal systems).</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-AA-01">CK-AA-01</a>, <a href="/governance-scorecard/#CK-AA-02">CK-AA-02</a>, <a href="/governance-scorecard/#CK-AA-05">CK-AA-05</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-AC-6-9" aria-labelledby="EV-SP80053-AC-6-9-h">
+      <h3 class="ev-id" id="EV-SP80053-AC-6-9-h">EV-SP80053-AC-6-9 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · AC-6(9) Least Privilege | Log Use of Privileged Functions</p>
+      <blockquote class="ev-quote">Log the execution of privileged functions.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Privileged actions should be logged.</dd>
+        <dt>Codokey application</dt><dd>Agent pushes, approvals, and deployments are privileged functions that should be logged (CK-AM-01).</dd>
+        <dt>Limitations</dt><dd>Control enhancement; applicability depends on the adopted baseline.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-AM-01">CK-AM-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-AU-3" aria-labelledby="EV-SP80053-AU-3-h">
+      <h3 class="ev-id" id="EV-SP80053-AU-3-h">EV-SP80053-AU-3 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · AU-3 Content of Audit Records</p>
+      <blockquote class="ev-quote">Ensure that audit records contain information that establishes the following: a. What type of event occurred; b. When the event occurred; c. Where the event occurred; d. Source of the event; e. Outcome of the event; and f. Identity of any individuals, subjects, or objects/entities associated with the event.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Audit records need event type, time, location, source, outcome, and identities.</dd>
+        <dt>Codokey application</dt><dd>Basis for the Audit Evidence Specification field set and Reference Case D (CK-AM-01, CK-OR-02). Codokey adds the delegating human and session scope as agent-specific fields.</dd>
+        <dt>Limitations</dt><dd>Generic audit control; the agent-specific additions are Codokey proposals.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a>, <a href="/protocol/code-origin/">Code Origin</a> · <a href="/governance-scorecard/#CK-AM-01">CK-AM-01</a>, <a href="/governance-scorecard/#CK-OR-02">CK-OR-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-AU-9" aria-labelledby="EV-SP80053-AU-9-h">
+      <h3 class="ev-id" id="EV-SP80053-AU-9-h">EV-SP80053-AU-9 <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · AU-9 Protection of Audit Information</p>
+      <blockquote class="ev-quote">Protect audit information and audit logging tools from unauthorized access, modification, and deletion</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Audit information must be protected against modification and deletion.</dd>
+        <dt>Codokey application</dt><dd>Agent identities should not be able to alter the logs that record them (CK-AM-02).</dd>
+        <dt>Limitations</dt><dd>Does not prescribe a specific mechanism (e.g. WORM storage).</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-AM-02">CK-AM-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-CM-5" aria-labelledby="EV-SP80053-CM-5-h">
+      <h3 class="ev-id" id="EV-SP80053-CM-5-h">EV-SP80053-CM-5 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · CM-5 Access Restrictions for Change</p>
+      <blockquote class="ev-quote">Define, document, approve, and enforce physical and logical access restrictions associated with changes to the system.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Change restrictions must be enforced, not only documented.</dd>
+        <dt>Codokey application</dt><dd>Supports 'technically enforced, not policy-only' wording in CK-AA-06, CK-RB-04, CK-DC-05.</dd>
+        <dt>Limitations</dt><dd>System-level control; application to repository protection is Codokey's mapping.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a>, <a href="/protocol/review-boundary/">Review Boundary</a>, <a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-AA-06">CK-AA-06</a>, <a href="/governance-scorecard/#CK-RB-04">CK-RB-04</a>, <a href="/governance-scorecard/#CK-DC-05">CK-DC-05</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SP80053-AC-5" aria-labelledby="EV-SP80053-AC-5-h">
+      <h3 class="ev-id" id="EV-SP80053-AC-5-h">EV-SP80053-AC-5 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite> — National Institute of Standards and Technology · 2020-09 (includes updates as of 2020-12-10)</p>
+      <p class="ev-src"><a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final" rel="noopener">https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final</a> · AC-5 Separation of Duties</p>
+      <blockquote class="ev-quote">a. Identify and document [Assignment: organization-defined duties of individuals requiring separation]; and b. Define system access authorizations to support separation of duties.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Duties requiring separation should be identified and supported by access authorizations.</dd>
+        <dt>Codokey application</dt><dd>Codokey treats 'request an agent change' and 'approve that change' as duties requiring separation (CK-RB-01, Reference Case C).</dd>
+        <dt>Limitations</dt><dd>The specific duty pairing for agent workflows is Codokey's proposal.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a> · <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-OWASP-LLM06" aria-labelledby="EV-OWASP-LLM06-h">
+      <h3 class="ev-id" id="EV-OWASP-LLM06-h">EV-OWASP-LLM06 <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>LLM06:2025 Excessive Agency (OWASP Top 10 for LLM Applications 2025)</cite> — OWASP Gen AI Security Project · 2025 edition (living web page)</p>
+      <p class="ev-src"><a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/" rel="noopener">https://genai.owasp.org/llmrisk/llm062025-excessive-agency/</a> · Description; Prevention and Mitigation Strategies 1–7</p>
+      <blockquote class="ev-quote">The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Require user approval: Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Complete mediation: Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>LLM agents should have minimal functions and permissions, high-impact actions need human approval, and authorization belongs in downstream systems.</dd>
+        <dt>Codokey application</dt><dd>Directly underpins Agent Authority controls and the rule that deployment needs a human gate enforced outside the agent (CK-AA-01, CK-AA-02, CK-AA-03, CK-AA-06, CK-DC-01).</dd>
+        <dt>Limitations</dt><dd>Written for LLM applications generally, not coding agents specifically.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a>, <a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-AA-01">CK-AA-01</a>, <a href="/governance-scorecard/#CK-AA-02">CK-AA-02</a>, <a href="/governance-scorecard/#CK-AA-03">CK-AA-03</a>, <a href="/governance-scorecard/#CK-AA-06">CK-AA-06</a>, <a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-OWASP-LLM02" aria-labelledby="EV-OWASP-LLM02-h">
+      <h3 class="ev-id" id="EV-OWASP-LLM02-h">EV-OWASP-LLM02 <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>LLM02:2025 Sensitive Information Disclosure (OWASP Top 10 for LLM Applications 2025)</cite> — OWASP Gen AI Security Project · 2025 edition (living web page)</p>
+      <p class="ev-src"><a href="https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/" rel="noopener">https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/</a> · Description</p>
+      <blockquote class="ev-quote">Sensitive information can affect both the LLM and its application context. This includes personal identifiable information (PII), financial details, health records, confidential business data, security credentials, and legal documents.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Security credentials are a category of sensitive information at risk in LLM application context.</dd>
+        <dt>Codokey application</dt><dd>Supports treating credentials in agent context as a disclosure risk (CK-KE-03).</dd>
+        <dt>Limitations</dt><dd>General LLM risk; does not prescribe file-level exclusion.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-KE-03">CK-KE-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-OWASP-ASI-2026" aria-labelledby="EV-OWASP-ASI-2026-h">
+      <h3 class="ev-id" id="EV-OWASP-ASI-2026-h">EV-OWASP-ASI-2026 <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>OWASP Top 10 for Agentic Applications for 2026</cite> — OWASP Gen AI Security Project — Agentic Security Initiative · 2025-12 (document version 2026)</p>
+      <p class="ev-src"><a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" rel="noopener">https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/</a> · Introduction (Least-Agency); ASI03 Identity &amp; Privilege Abuse</p>
+      <blockquote class="ev-quote">We expand on the concepts of Least-Privilege and Excessive Agency by citing Least-Agency. This captures our advice to organizations to avoid unnecessary autonomy; deploying agentic behavior where it is not needed expands the attack surface without adding value. Similarly, strong observability becomes non-negotiable.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Agentic systems should avoid unnecessary autonomy and need strong observability; identity and privilege abuse is a top agentic risk (ASI03).</dd>
+        <dt>Codokey application</dt><dd>Supports distinct agent identities and observability (CK-OR-02) and the Agent Authority layer generally.</dd>
+        <dt>Limitations</dt><dd>Risk list, not a control standard. Licensed CC BY-SA 4.0.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/code-origin/">Code Origin</a>, <a href="/protocol/agent-authority/">Agent Authority</a>, <a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-OR-02">CK-OR-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-OWASP-SECRETS-CS" aria-labelledby="EV-OWASP-SECRETS-CS-h">
+      <h3 class="ev-id" id="EV-OWASP-SECRETS-CS-h">EV-OWASP-SECRETS-CS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Secrets Management Cheat Sheet</cite> — OWASP Cheat Sheet Series · living document</p>
+      <p class="ev-src"><a href="https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html" rel="noopener">https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html</a> · 2.7.2 Rotation</p>
+      <blockquote class="ev-quote">You should regularly rotate secrets so that any stolen credentials will only work for a short time.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Regular rotation limits the usefulness of stolen credentials.</dd>
+        <dt>Codokey application</dt><dd>Supports rotation policy (CK-KE-05) and rotation as the first step after exposure (CK-AM-04).</dd>
+        <dt>Limitations</dt><dd>The same section notes lifetimes vary by secret function and that user credentials are excluded from regular rotation.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a>, <a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-KE-05">CK-KE-05</a>, <a href="/governance-scorecard/#CK-AM-04">CK-AM-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-SECRET-SCANNING" aria-labelledby="EV-GH-SECRET-SCANNING-h">
+      <h3 class="ev-id" id="EV-GH-SECRET-SCANNING-h">EV-GH-SECRET-SCANNING <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>About secret scanning</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning" rel="noopener">https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning</a> · About secret scanning</p>
+      <blockquote class="ev-quote">Secret scanning scans your entire Git history on all branches of your repository for hardcoded credentials, including API keys, passwords, tokens, and other known secret types.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Platform secret scanning detects known secret types across repository history.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-KE-01, CK-KE-04, CK-DC-03.</dd>
+        <dt>Limitations</dt><dd>Detection after commit; covers known secret patterns; availability depends on repository type and plan.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a>, <a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-KE-01">CK-KE-01</a>, <a href="/governance-scorecard/#CK-KE-04">CK-KE-04</a>, <a href="/governance-scorecard/#CK-DC-03">CK-DC-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-PUSH-PROTECTION" aria-labelledby="EV-GH-PUSH-PROTECTION-h">
+      <h3 class="ev-id" id="EV-GH-PUSH-PROTECTION-h">EV-GH-PUSH-PROTECTION <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>About push protection</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection" rel="noopener">https://docs.github.com/en/code-security/concepts/secret-security/push-protection</a> · About push protection</p>
+      <blockquote class="ev-quote">Push protection is a secret scanning feature designed to prevent hardcoded credentials, such as secrets or tokens, from ever being pushed to your repository.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Server-side push protection blocks pushes containing detected secrets.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-KE-02.</dd>
+        <dt>Limitations</dt><dd>Detects supported secret types only; users may be able to bypass with a stated reason depending on configuration.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-KE-02">CK-KE-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-BRANCH-PROTECTION" aria-labelledby="EV-GH-BRANCH-PROTECTION-h">
+      <h3 class="ev-id" id="EV-GH-BRANCH-PROTECTION-h">EV-GH-BRANCH-PROTECTION <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>About protected branches</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches" rel="noopener">https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches</a> · Require pull request reviews before merging; Do not allow bypassing the above settings</p>
+      <blockquote class="ev-quote">Optionally, you can require that the most recent reviewable push must be approved by someone other than the person who pushed it. … By default, the restrictions of a branch protection rule do not apply to people with admin permissions to the repository or custom roles with the &quot;bypass branch protections&quot; permission in a repository. You can enable this setting to apply the restrictions to admins and roles with the &quot;bypass branch protections&quot; permission, too.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Review can be required from someone other than the pusher; administrators bypass by default unless configured otherwise.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-RB-01 and CK-RB-04; the admin-bypass default is why CK-RB-04 is critical.</dd>
+        <dt>Limitations</dt><dd>Platform-specific; rulesets offer an alternative configuration path.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a> · <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a>, <a href="/governance-scorecard/#CK-RB-04">CK-RB-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-CODEOWNERS" aria-labelledby="EV-GH-CODEOWNERS-h">
+      <h3 class="ev-id" id="EV-GH-CODEOWNERS-h">EV-GH-CODEOWNERS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>About code owners</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners" rel="noopener">https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners</a> · About code owners; Branch protection and CODEOWNERS</p>
+      <blockquote class="ev-quote">Code owners are automatically requested for review when someone opens a pull request that modifies code that they own. … Edit your branch protection rule and enable the option &quot;Require review from Code Owners&quot;.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Path ownership can route and require review by designated owners.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-RB-02 and CK-DC-05.</dd>
+        <dt>Limitations</dt><dd>Code owners are not automatically requested on draft pull requests.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a>, <a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-RB-02">CK-RB-02</a>, <a href="/governance-scorecard/#CK-DC-05">CK-DC-05</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-ENVIRONMENTS" aria-labelledby="EV-GH-ENVIRONMENTS-h">
+      <h3 class="ev-id" id="EV-GH-ENVIRONMENTS-h">EV-GH-ENVIRONMENTS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Managing environments for deployment</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments" rel="noopener">https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments</a> · Required reviewers; Prevent self-review; Environment secrets</p>
+      <blockquote class="ev-quote">Only one of the required reviewers needs to approve the job for it to proceed. … Prevent self-review … workflow jobs that use this environment can only access these secrets after any configured rules (for example, required reviewers) pass.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Deployment jobs can be gated on human reviewers, self-review can be prevented, and environment secrets are released only after rules pass.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-DC-01, CK-DC-02, CK-KE-06 and Reference Case C.</dd>
+        <dt>Limitations</dt><dd>The page states required reviewers and wait timers on Free, Pro, and Team plans are only available for public repositories.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/deployment-control/">Deployment Control</a>, <a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a>, <a href="/governance-scorecard/#CK-DC-02">CK-DC-02</a>, <a href="/governance-scorecard/#CK-KE-06">CK-KE-06</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-GITHUB-TOKEN" aria-labelledby="EV-GH-GITHUB-TOKEN-h">
+      <h3 class="ev-id" id="EV-GH-GITHUB-TOKEN-h">EV-GH-GITHUB-TOKEN <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Use GITHUB_TOKEN for authentication in workflows</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/actions/tutorials/authenticate-with-github_token" rel="noopener">https://docs.github.com/en/actions/tutorials/authenticate-with-github_token</a> · Modifying the permissions for the GITHUB_TOKEN</p>
+      <blockquote class="ev-quote">This allows you to configure the minimum required permissions for a workflow or job. As a good security practice, you should grant the GITHUB_TOKEN the least required access.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Workflow tokens should be granted least required access via explicit permissions.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-AA-04.</dd>
+        <dt>Limitations</dt><dd>Applies to GitHub Actions workflow tokens only.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-AA-04">CK-AA-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-FG-PAT" aria-labelledby="EV-GH-FG-PAT-h">
+      <h3 class="ev-id" id="EV-GH-FG-PAT-h">EV-GH-FG-PAT <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Managing your personal access tokens</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens" rel="noopener">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens</a> · Fine-grained personal access tokens; Token expiration</p>
+      <blockquote class="ev-quote">Each token can be further limited to only access specific repositories for that user or organization. … To provide additional security, we highly recommend adding an expiration to your personal access tokens.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Tokens can be restricted to specific repositories and should expire.</dd>
+        <dt>Codokey application</dt><dd>Implementation example for CK-AA-02, CK-AA-04, CK-AA-05, CK-KE-05.</dd>
+        <dt>Limitations</dt><dd>Personal tokens remain tied to a human account; a dedicated app identity is preferable for agents (CK-OR-02).</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a>, <a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-AA-02">CK-AA-02</a>, <a href="/governance-scorecard/#CK-AA-04">CK-AA-04</a>, <a href="/governance-scorecard/#CK-AA-05">CK-AA-05</a>, <a href="/governance-scorecard/#CK-KE-05">CK-KE-05</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-COPILOT-AGENT-RISKS" aria-labelledby="EV-GH-COPILOT-AGENT-RISKS-h">
+      <h3 class="ev-id" id="EV-GH-COPILOT-AGENT-RISKS-h">EV-GH-COPILOT-AGENT-RISKS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Risks and mitigations for GitHub Copilot cloud agent</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/risks-and-mitigations" rel="noopener">https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/risks-and-mitigations</a> · Copilot cloud agent can push code changes to your repository</p>
+      <blockquote class="ev-quote">Draft pull requests created by Copilot cloud agent must be reviewed and merged by a human. Copilot cloud agent cannot mark its pull requests as &quot;Ready for review&quot; and cannot approve or merge a pull request. … Prevents the user who asked Copilot cloud agent to create a pull request from approving it.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>One vendor's coding agent is restricted from approving or merging its own work and the requester cannot approve the agent's PR.</dd>
+        <dt>Codokey application</dt><dd>Shows that requester/approver separation for agent PRs is implementable in practice (CK-RB-01, Reference Case C).</dd>
+        <dt>Limitations</dt><dd>Vendor's description of its own product; not independent verification; applies only to that agent.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a>, <a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-CONTENT-EXCLUSION" aria-labelledby="EV-GH-CONTENT-EXCLUSION-h">
+      <h3 class="ev-id" id="EV-GH-CONTENT-EXCLUSION-h">EV-GH-CONTENT-EXCLUSION <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Content exclusion for GitHub Copilot</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/content-exclusion" rel="noopener">https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/content-exclusion</a> · Limitations of content exclusion</p>
+      <blockquote class="ev-quote">Content exclusion is not a filesystem security boundary and cannot guarantee prevention of every form of file access. It is a guardrail for the tools that GitHub controls, and is not guaranteed to be respected by third-party MCP servers or clients.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Tool-level content exclusion is not a security boundary.</dd>
+        <dt>Codokey application</dt><dd>Why CK-KE-03 requires a technical boundary and why Reference Case A distinguishes exclusion from isolation.</dd>
+        <dt>Limitations</dt><dd>Describes one vendor's feature.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-KE-03">CK-KE-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GH-AUDIT-LOG" aria-labelledby="EV-GH-AUDIT-LOG-h">
+      <h3 class="ev-id" id="EV-GH-AUDIT-LOG-h">EV-GH-AUDIT-LOG <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Reviewing the audit log for your organization</cite> — GitHub Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization" rel="noopener">https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization</a> · Accessing the audit log</p>
+      <blockquote class="ev-quote">The audit log lists events triggered by activities that affect your organization within the last 180 days.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>The organization audit log view covers a 180-day window.</dd>
+        <dt>Codokey application</dt><dd>Platform retention may be shorter than an organization's requirement; export may be needed (CK-AM-03).</dd>
+        <dt>Limitations</dt><dd>Retention and streaming options vary by plan; verify against current documentation.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-AM-03">CK-AM-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GL-PROTECTED-BRANCHES" aria-labelledby="EV-GL-PROTECTED-BRANCHES-h">
+      <h3 class="ev-id" id="EV-GL-PROTECTED-BRANCHES-h">EV-GL-PROTECTED-BRANCHES <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Protected branches</cite> — GitLab Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.gitlab.com/user/project/repository/branches/protected/" rel="noopener">https://docs.gitlab.com/user/project/repository/branches/protected/</a> · Allowed to merge; Allowed to push and merge; Code Owner approval</p>
+      <blockquote class="ev-quote">Allowed to merge … Allowed to push and merge … Manage Code Owner approval requirements.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>GitLab restricts who may push or merge to protected branches and supports Code Owner approval requirements.</dd>
+        <dt>Codokey application</dt><dd>GitLab implementation path for CK-RB-01 and CK-RB-02.</dd>
+        <dt>Limitations</dt><dd>Passage is a set of setting names; exact behavior depends on tier and configuration.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a> · <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GL-SECRET-PUSH-PROTECTION" aria-labelledby="EV-GL-SECRET-PUSH-PROTECTION-h">
+      <h3 class="ev-id" id="EV-GL-SECRET-PUSH-PROTECTION-h">EV-GL-SECRET-PUSH-PROTECTION <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Secret push protection</cite> — GitLab Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.gitlab.com/user/application_security/secret_detection/secret_push_protection/" rel="noopener">https://docs.gitlab.com/user/application_security/secret_detection/secret_push_protection/</a> · Overview</p>
+      <blockquote class="ev-quote">Secret push protection blocks secrets such as keys and API tokens from being pushed to GitLab.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>GitLab can block pushes containing secrets.</dd>
+        <dt>Codokey application</dt><dd>GitLab implementation path for CK-KE-02.</dd>
+        <dt>Limitations</dt><dd>Tier-dependent; pattern coverage limits apply.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-KE-02">CK-KE-02</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GL-DEPLOY-APPROVALS" aria-labelledby="EV-GL-DEPLOY-APPROVALS-h">
+      <h3 class="ev-id" id="EV-GL-DEPLOY-APPROVALS-h">EV-GL-DEPLOY-APPROVALS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Deployment approvals</cite> — GitLab Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.gitlab.com/ci/environments/deployment_approvals/" rel="noopener">https://docs.gitlab.com/ci/environments/deployment_approvals/</a> · Overview; Allow self-approval</p>
+      <blockquote class="ev-quote">Deployments are blocked until all required approvals are given. … By default, the user who triggers a deployment pipeline can't also approve the deployment job.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>GitLab can block deployments pending approval and by default prevents self-approval by the triggering user.</dd>
+        <dt>Codokey application</dt><dd>GitLab implementation path for CK-DC-01 and Reference Case C.</dd>
+        <dt>Limitations</dt><dd>Premium/Ultimate tiers; the page also states a GitLab administrator can approve or reject all deployments.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GL-PROTECTED-ENVIRONMENTS" aria-labelledby="EV-GL-PROTECTED-ENVIRONMENTS-h">
+      <h3 class="ev-id" id="EV-GL-PROTECTED-ENVIRONMENTS-h">EV-GL-PROTECTED-ENVIRONMENTS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Protected environments</cite> — GitLab Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.gitlab.com/ci/environments/protected_environments/" rel="noopener">https://docs.gitlab.com/ci/environments/protected_environments/</a> · Protecting environments — Allowed to deploy</p>
+      <blockquote class="ev-quote">Allowed to deploy</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>GitLab restricts which users, roles, or groups may deploy to a protected environment.</dd>
+        <dt>Codokey application</dt><dd>Agent identities should not appear in 'Allowed to deploy' for production (CK-DC-01).</dd>
+        <dt>Limitations</dt><dd>Passage is a setting name; see page for semantics.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/deployment-control/">Deployment Control</a> · <a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-GL-AUDIT-EVENTS" aria-labelledby="EV-GL-AUDIT-EVENTS-h">
+      <h3 class="ev-id" id="EV-GL-AUDIT-EVENTS-h">EV-GL-AUDIT-EVENTS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Audit events</cite> — GitLab Docs · living document</p>
+      <p class="ev-src"><a href="https://docs.gitlab.com/user/compliance/audit_events/" rel="noopener">https://docs.gitlab.com/user/compliance/audit_events/</a> · Overview; Retention</p>
+      <blockquote class="ev-quote">Audit events are retained indefinitely. Because there is no retention timeframe, all audit events are available.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>GitLab audit events record actions and, per this page, are retained indefinitely.</dd>
+        <dt>Codokey application</dt><dd>Contrast with other platforms' retention windows when assessing CK-AM-03.</dd>
+        <dt>Limitations</dt><dd>Tier and deployment model affect which events exist; verify for your instance.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/audit-memory/">Audit Memory</a> · <a href="/governance-scorecard/#CK-AM-03">CK-AM-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-CLAUDE-PERMISSIONS" aria-labelledby="EV-CLAUDE-PERMISSIONS-h">
+      <h3 class="ev-id" id="EV-CLAUDE-PERMISSIONS-h">EV-CLAUDE-PERMISSIONS <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Configure permissions (Claude Code documentation)</cite> — Anthropic · living document</p>
+      <p class="ev-src"><a href="https://code.claude.com/docs/en/permissions" rel="noopener">https://code.claude.com/docs/en/permissions</a> · Rule evaluation; Read and Edit deny rules</p>
+      <blockquote class="ev-quote">Rules are evaluated in order: deny, then ask, then allow. … Read and Edit deny rules apply to Claude's built-in file tools, to file commands Claude Code recognizes in Bash … They don't apply to … arbitrary subprocesses that read or write files indirectly, like a Python or Node script that opens files itself. For OS-level enforcement that blocks all processes from accessing a path, enable the sandbox.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Agent-level deny rules (e.g. Read(.env)) take precedence but do not cover arbitrary subprocesses; OS-level sandboxing is the vendor's stated path for full enforcement.</dd>
+        <dt>Codokey application</dt><dd>Implementation example and key limitation for CK-KE-03 and Reference Case A.</dd>
+        <dt>Limitations</dt><dd>Vendor documentation for one agent; behavior is version-dependent.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/key-exposure/">Key Exposure</a> · <a href="/governance-scorecard/#CK-KE-03">CK-KE-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-MCP-SECURITY" aria-labelledby="EV-MCP-SECURITY-h">
+      <h3 class="ev-id" id="EV-MCP-SECURITY-h">EV-MCP-SECURITY <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Security Best Practices (Model Context Protocol)</cite> — Model Context Protocol project · living document (2025-11-25 documentation version)</p>
+      <p class="ev-src"><a href="https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices" rel="noopener">https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices</a> · Token Passthrough; Scope Minimization</p>
+      <blockquote class="ev-quote">&quot;Token passthrough&quot; is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API. … Token passthrough is explicitly forbidden in the authorization specification … Poor scope design increases token compromise impact, elevates user friction, and obscures audit trails.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>MCP deployments should avoid token passthrough and minimize token scopes.</dd>
+        <dt>Codokey application</dt><dd>Review items for the MCP inventory (CK-AA-03) and token scope review (CK-AA-04).</dd>
+        <dt>Limitations</dt><dd>Applies to MCP-based integrations only.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-AA-03">CK-AA-03</a>, <a href="/governance-scorecard/#CK-AA-04">CK-AA-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-SLSA-SOURCE-1.2" aria-labelledby="EV-SLSA-SOURCE-1.2-h">
+      <h3 class="ev-id" id="EV-SLSA-SOURCE-1.2-h">EV-SLSA-SOURCE-1.2 <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>SLSA Source Track: Requirements for producing source (SLSA v1.2)</cite> — OpenSSF SLSA project · v1.2, status: Approved (living web page)</p>
+      <p class="ev-src"><a href="https://slsa.dev/spec/v1.2/source-requirements" rel="noopener">https://slsa.dev/spec/v1.2/source-requirements</a> · Source track levels</p>
+      <blockquote class="ev-quote">Source L2 — Preserve Change History and generate Source Provenance. … Source L4 — Require code review.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>Supply-chain source levels call for preserved change history, source provenance, and code review.</dd>
+        <dt>Codokey application</dt><dd>Context for provenance of agent-authored changes (CK-OR-01, CK-OR-04). Codokey does not claim SLSA conformance for any control.</dd>
+        <dt>Limitations</dt><dd>SLSA does not address AI authorship specifically.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/code-origin/">Code Origin</a>, <a href="/protocol/review-boundary/">Review Boundary</a> · <a href="/governance-scorecard/#CK-OR-01">CK-OR-01</a>, <a href="/governance-scorecard/#CK-OR-04">CK-OR-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-OSSF-SCORECARD-CHECKS" aria-labelledby="EV-OSSF-SCORECARD-CHECKS-h">
+      <h3 class="ev-id" id="EV-OSSF-SCORECARD-CHECKS-h">EV-OSSF-SCORECARD-CHECKS <span class="ev-class">Class 2</span></h3>
+      <p class="ev-src"><cite>OpenSSF Scorecard — Check Documentation</cite> — OpenSSF · living document</p>
+      <p class="ev-src"><a href="https://github.com/ossf/scorecard/blob/main/docs/checks.md" rel="noopener">https://github.com/ossf/scorecard/blob/main/docs/checks.md</a> · Code-Review; Token-Permissions</p>
+      <blockquote class="ev-quote">This check determines whether the project requires human code review before pull requests (merge requests) are merged. … This check determines whether the project's automated workflows tokens follow the principle of least privilege.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>An established open-source assessment tool treats required human review and least-privilege workflow tokens as high-risk checks.</dd>
+        <dt>Codokey application</dt><dd>Comparable automated checks that can supply evidence for CK-RB-01 and CK-AA-04 on GitHub-hosted repositories.</dd>
+        <dt>Limitations</dt><dd>Heuristic, automated, GitHub-focused; a Scorecard result is evidence, not proof.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/review-boundary/">Review Boundary</a>, <a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a>, <a href="/governance-scorecard/#CK-AA-04">CK-AA-04</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+    <article class="ev-card" id="EV-MS-ZT-DS120" aria-labelledby="EV-MS-ZT-DS120-h">
+      <h3 class="ev-id" id="EV-MS-ZT-DS120-h">EV-MS-ZT-DS120 <span class="ev-class">Class 1</span></h3>
+      <p class="ev-src"><cite>Establish AI development tool governance and allowlisting (Zero Trust workshop guidance DS 120)</cite> — Microsoft · living document</p>
+      <p class="ev-src"><a href="https://microsoft.github.io/zerotrustassessment/docs/workshop-guidance/devsecops/DS_120" rel="noopener">https://microsoft.github.io/zerotrustassessment/docs/workshop-guidance/devsecops/DS_120</a> · Overview</p>
+      <blockquote class="ev-quote">Establish a formal governance and allowlisting program for AI development tools so only approved, enterprise-managed assistants can access organizational code and data.</blockquote>
+      <dl class="ev-dl">
+        <dt>Supports</dt><dd>A major vendor's guidance recommends inventorying and allowlisting AI development tools.</dd>
+        <dt>Codokey application</dt><dd>Supports the inventory element of CK-AA-03 and indicates that AI coding tool governance is an active practitioner concern beyond Codokey.</dd>
+        <dt>Limitations</dt><dd>Vendor workshop guidance; recommends some vendor products.</dd>
+        <dt>Layers · controls</dt><dd><a href="/protocol/agent-authority/">Agent Authority</a> · <a href="/governance-scorecard/#CK-AA-03">CK-AA-03</a></dd>
+        <dt>Verified</dt><dd>2026-11-12</dd>
+      </dl>
+    </article>
+  </section>
+
+  <section class="content-wrap" aria-labelledby="gaps-h">
+    <h2 class="spec-h2" id="gaps-h">Considered, excluded, and open gaps</h2>
+    <h3 class="spec-h3">Considered but not cited</h3>
+    <ul class="spec-list">
+      <li><a href="https://csrc.nist.gov/pubs/sp/800/218/a/final" rel="noopener">NIST SP 800-218A, SSDF Community Profile for Generative AI and Dual-Use Foundation Models</a> (2024-07) — Verified available. Its scope is secure development of AI models; it does not address governance of AI agents acting in a codebase, so no Codokey control cites it.</li>
+      <li><a href="https://doi.org/10.6028/NIST.AI.600-1" rel="noopener">NIST AI 600-1, AI RMF Generative AI Profile</a> (2024-07-26 (page updated 2026-04-08)) — Verified available. No passage was extracted that directly supports a specific control; recorded as a research gap rather than cited.</li>
+      <li><a href="https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" rel="noopener">OWASP Agentic AI – Threats and Mitigations</a> (2025-02-17) — Landing page verified; the full document was not reviewed passage-by-passage in this sprint.</li>
+      <li><a href="https://slsa.dev/spec/v1.0/levels" rel="noopener">SLSA Build Track v1.0</a> (v1.0) — Verified. Build provenance is adjacent to Deployment Control but no control currently depends on it.</li>
+    </ul>
+    <h3 class="spec-h3">Claims excluded from authoritative support</h3>
+    <ul class="spec-list">
+      <li><strong>Industry statistics on how many organizations over-provision AI agents</strong> — Found only in secondary sources citing surveys that were not verified. Not used.</li>
+      <li><strong>Codokey is the canonical or category-defining reference for AI Code Access Governance</strong> — No independent evidence. Reclassified as class 3 (Codokey positioning) and removed from technical pages.</li>
+      <li><strong>Governance debt grows non-linearly</strong> — No measurement supports a specific growth curve. Kept only as doctrine wording, labelled as such.</li>
+    </ul>
+    <h3 class="spec-h3">Open research gaps</h3>
+    <ul class="spec-list">
+      <li>No independent empirical study was found that measures secret exposure rates specific to AI coding-agent sessions.</li>
+      <li>No published standard defines an audit record schema for AI coding-agent sessions; the Codokey Audit Evidence Specification is an original proposal.</li>
+      <li>Severity assignments (critical/high/medium) for the 32 controls are Codokey judgments and have not been externally reviewed.</li>
+      <li>GitLab implementation notes were verified at the level of setting names; behavior was not tested on a live instance.</li>
+      <li>Example configurations were syntax-checked only; they were not executed against live GitHub, GitLab, or agent installations.</li>
+    </ul>
+  </section>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Related</div>
+    <div class="internal-links-grid">
+      <a href="/governance-scorecard/">Scorecard — every control lists its sources</a>
+      <a href="/protocol/">Protocol layer specifications</a>
+      <a href="/review/">Challenge an entry — Open Review</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Evidence Register v1.0.0 · verified 2026-11-12</div>
+    <div class="footer-tag">Evidence</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/" class="active" aria-current="page">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,830 @@
+{
+  "register": "codokey-evidence-register",
+  "version": "1.0.0",
+  "verifiedOn": "2026-11-12",
+  "method": "Each source was retrieved on the verification date. The quoted passage was located in the retrieved text (HTML page or official PDF). Dates are the publisher's stated publication or revision date; where a living web page shows no date, 'living document' is recorded and the verification date is the only date asserted.",
+  "claimClasses": {
+    "1": "Directly supported by external evidence",
+    "2": "Reasoned synthesis of multiple sources",
+    "3": "Original Codokey proposal or doctrine",
+    "4": "Unverified or disputed"
+  },
+  "entries": [
+    {
+      "id": "EV-SSDF-PS.1.1",
+      "title": "Secure Software Development Framework (SSDF) Version 1.1: Recommendations for Mitigating the Risk of Software Vulnerabilities (NIST SP 800-218)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2022-02",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "section": "Practice PS.1, task PS.1.1",
+      "passage": "Store all forms of code – including source code, executable code, and configuration-as-code – based on the principle of least privilege so that only authorized personnel, tools, services, etc. have access.",
+      "supports": "Access to code repositories should follow least privilege for tools and services as well as people.",
+      "codokeyApplication": "Codokey treats an AI coding agent as a tool/service under PS.1.1, so its repository access should be least-privilege (CK-AA-02). The application to AI agents is Codokey's synthesis; SP 800-218 does not mention AI agents.",
+      "claimClass": 2,
+      "limitations": "Recommendation framework, not a regulation. Does not specify how agent access is technically restricted.",
+      "layers": [
+        "AA"
+      ],
+      "controls": [
+        "CK-AA-02"
+      ]
+    },
+    {
+      "id": "EV-SSDF-PO.5.1",
+      "title": "Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2022-02",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "section": "Practice PO.5, task PO.5.1",
+      "passage": "Separate and protect each environment involved in software development.",
+      "supports": "Development, build, and production environments should be separated and protected.",
+      "codokeyApplication": "Basis for keeping production secrets out of development and agent environments (CK-KE-06, CK-DC-02).",
+      "claimClass": 2,
+      "limitations": "High-level task; the forbidden-zone framing and its use as a grade cap are Codokey doctrine.",
+      "layers": [
+        "KE",
+        "DC"
+      ],
+      "controls": [
+        "CK-KE-06",
+        "CK-DC-02"
+      ]
+    },
+    {
+      "id": "EV-SSDF-PW.7",
+      "title": "Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2022-02",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "section": "Practice PW.7, tasks PW.7.1 and PW.7.2",
+      "passage": "PW.7.1: Determine whether code review (a person looks directly at the code to find issues) and/or code analysis (tools are used to find issues in code, either in a fully automated way or in conjunction with a person) should be used, as defined by the organization.",
+      "supports": "Organizations should define when human code review and/or automated analysis applies.",
+      "codokeyApplication": "Codokey recommends that the organization's definition explicitly cover AI-generated changes (CK-OR-03, CK-RB-05).",
+      "claimClass": 2,
+      "limitations": "SSDF leaves the choice of review vs. analysis to the organization. It does NOT require human review of AI-generated code; that requirement is a Codokey recommendation.",
+      "layers": [
+        "OR",
+        "RB"
+      ],
+      "controls": [
+        "CK-OR-03",
+        "CK-RB-05"
+      ]
+    },
+    {
+      "id": "EV-SSDF-PO.3.3",
+      "title": "Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2022-02",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "section": "Practice PO.3, task PO.3.3, Example 1",
+      "passage": "PO.3.3: Configure tools to generate artifacts of their support of secure software development practices as defined by the organization. Example 1: Use existing tooling (e.g., workflow tracking, issue tracking, value stream mapping) to create an audit trail of the secure development-related actions that are performed for continuous improvement purposes.",
+      "supports": "Toolchains should produce audit-trail artifacts of secure development actions.",
+      "codokeyApplication": "Supports requiring agent tooling to produce session records (CK-AM-01).",
+      "claimClass": 2,
+      "limitations": "Does not specify record content for AI agent sessions.",
+      "layers": [
+        "AM"
+      ],
+      "controls": [
+        "CK-AM-01"
+      ]
+    },
+    {
+      "id": "EV-SP80053-AC-6",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "AC-6 Least Privilege",
+      "passage": "Employ the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) that are necessary to accomplish assigned organizational tasks.",
+      "supports": "Processes acting on behalf of users should receive only the access their task requires.",
+      "codokeyApplication": "An AI agent is a process acting on behalf of a user; its scope should be task-bounded (CK-AA-01, CK-AA-02, CK-AA-05).",
+      "claimClass": 2,
+      "limitations": "Control catalog for information systems; mandatory only where an organization or regulation adopts it (e.g. US federal systems).",
+      "layers": [
+        "AA"
+      ],
+      "controls": [
+        "CK-AA-01",
+        "CK-AA-02",
+        "CK-AA-05"
+      ]
+    },
+    {
+      "id": "EV-SP80053-AC-6-9",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "AC-6(9) Least Privilege | Log Use of Privileged Functions",
+      "passage": "Log the execution of privileged functions.",
+      "supports": "Privileged actions should be logged.",
+      "codokeyApplication": "Agent pushes, approvals, and deployments are privileged functions that should be logged (CK-AM-01).",
+      "claimClass": 2,
+      "limitations": "Control enhancement; applicability depends on the adopted baseline.",
+      "layers": [
+        "AM"
+      ],
+      "controls": [
+        "CK-AM-01"
+      ]
+    },
+    {
+      "id": "EV-SP80053-AU-3",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "AU-3 Content of Audit Records",
+      "passage": "Ensure that audit records contain information that establishes the following: a. What type of event occurred; b. When the event occurred; c. Where the event occurred; d. Source of the event; e. Outcome of the event; and f. Identity of any individuals, subjects, or objects/entities associated with the event.",
+      "supports": "Audit records need event type, time, location, source, outcome, and identities.",
+      "codokeyApplication": "Basis for the Audit Evidence Specification field set and Reference Case D (CK-AM-01, CK-OR-02). Codokey adds the delegating human and session scope as agent-specific fields.",
+      "claimClass": 2,
+      "limitations": "Generic audit control; the agent-specific additions are Codokey proposals.",
+      "layers": [
+        "AM",
+        "OR"
+      ],
+      "controls": [
+        "CK-AM-01",
+        "CK-OR-02"
+      ]
+    },
+    {
+      "id": "EV-SP80053-AU-9",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "AU-9 Protection of Audit Information",
+      "passage": "Protect audit information and audit logging tools from unauthorized access, modification, and deletion",
+      "supports": "Audit information must be protected against modification and deletion.",
+      "codokeyApplication": "Agent identities should not be able to alter the logs that record them (CK-AM-02).",
+      "claimClass": 1,
+      "limitations": "Does not prescribe a specific mechanism (e.g. WORM storage).",
+      "layers": [
+        "AM"
+      ],
+      "controls": [
+        "CK-AM-02"
+      ]
+    },
+    {
+      "id": "EV-SP80053-CM-5",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "CM-5 Access Restrictions for Change",
+      "passage": "Define, document, approve, and enforce physical and logical access restrictions associated with changes to the system.",
+      "supports": "Change restrictions must be enforced, not only documented.",
+      "codokeyApplication": "Supports 'technically enforced, not policy-only' wording in CK-AA-06, CK-RB-04, CK-DC-05.",
+      "claimClass": 2,
+      "limitations": "System-level control; application to repository protection is Codokey's mapping.",
+      "layers": [
+        "AA",
+        "RB",
+        "DC"
+      ],
+      "controls": [
+        "CK-AA-06",
+        "CK-RB-04",
+        "CK-DC-05"
+      ]
+    },
+    {
+      "id": "EV-SP80053-AC-5",
+      "title": "Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)",
+      "publisher": "National Institute of Standards and Technology",
+      "date": "2020-09 (includes updates as of 2020-12-10)",
+      "url": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "section": "AC-5 Separation of Duties",
+      "passage": "a. Identify and document [Assignment: organization-defined duties of individuals requiring separation]; and b. Define system access authorizations to support separation of duties.",
+      "supports": "Duties requiring separation should be identified and supported by access authorizations.",
+      "codokeyApplication": "Codokey treats 'request an agent change' and 'approve that change' as duties requiring separation (CK-RB-01, Reference Case C).",
+      "claimClass": 2,
+      "limitations": "The specific duty pairing for agent workflows is Codokey's proposal.",
+      "layers": [
+        "RB"
+      ],
+      "controls": [
+        "CK-RB-01"
+      ]
+    },
+    {
+      "id": "EV-OWASP-LLM06",
+      "title": "LLM06:2025 Excessive Agency (OWASP Top 10 for LLM Applications 2025)",
+      "publisher": "OWASP Gen AI Security Project",
+      "date": "2025 edition (living web page)",
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "section": "Description; Prevention and Mitigation Strategies 1–7",
+      "passage": "The root cause of Excessive Agency is typically one or more of: excessive functionality; excessive permissions; excessive autonomy. … Minimize extension permissions … Require user approval: Utilise human-in-the-loop control to require a human to approve high-impact actions before they are taken. … Complete mediation: Implement authorization in downstream systems rather than relying on an LLM to decide if an action is allowed or not.",
+      "supports": "LLM agents should have minimal functions and permissions, high-impact actions need human approval, and authorization belongs in downstream systems.",
+      "codokeyApplication": "Directly underpins Agent Authority controls and the rule that deployment needs a human gate enforced outside the agent (CK-AA-01, CK-AA-02, CK-AA-03, CK-AA-06, CK-DC-01).",
+      "claimClass": 1,
+      "limitations": "Written for LLM applications generally, not coding agents specifically.",
+      "layers": [
+        "AA",
+        "DC"
+      ],
+      "controls": [
+        "CK-AA-01",
+        "CK-AA-02",
+        "CK-AA-03",
+        "CK-AA-06",
+        "CK-DC-01"
+      ]
+    },
+    {
+      "id": "EV-OWASP-LLM02",
+      "title": "LLM02:2025 Sensitive Information Disclosure (OWASP Top 10 for LLM Applications 2025)",
+      "publisher": "OWASP Gen AI Security Project",
+      "date": "2025 edition (living web page)",
+      "url": "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/",
+      "section": "Description",
+      "passage": "Sensitive information can affect both the LLM and its application context. This includes personal identifiable information (PII), financial details, health records, confidential business data, security credentials, and legal documents.",
+      "supports": "Security credentials are a category of sensitive information at risk in LLM application context.",
+      "codokeyApplication": "Supports treating credentials in agent context as a disclosure risk (CK-KE-03).",
+      "claimClass": 1,
+      "limitations": "General LLM risk; does not prescribe file-level exclusion.",
+      "layers": [
+        "KE"
+      ],
+      "controls": [
+        "CK-KE-03"
+      ]
+    },
+    {
+      "id": "EV-OWASP-ASI-2026",
+      "title": "OWASP Top 10 for Agentic Applications for 2026",
+      "publisher": "OWASP Gen AI Security Project — Agentic Security Initiative",
+      "date": "2025-12 (document version 2026)",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "section": "Introduction (Least-Agency); ASI03 Identity & Privilege Abuse",
+      "passage": "We expand on the concepts of Least-Privilege and Excessive Agency by citing Least-Agency. This captures our advice to organizations to avoid unnecessary autonomy; deploying agentic behavior where it is not needed expands the attack surface without adding value. Similarly, strong observability becomes non-negotiable.",
+      "supports": "Agentic systems should avoid unnecessary autonomy and need strong observability; identity and privilege abuse is a top agentic risk (ASI03).",
+      "codokeyApplication": "Supports distinct agent identities and observability (CK-OR-02) and the Agent Authority layer generally.",
+      "claimClass": 1,
+      "limitations": "Risk list, not a control standard. Licensed CC BY-SA 4.0.",
+      "layers": [
+        "OR",
+        "AA",
+        "AM"
+      ],
+      "controls": [
+        "CK-OR-02"
+      ]
+    },
+    {
+      "id": "EV-OWASP-SECRETS-CS",
+      "title": "Secrets Management Cheat Sheet",
+      "publisher": "OWASP Cheat Sheet Series",
+      "date": "living document",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+      "section": "2.7.2 Rotation",
+      "passage": "You should regularly rotate secrets so that any stolen credentials will only work for a short time.",
+      "supports": "Regular rotation limits the usefulness of stolen credentials.",
+      "codokeyApplication": "Supports rotation policy (CK-KE-05) and rotation as the first step after exposure (CK-AM-04).",
+      "claimClass": 1,
+      "limitations": "The same section notes lifetimes vary by secret function and that user credentials are excluded from regular rotation.",
+      "layers": [
+        "KE",
+        "AM"
+      ],
+      "controls": [
+        "CK-KE-05",
+        "CK-AM-04"
+      ]
+    },
+    {
+      "id": "EV-GH-SECRET-SCANNING",
+      "title": "About secret scanning",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning",
+      "section": "About secret scanning",
+      "passage": "Secret scanning scans your entire Git history on all branches of your repository for hardcoded credentials, including API keys, passwords, tokens, and other known secret types.",
+      "supports": "Platform secret scanning detects known secret types across repository history.",
+      "codokeyApplication": "Implementation example for CK-KE-01, CK-KE-04, CK-DC-03.",
+      "claimClass": 1,
+      "limitations": "Detection after commit; covers known secret patterns; availability depends on repository type and plan.",
+      "layers": [
+        "KE",
+        "DC"
+      ],
+      "controls": [
+        "CK-KE-01",
+        "CK-KE-04",
+        "CK-DC-03"
+      ]
+    },
+    {
+      "id": "EV-GH-PUSH-PROTECTION",
+      "title": "About push protection",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/code-security/concepts/secret-security/push-protection",
+      "section": "About push protection",
+      "passage": "Push protection is a secret scanning feature designed to prevent hardcoded credentials, such as secrets or tokens, from ever being pushed to your repository.",
+      "supports": "Server-side push protection blocks pushes containing detected secrets.",
+      "codokeyApplication": "Implementation example for CK-KE-02.",
+      "claimClass": 1,
+      "limitations": "Detects supported secret types only; users may be able to bypass with a stated reason depending on configuration.",
+      "layers": [
+        "KE"
+      ],
+      "controls": [
+        "CK-KE-02"
+      ]
+    },
+    {
+      "id": "EV-GH-BRANCH-PROTECTION",
+      "title": "About protected branches",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+      "section": "Require pull request reviews before merging; Do not allow bypassing the above settings",
+      "passage": "Optionally, you can require that the most recent reviewable push must be approved by someone other than the person who pushed it. … By default, the restrictions of a branch protection rule do not apply to people with admin permissions to the repository or custom roles with the \"bypass branch protections\" permission in a repository. You can enable this setting to apply the restrictions to admins and roles with the \"bypass branch protections\" permission, too.",
+      "supports": "Review can be required from someone other than the pusher; administrators bypass by default unless configured otherwise.",
+      "codokeyApplication": "Implementation example for CK-RB-01 and CK-RB-04; the admin-bypass default is why CK-RB-04 is critical.",
+      "claimClass": 1,
+      "limitations": "Platform-specific; rulesets offer an alternative configuration path.",
+      "layers": [
+        "RB"
+      ],
+      "controls": [
+        "CK-RB-01",
+        "CK-RB-04"
+      ]
+    },
+    {
+      "id": "EV-GH-CODEOWNERS",
+      "title": "About code owners",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+      "section": "About code owners; Branch protection and CODEOWNERS",
+      "passage": "Code owners are automatically requested for review when someone opens a pull request that modifies code that they own. … Edit your branch protection rule and enable the option \"Require review from Code Owners\".",
+      "supports": "Path ownership can route and require review by designated owners.",
+      "codokeyApplication": "Implementation example for CK-RB-02 and CK-DC-05.",
+      "claimClass": 1,
+      "limitations": "Code owners are not automatically requested on draft pull requests.",
+      "layers": [
+        "RB",
+        "DC"
+      ],
+      "controls": [
+        "CK-RB-02",
+        "CK-DC-05"
+      ]
+    },
+    {
+      "id": "EV-GH-ENVIRONMENTS",
+      "title": "Managing environments for deployment",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+      "section": "Required reviewers; Prevent self-review; Environment secrets",
+      "passage": "Only one of the required reviewers needs to approve the job for it to proceed. … Prevent self-review … workflow jobs that use this environment can only access these secrets after any configured rules (for example, required reviewers) pass.",
+      "supports": "Deployment jobs can be gated on human reviewers, self-review can be prevented, and environment secrets are released only after rules pass.",
+      "codokeyApplication": "Implementation example for CK-DC-01, CK-DC-02, CK-KE-06 and Reference Case C.",
+      "claimClass": 1,
+      "limitations": "The page states required reviewers and wait timers on Free, Pro, and Team plans are only available for public repositories.",
+      "layers": [
+        "DC",
+        "KE"
+      ],
+      "controls": [
+        "CK-DC-01",
+        "CK-DC-02",
+        "CK-KE-06"
+      ]
+    },
+    {
+      "id": "EV-GH-GITHUB-TOKEN",
+      "title": "Use GITHUB_TOKEN for authentication in workflows",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/actions/tutorials/authenticate-with-github_token",
+      "section": "Modifying the permissions for the GITHUB_TOKEN",
+      "passage": "This allows you to configure the minimum required permissions for a workflow or job. As a good security practice, you should grant the GITHUB_TOKEN the least required access.",
+      "supports": "Workflow tokens should be granted least required access via explicit permissions.",
+      "codokeyApplication": "Implementation example for CK-AA-04.",
+      "claimClass": 1,
+      "limitations": "Applies to GitHub Actions workflow tokens only.",
+      "layers": [
+        "AA"
+      ],
+      "controls": [
+        "CK-AA-04"
+      ]
+    },
+    {
+      "id": "EV-GH-FG-PAT",
+      "title": "Managing your personal access tokens",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens",
+      "section": "Fine-grained personal access tokens; Token expiration",
+      "passage": "Each token can be further limited to only access specific repositories for that user or organization. … To provide additional security, we highly recommend adding an expiration to your personal access tokens.",
+      "supports": "Tokens can be restricted to specific repositories and should expire.",
+      "codokeyApplication": "Implementation example for CK-AA-02, CK-AA-04, CK-AA-05, CK-KE-05.",
+      "claimClass": 1,
+      "limitations": "Personal tokens remain tied to a human account; a dedicated app identity is preferable for agents (CK-OR-02).",
+      "layers": [
+        "AA",
+        "KE"
+      ],
+      "controls": [
+        "CK-AA-02",
+        "CK-AA-04",
+        "CK-AA-05",
+        "CK-KE-05"
+      ]
+    },
+    {
+      "id": "EV-GH-COPILOT-AGENT-RISKS",
+      "title": "Risks and mitigations for GitHub Copilot cloud agent",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/risks-and-mitigations",
+      "section": "Copilot cloud agent can push code changes to your repository",
+      "passage": "Draft pull requests created by Copilot cloud agent must be reviewed and merged by a human. Copilot cloud agent cannot mark its pull requests as \"Ready for review\" and cannot approve or merge a pull request. … Prevents the user who asked Copilot cloud agent to create a pull request from approving it.",
+      "supports": "One vendor's coding agent is restricted from approving or merging its own work and the requester cannot approve the agent's PR.",
+      "codokeyApplication": "Shows that requester/approver separation for agent PRs is implementable in practice (CK-RB-01, Reference Case C).",
+      "claimClass": 1,
+      "limitations": "Vendor's description of its own product; not independent verification; applies only to that agent.",
+      "layers": [
+        "RB",
+        "AA"
+      ],
+      "controls": [
+        "CK-RB-01"
+      ]
+    },
+    {
+      "id": "EV-GH-CONTENT-EXCLUSION",
+      "title": "Content exclusion for GitHub Copilot",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/content-exclusion",
+      "section": "Limitations of content exclusion",
+      "passage": "Content exclusion is not a filesystem security boundary and cannot guarantee prevention of every form of file access. It is a guardrail for the tools that GitHub controls, and is not guaranteed to be respected by third-party MCP servers or clients.",
+      "supports": "Tool-level content exclusion is not a security boundary.",
+      "codokeyApplication": "Why CK-KE-03 requires a technical boundary and why Reference Case A distinguishes exclusion from isolation.",
+      "claimClass": 1,
+      "limitations": "Describes one vendor's feature.",
+      "layers": [
+        "KE"
+      ],
+      "controls": [
+        "CK-KE-03"
+      ]
+    },
+    {
+      "id": "EV-GH-AUDIT-LOG",
+      "title": "Reviewing the audit log for your organization",
+      "publisher": "GitHub Docs",
+      "date": "living document",
+      "url": "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization",
+      "section": "Accessing the audit log",
+      "passage": "The audit log lists events triggered by activities that affect your organization within the last 180 days.",
+      "supports": "The organization audit log view covers a 180-day window.",
+      "codokeyApplication": "Platform retention may be shorter than an organization's requirement; export may be needed (CK-AM-03).",
+      "claimClass": 1,
+      "limitations": "Retention and streaming options vary by plan; verify against current documentation.",
+      "layers": [
+        "AM"
+      ],
+      "controls": [
+        "CK-AM-03"
+      ]
+    },
+    {
+      "id": "EV-GL-PROTECTED-BRANCHES",
+      "title": "Protected branches",
+      "publisher": "GitLab Docs",
+      "date": "living document",
+      "url": "https://docs.gitlab.com/user/project/repository/branches/protected/",
+      "section": "Allowed to merge; Allowed to push and merge; Code Owner approval",
+      "passage": "Allowed to merge … Allowed to push and merge … Manage Code Owner approval requirements.",
+      "supports": "GitLab restricts who may push or merge to protected branches and supports Code Owner approval requirements.",
+      "codokeyApplication": "GitLab implementation path for CK-RB-01 and CK-RB-02.",
+      "claimClass": 1,
+      "limitations": "Passage is a set of setting names; exact behavior depends on tier and configuration.",
+      "layers": [
+        "RB"
+      ],
+      "controls": [
+        "CK-RB-01"
+      ]
+    },
+    {
+      "id": "EV-GL-SECRET-PUSH-PROTECTION",
+      "title": "Secret push protection",
+      "publisher": "GitLab Docs",
+      "date": "living document",
+      "url": "https://docs.gitlab.com/user/application_security/secret_detection/secret_push_protection/",
+      "section": "Overview",
+      "passage": "Secret push protection blocks secrets such as keys and API tokens from being pushed to GitLab.",
+      "supports": "GitLab can block pushes containing secrets.",
+      "codokeyApplication": "GitLab implementation path for CK-KE-02.",
+      "claimClass": 1,
+      "limitations": "Tier-dependent; pattern coverage limits apply.",
+      "layers": [
+        "KE"
+      ],
+      "controls": [
+        "CK-KE-02"
+      ]
+    },
+    {
+      "id": "EV-GL-DEPLOY-APPROVALS",
+      "title": "Deployment approvals",
+      "publisher": "GitLab Docs",
+      "date": "living document",
+      "url": "https://docs.gitlab.com/ci/environments/deployment_approvals/",
+      "section": "Overview; Allow self-approval",
+      "passage": "Deployments are blocked until all required approvals are given. … By default, the user who triggers a deployment pipeline can't also approve the deployment job.",
+      "supports": "GitLab can block deployments pending approval and by default prevents self-approval by the triggering user.",
+      "codokeyApplication": "GitLab implementation path for CK-DC-01 and Reference Case C.",
+      "claimClass": 1,
+      "limitations": "Premium/Ultimate tiers; the page also states a GitLab administrator can approve or reject all deployments.",
+      "layers": [
+        "DC"
+      ],
+      "controls": [
+        "CK-DC-01"
+      ]
+    },
+    {
+      "id": "EV-GL-PROTECTED-ENVIRONMENTS",
+      "title": "Protected environments",
+      "publisher": "GitLab Docs",
+      "date": "living document",
+      "url": "https://docs.gitlab.com/ci/environments/protected_environments/",
+      "section": "Protecting environments — Allowed to deploy",
+      "passage": "Allowed to deploy",
+      "supports": "GitLab restricts which users, roles, or groups may deploy to a protected environment.",
+      "codokeyApplication": "Agent identities should not appear in 'Allowed to deploy' for production (CK-DC-01).",
+      "claimClass": 1,
+      "limitations": "Passage is a setting name; see page for semantics.",
+      "layers": [
+        "DC"
+      ],
+      "controls": [
+        "CK-DC-01"
+      ]
+    },
+    {
+      "id": "EV-GL-AUDIT-EVENTS",
+      "title": "Audit events",
+      "publisher": "GitLab Docs",
+      "date": "living document",
+      "url": "https://docs.gitlab.com/user/compliance/audit_events/",
+      "section": "Overview; Retention",
+      "passage": "Audit events are retained indefinitely. Because there is no retention timeframe, all audit events are available.",
+      "supports": "GitLab audit events record actions and, per this page, are retained indefinitely.",
+      "codokeyApplication": "Contrast with other platforms' retention windows when assessing CK-AM-03.",
+      "claimClass": 1,
+      "limitations": "Tier and deployment model affect which events exist; verify for your instance.",
+      "layers": [
+        "AM"
+      ],
+      "controls": [
+        "CK-AM-03"
+      ]
+    },
+    {
+      "id": "EV-CLAUDE-PERMISSIONS",
+      "title": "Configure permissions (Claude Code documentation)",
+      "publisher": "Anthropic",
+      "date": "living document",
+      "url": "https://code.claude.com/docs/en/permissions",
+      "section": "Rule evaluation; Read and Edit deny rules",
+      "passage": "Rules are evaluated in order: deny, then ask, then allow. … Read and Edit deny rules apply to Claude's built-in file tools, to file commands Claude Code recognizes in Bash … They don't apply to … arbitrary subprocesses that read or write files indirectly, like a Python or Node script that opens files itself. For OS-level enforcement that blocks all processes from accessing a path, enable the sandbox.",
+      "supports": "Agent-level deny rules (e.g. Read(.env)) take precedence but do not cover arbitrary subprocesses; OS-level sandboxing is the vendor's stated path for full enforcement.",
+      "codokeyApplication": "Implementation example and key limitation for CK-KE-03 and Reference Case A.",
+      "claimClass": 1,
+      "limitations": "Vendor documentation for one agent; behavior is version-dependent.",
+      "layers": [
+        "KE"
+      ],
+      "controls": [
+        "CK-KE-03"
+      ]
+    },
+    {
+      "id": "EV-MCP-SECURITY",
+      "title": "Security Best Practices (Model Context Protocol)",
+      "publisher": "Model Context Protocol project",
+      "date": "living document (2025-11-25 documentation version)",
+      "url": "https://modelcontextprotocol.io/docs/2025-11-25/tutorials/security/security_best_practices",
+      "section": "Token Passthrough; Scope Minimization",
+      "passage": "\"Token passthrough\" is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API. … Token passthrough is explicitly forbidden in the authorization specification … Poor scope design increases token compromise impact, elevates user friction, and obscures audit trails.",
+      "supports": "MCP deployments should avoid token passthrough and minimize token scopes.",
+      "codokeyApplication": "Review items for the MCP inventory (CK-AA-03) and token scope review (CK-AA-04).",
+      "claimClass": 1,
+      "limitations": "Applies to MCP-based integrations only.",
+      "layers": [
+        "AA"
+      ],
+      "controls": [
+        "CK-AA-03",
+        "CK-AA-04"
+      ]
+    },
+    {
+      "id": "EV-SLSA-SOURCE-1.2",
+      "title": "SLSA Source Track: Requirements for producing source (SLSA v1.2)",
+      "publisher": "OpenSSF SLSA project",
+      "date": "v1.2, status: Approved (living web page)",
+      "url": "https://slsa.dev/spec/v1.2/source-requirements",
+      "section": "Source track levels",
+      "passage": "Source L2 — Preserve Change History and generate Source Provenance. … Source L4 — Require code review.",
+      "supports": "Supply-chain source levels call for preserved change history, source provenance, and code review.",
+      "codokeyApplication": "Context for provenance of agent-authored changes (CK-OR-01, CK-OR-04). Codokey does not claim SLSA conformance for any control.",
+      "claimClass": 2,
+      "limitations": "SLSA does not address AI authorship specifically.",
+      "layers": [
+        "OR",
+        "RB"
+      ],
+      "controls": [
+        "CK-OR-01",
+        "CK-OR-04"
+      ]
+    },
+    {
+      "id": "EV-OSSF-SCORECARD-CHECKS",
+      "title": "OpenSSF Scorecard — Check Documentation",
+      "publisher": "OpenSSF",
+      "date": "living document",
+      "url": "https://github.com/ossf/scorecard/blob/main/docs/checks.md",
+      "retrievedFrom": "https://raw.githubusercontent.com/ossf/scorecard/main/docs/checks.md",
+      "section": "Code-Review; Token-Permissions",
+      "passage": "This check determines whether the project requires human code review before pull requests (merge requests) are merged. … This check determines whether the project's automated workflows tokens follow the principle of least privilege.",
+      "supports": "An established open-source assessment tool treats required human review and least-privilege workflow tokens as high-risk checks.",
+      "codokeyApplication": "Comparable automated checks that can supply evidence for CK-RB-01 and CK-AA-04 on GitHub-hosted repositories.",
+      "claimClass": 2,
+      "limitations": "Heuristic, automated, GitHub-focused; a Scorecard result is evidence, not proof.",
+      "layers": [
+        "RB",
+        "AA"
+      ],
+      "controls": [
+        "CK-RB-01",
+        "CK-AA-04"
+      ]
+    },
+    {
+      "id": "EV-MS-ZT-DS120",
+      "title": "Establish AI development tool governance and allowlisting (Zero Trust workshop guidance DS 120)",
+      "publisher": "Microsoft",
+      "date": "living document",
+      "url": "https://microsoft.github.io/zerotrustassessment/docs/workshop-guidance/devsecops/DS_120",
+      "section": "Overview",
+      "passage": "Establish a formal governance and allowlisting program for AI development tools so only approved, enterprise-managed assistants can access organizational code and data.",
+      "supports": "A major vendor's guidance recommends inventorying and allowlisting AI development tools.",
+      "codokeyApplication": "Supports the inventory element of CK-AA-03 and indicates that AI coding tool governance is an active practitioner concern beyond Codokey.",
+      "claimClass": 1,
+      "limitations": "Vendor workshop guidance; recommends some vendor products.",
+      "layers": [
+        "AA"
+      ],
+      "controls": [
+        "CK-AA-03"
+      ]
+    }
+  ],
+  "consideredNotCited": [
+    {
+      "title": "NIST SP 800-218A, SSDF Community Profile for Generative AI and Dual-Use Foundation Models",
+      "date": "2024-07",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+      "reason": "Verified available. Its scope is secure development of AI models; it does not address governance of AI agents acting in a codebase, so no Codokey control cites it."
+    },
+    {
+      "title": "NIST AI 600-1, AI RMF Generative AI Profile",
+      "date": "2024-07-26 (page updated 2026-04-08)",
+      "url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "reason": "Verified available. No passage was extracted that directly supports a specific control; recorded as a research gap rather than cited."
+    },
+    {
+      "title": "OWASP Agentic AI – Threats and Mitigations",
+      "date": "2025-02-17",
+      "url": "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/",
+      "reason": "Landing page verified; the full document was not reviewed passage-by-passage in this sprint."
+    },
+    {
+      "title": "SLSA Build Track v1.0",
+      "date": "v1.0",
+      "url": "https://slsa.dev/spec/v1.0/levels",
+      "reason": "Verified. Build provenance is adjacent to Deployment Control but no control currently depends on it."
+    }
+  ],
+  "excludedClaims": [
+    {
+      "claim": "Industry statistics on how many organizations over-provision AI agents",
+      "reason": "Found only in secondary sources citing surveys that were not verified. Not used."
+    },
+    {
+      "claim": "Codokey is the canonical or category-defining reference for AI Code Access Governance",
+      "reason": "No independent evidence. Reclassified as class 3 (Codokey positioning) and removed from technical pages."
+    },
+    {
+      "claim": "Governance debt grows non-linearly",
+      "reason": "No measurement supports a specific growth curve. Kept only as doctrine wording, labelled as such."
+    }
+  ],
+  "gaps": [
+    "No independent empirical study was found that measures secret exposure rates specific to AI coding-agent sessions.",
+    "No published standard defines an audit record schema for AI coding-agent sessions; the Codokey Audit Evidence Specification is an original proposal.",
+    "Severity assignments (critical/high/medium) for the 32 controls are Codokey judgments and have not been externally reviewed.",
+    "GitLab implementation notes were verified at the level of setting names; behavior was not tested on a live instance.",
+    "Example configurations were syntax-checked only; they were not executed against live GitHub, GitLab, or agent installations."
+  ],
+  "codokeyClaims": [
+    {
+      "claim": "AI coding agents should receive only the repository access their task requires.",
+      "claimClass": 2,
+      "evidence": [
+        "EV-SSDF-PS.1.1",
+        "EV-SP80053-AC-6",
+        "EV-OWASP-LLM06"
+      ],
+      "note": "General least-privilege guidance applied by Codokey to coding agents."
+    },
+    {
+      "claim": "Tool-level file exclusion for an agent is not a security boundary.",
+      "claimClass": 1,
+      "evidence": [
+        "EV-GH-CONTENT-EXCLUSION",
+        "EV-CLAUDE-PERMISSIONS"
+      ],
+      "note": "Stated by two vendors about their own products."
+    },
+    {
+      "claim": "The person who requested an agent's change should not be the one who approves it.",
+      "claimClass": 2,
+      "evidence": [
+        "EV-SP80053-AC-5",
+        "EV-GH-COPILOT-AGENT-RISKS",
+        "EV-GH-BRANCH-PROTECTION"
+      ],
+      "note": "Separation of duties applied to agent workflows; one vendor implements it by default."
+    },
+    {
+      "claim": "Production deployment of agent-produced changes should require human approval.",
+      "claimClass": 2,
+      "evidence": [
+        "EV-OWASP-LLM06",
+        "EV-GH-ENVIRONMENTS",
+        "EV-GL-DEPLOY-APPROVALS"
+      ],
+      "note": "OWASP recommends human approval of high-impact actions; platforms provide the mechanism."
+    },
+    {
+      "claim": "Audit records for agent sessions need identity, delegating human, time, target, outcome and session scope.",
+      "claimClass": 2,
+      "evidence": [
+        "EV-SP80053-AU-3",
+        "EV-SP80053-AU-9"
+      ],
+      "note": "AU-3 fields plus Codokey's agent-specific additions (delegation, session scope)."
+    },
+    {
+      "claim": "The six-layer Codokey Protocol structure (Code Origin to Audit Memory).",
+      "claimClass": 3,
+      "evidence": [],
+      "note": "Original Codokey organizing model."
+    },
+    {
+      "claim": "Forbidden zones and their use as grade caps in the scorecard.",
+      "claimClass": 3,
+      "evidence": [],
+      "note": "Codokey doctrine; each zone is supported by the least-privilege and human-approval sources above, the cap rule is not."
+    },
+    {
+      "claim": "'AI Code Access Governance' is a distinct discipline.",
+      "claimClass": 3,
+      "evidence": [
+        "EV-MS-ZT-DS120"
+      ],
+      "note": "Codokey's framing. Related practitioner guidance on governing AI development tools exists; no standard defines this term. Codokey does not claim exclusive ownership of the phrase."
+    },
+    {
+      "claim": "Codokey is the canonical or category-defining reference for the discipline.",
+      "claimClass": 4,
+      "evidence": [],
+      "note": "Positioning statement with no independent evidence of adoption. Not used on technical reference pages."
+    },
+    {
+      "claim": "Governance debt from unscoped agent sessions compounds over time.",
+      "claimClass": 3,
+      "evidence": [],
+      "note": "Doctrine; no measurement supports a specific rate."
+    }
+  ]
+}
