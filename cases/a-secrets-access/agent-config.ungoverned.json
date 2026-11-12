@@ -1,0 +1,7 @@
+{
+  "agent": "example-task-agent",
+  "readDeny": [".env"],
+  "enforcement": "tool",
+  "canExecuteCommands": true,
+  "environment": ["NODE_ENV", "PROD_DATABASE_URL"]
+}

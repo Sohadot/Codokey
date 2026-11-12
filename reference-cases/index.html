@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reference Cases — Reproducible AI Code Access Governance Checks</title>
+<meta name="description" content="Four reproducible cases with synthetic fixtures: agent access to secrets, excessive agent authority, AI-generated code approaching production, and audit reconstruction.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/reference-cases/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/reference-cases/">
+<meta property="og:title" content="Reference Cases — Reproducible AI Code Access Governance Checks">
+<meta property="og:description" content="Four reproducible cases with synthetic fixtures: agent access to secrets, excessive agent authority, AI-generated code approaching production, and audit reconstruction.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reference Cases — Reproducible AI Code Access Governance Checks">
+<meta name="twitter:description" content="Four reproducible cases with synthetic fixtures: agent access to secrets, excessive agent authority, AI-generated code approaching production, and audit reconstruction.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Codokey Reference Cases",
+  "description": "Reproducible pass/fail cases for AI Code Access Governance controls.",
+  "url": "https://codokey.com/reference-cases/",
+  "version": "1.0.0",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / cases /</span><span class="file-name">reference-cases.md</span><span class="file-lang">CASES v1.0.0</span></div>
+    <div class="file-stats"><span class="stat-a">+4 reproducible cases</span><span class="stat-r">−0 live systems touched</span></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="eyebrow">Reference Cases v1.0.0 · validator v1.0.0</div>
+    <h1 class="spec-h1">Reference Cases</h1>
+    <p class="content-body">Four reproducible cases that turn protocol controls into observable pass/fail conditions. Each case ships synthetic inputs — a governed and an ungoverned variant — and a zero-dependency validator, <code>tools/codokey-check.mjs</code>, that evaluates them. Expected outcomes are pinned in <code>cases/*/expected.json</code> and checked by the test suite.</p>
+    <p class="content-body"><strong>What these are not.</strong> The validator reads declared configuration files. It does not connect to GitHub, GitLab, or any agent, does not scan live repositories, and a PASS is not certification. To use a case on a real system, export the equivalent settings into the same JSON shape — and remove secret values first.</p>
+    <ul class="spec-list">
+      <li><a href="#agent-access-to-secrets">Case A — Agent access to secrets</a></li>
+      <li><a href="#excessive-agent-authority">Case B — Excessive agent authority</a></li>
+      <li><a href="#ai-generated-code-to-production">Case C — AI-generated code approaching production</a></li>
+      <li><a href="#audit-reconstruction">Case D — Audit reconstruction</a></li>
+    </ul>
+    <pre class="code-block"><code># Node 18+, no install step
+node --test tests/*.test.mjs</code></pre>
+  </div>
+  <section class="content-wrap case" id="agent-access-to-secrets" aria-labelledby="agent-access-to-secrets-h">
+    <div class="eyebrow">Case A · layers 02, 03</div>
+    <h2 class="spec-h2 case-h" id="agent-access-to-secrets-h">Agent access to secrets</h2>
+    <p class="spec-question">Repository access is not the same thing as credential access. Whether an agent can read a secret depends on where the secret lives and on the boundary that enforces exclusion — not on whether the agent was &quot;given the repo&quot;.</p>
+    <h3 class="spec-h3">Scenario</h3><p class="content-body">A task agent is asked to fix a bug in a small service. Its workspace is a checkout of the repository. The checkout contains a local .env file, a placeholder key file, and an INI file with a hardcoded token — the kinds of files that commonly sit beside code. The agent can run commands (tests, scripts).</p>
+    <h3 class="spec-h3">Control expectations</h3>
+    <ul class="spec-list"><li>Every secret-bearing file is outside the agent's readable set (CK-KE-03).</li><li>The exclusion holds for subprocesses, not only the agent's file tool (CK-KE-03).</li><li>No production credential is in the agent environment (CK-KE-06, forbidden zone FZ-1).</li></ul>
+    <h3 class="spec-h3">Pass / fail conditions</h3>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">A1</th><td>PASS if every file identified as secret-bearing matches a deny rule.</td></tr><tr><th scope="row">A2</th><td>PASS if enforcement is os-sandbox or not-in-workspace; tool-level rules alone FAIL when the agent can run commands.</td></tr><tr><th scope="row">A3</th><td>PASS if no environment variable name contains PROD.</td></tr></tbody></table></div>
+    <h3 class="spec-h3">Reproduce</h3>
+    <pre class="code-block"><code>node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.governed.json
+# expect PASS
+
+node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.ungoverned.json
+# expect FAIL — failing A1, A2, A3</code></pre>
+    <p class="content-body"><strong>Expected outcome.</strong> governed → PASS. ungoverned → FAIL on A1 (deploy_key.pem and settings.ini readable), A2 (tool-level only), A3 (production variable present).</p>
+    <p class="content-body"><strong>Real-world evidence.</strong> Agent configuration export (deny rules, sandbox setting), list of secret-bearing paths from a scan, a recorded denied read attempt, and the agent environment variable names (names only).</p>
+    <h3 class="spec-h3">Limitations</h3>
+    <ul class="spec-list"><li>Secret detection uses filename patterns and a simple assignment pattern; it will miss secrets in other forms and is not a substitute for a secret scanner.</li><li>The PROD naming heuristic is illustrative; real environments need an explicit classification of variables.</li><li>A PASS does not prove the agent product honors its declared configuration.</li></ul>
+    <p class="content-body">Fixtures: <a href="/cases/a-secrets-access/README.md">cases/a-secrets-access/</a> · Sources: <a href="/evidence/#EV-CLAUDE-PERMISSIONS">EV-CLAUDE-PERMISSIONS</a>, <a href="/evidence/#EV-GH-CONTENT-EXCLUSION">EV-GH-CONTENT-EXCLUSION</a>, <a href="/evidence/#EV-OWASP-LLM02">EV-OWASP-LLM02</a>, <a href="/evidence/#EV-SSDF-PO.5.1">EV-SSDF-PO.5.1</a></p>
+  </section>
+  <section class="content-wrap case" id="excessive-agent-authority" aria-labelledby="excessive-agent-authority-h">
+    <div class="eyebrow">Case B · layers 03, 01</div>
+    <h2 class="spec-h2 case-h" id="excessive-agent-authority-h">Excessive agent authority</h2>
+    <p class="spec-question">An agent's authority should be derived from its task. Comparing what the task requires with what the credential grants turns &quot;least privilege&quot; from a slogan into a diff.</p>
+    <h3 class="spec-h3">Scenario</h3><p class="content-body">A task agent must add pagination to one API and open a pull request in one repository. Two alternative grants are compared: a least-privilege grant and a typical convenience grant (all repositories, administration and workflow write, secrets read, two extra MCP tools, no expiry).</p>
+    <h3 class="spec-h3">Control expectations</h3>
+    <ul class="spec-list"><li>Repository access equals the task's repositories (CK-AA-05, forbidden zone FZ-2).</li><li>No permission exceeds what the task actions need (CK-AA-02).</li><li>Only declared tools are connected (CK-AA-03).</li><li>The credential expires within the task maximum (CK-AA-04).</li><li>The grant is sufficient, so the agent is not pushed toward workarounds (CK-AA-01).</li></ul>
+    <h3 class="spec-h3">Pass / fail conditions</h3>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">B1</th><td>FAIL if repositories is &quot;all&quot; or lists any repository not in the task.</td></tr><tr><th scope="row">B2</th><td>FAIL if any granted permission level exceeds the required level.</td></tr><tr><th scope="row">B3</th><td>FAIL if any tool is not declared by the task.</td></tr><tr><th scope="row">B4</th><td>FAIL if lifetime is missing or above the task maximum.</td></tr><tr><th scope="row">B5</th><td>FAIL if a required permission is missing.</td></tr></tbody></table></div>
+    <h3 class="spec-h3">Reproduce</h3>
+    <pre class="code-block"><code>node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.least-privilege.json
+# expect PASS
+
+node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.excessive.json
+# expect FAIL — failing B1, B2, B3, B4</code></pre>
+    <p class="content-body"><strong>Expected outcome.</strong> least-privilege → PASS. excessive → FAIL on B1–B4 (B5 passes: the grant is more than sufficient).</p>
+    <p class="content-body"><strong>Real-world evidence.</strong> App installation or token configuration export (repositories, permissions, expiry) and the MCP/tool configuration for the agent, compared with the agent access policy entry.</p>
+    <h3 class="spec-h3">Limitations</h3>
+    <ul class="spec-list"><li>Declared grants only; effective permissions can be wider through team membership, inherited roles, or command execution on a privileged host.</li><li>The action-to-permission table is a simplification and not an authoritative platform mapping.</li></ul>
+    <p class="content-body">Fixtures: <a href="/cases/b-excess-authority/README.md">cases/b-excess-authority/</a> · Sources: <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a>, <a href="/evidence/#EV-SP80053-AC-6">EV-SP80053-AC-6</a>, <a href="/evidence/#EV-SSDF-PS.1.1">EV-SSDF-PS.1.1</a>, <a href="/evidence/#EV-GH-FG-PAT">EV-GH-FG-PAT</a>, <a href="/evidence/#EV-MCP-SECURITY">EV-MCP-SECURITY</a></p>
+  </section>
+  <section class="content-wrap case" id="ai-generated-code-to-production" aria-labelledby="ai-generated-code-to-production-h">
+    <div class="eyebrow">Case C · layers 04, 05, 01</div>
+    <h2 class="spec-h2 case-h" id="ai-generated-code-to-production-h">AI-generated code approaching production</h2>
+    <p class="spec-question">A review requirement is only meaningful if the approver is independent of the agent and of the person who asked for the change, if approval applies to the final revision, and if deployment is a separate human decision.</p>
+    <h3 class="spec-h3">Scenario</h3><p class="content-body">An agent opens a pull request that changes application code and a deployment workflow. The case evaluates two policies (governed and ungoverned) and two histories of the same kind of change (independent approval vs. requester self-approval with a stale owner approval and an AI review-assistant approval).</p>
+    <h3 class="spec-h3">Control expectations</h3>
+    <ul class="spec-list"><li>Required approval excludes agent and requester and applies to the latest push (CK-RB-01).</li><li>Protection binds administrators (CK-RB-04).</li><li>Sensitive paths need code-owner review (CK-RB-02).</li><li>Production deployment requires an independent human reviewer; agents are not deployers (CK-DC-01, FZ-3).</li><li>Production secrets are scoped to the protected environment (CK-DC-02).</li></ul>
+    <h3 class="spec-h3">Pass / fail conditions</h3>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">C1–C3, C5–C6</th><td>Policy checks: evaluate the settings themselves.</td></tr><tr><th scope="row">C4</th><td>Change check: at least the required number of qualifying approvals on the head revision, including the required code owner.</td></tr><tr><th scope="row">C7</th><td>Change check: a qualifying deployment approval exists when a deployment was triggered.</td></tr></tbody></table></div>
+    <h3 class="spec-h3">Reproduce</h3>
+    <pre class="code-block"><code>node tools/codokey-check.mjs production-path --change cases/c-production-path/change.independent-approval.json --policy cases/c-production-path/policy.governed.json
+# expect PASS
+
+node tools/codokey-check.mjs production-path --change cases/c-production-path/change.self-approved.json --policy cases/c-production-path/policy.governed.json
+# expect FAIL — failing C4, C7
+
+node tools/codokey-check.mjs production-path --change cases/c-production-path/change.independent-approval.json --policy cases/c-production-path/policy.ungoverned.json
+# expect FAIL — failing C1, C2, C3, C5, C6, C7</code></pre>
+    <p class="content-body"><strong>Expected outcome.</strong> governed + independent → PASS (merge and deploy allowed). governed + self-approved → FAIL on C4, C7. ungoverned + independent → FAIL on C1, C2, C3, C5, C6, C7 even though one independent approval happened to exist.</p>
+    <p class="content-body"><strong>Real-world evidence.</strong> Exported branch-protection or ruleset configuration, CODEOWNERS, environment protection settings, and the pull-request review and deployment-approval history.</p>
+    <h3 class="spec-h3">Limitations</h3>
+    <ul class="spec-list"><li>Models a single protected branch and environment.</li><li>Does not evaluate review quality — only who approved what.</li><li>Platform features vary by plan; see evidence register limitations.</li></ul>
+    <p class="content-body">Fixtures: <a href="/cases/c-production-path/README.md">cases/c-production-path/</a> · Sources: <a href="/evidence/#EV-GH-BRANCH-PROTECTION">EV-GH-BRANCH-PROTECTION</a>, <a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a>, <a href="/evidence/#EV-GH-COPILOT-AGENT-RISKS">EV-GH-COPILOT-AGENT-RISKS</a>, <a href="/evidence/#EV-GL-DEPLOY-APPROVALS">EV-GL-DEPLOY-APPROVALS</a>, <a href="/evidence/#EV-SP80053-AC-5">EV-SP80053-AC-5</a></p>
+  </section>
+  <section class="content-wrap case" id="audit-reconstruction" aria-labelledby="audit-reconstruction-h">
+    <div class="eyebrow">Case D · layers 06, 01, 02</div>
+    <h2 class="spec-h2 case-h" id="audit-reconstruction-h">Audit reconstruction</h2>
+    <p class="spec-question">Logs exist in most organizations; reconstruction often fails anyway because records are not linked by session, omit the delegating human, or never captured what the agent could read.</p>
+    <h3 class="spec-h3">Scenario</h3><p class="content-body">After a suspected exposure, an investigator must answer eight questions about an agent session: who acted, for whom, when, with what scope, with which secret paths readable, what changed, who approved, and who authorized deployment. Two event exports are compared.</p>
+    <h3 class="spec-h3">Control expectations</h3>
+    <ul class="spec-list"><li>Each event has the required fields (CK-AM-01).</li><li>Each event links to a session (CK-AM-01).</li><li>Q1–Q8 are answerable for every session (CK-AM-01, CK-OR-02).</li><li>Records come from sources outside agent write access (CK-AM-02).</li></ul>
+    <h3 class="spec-h3">Pass / fail conditions</h3>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">D1</th><td>FAIL if any event lacks a required field.</td></tr><tr><th scope="row">D2</th><td>FAIL if any event lacks session_id.</td></tr><tr><th scope="row">D3</th><td>FAIL if any reconstruction question cannot be answered for a session.</td></tr><tr><th scope="row">D4</th><td>FAIL if any record is agent self-reported.</td></tr></tbody></table></div>
+    <h3 class="spec-h3">Reproduce</h3>
+    <pre class="code-block"><code>node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl
+# expect PASS
+
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.incomplete.jsonl
+# expect FAIL — failing D1, D2, D3, D4</code></pre>
+    <p class="content-body"><strong>Expected outcome.</strong> complete → PASS. incomplete → FAIL on D1, D2, D3, D4.</p>
+    <p class="content-body"><strong>Real-world evidence.</strong> An export of one real session's records (platform audit log + agent session log), with secret values removed, mapped to the specification fields.</p>
+    <h3 class="spec-h3">Limitations</h3>
+    <ul class="spec-list"><li>Checks presence and linkage of fields, not their truthfulness.</li><li>Many agent products do not currently export &quot;readable_secret_paths&quot;; the specification marks this field as frequently unavailable.</li></ul>
+    <p class="content-body">Fixtures: <a href="/cases/d-audit-reconstruct/README.md">cases/d-audit-reconstruct/</a> · Sources: <a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a>, <a href="/evidence/#EV-SP80053-AU-9">EV-SP80053-AU-9</a>, <a href="/evidence/#EV-SP80053-AC-6-9">EV-SP80053-AC-6-9</a>, <a href="/evidence/#EV-GH-AUDIT-LOG">EV-GH-AUDIT-LOG</a></p>
+  </section>
+  <div class="internal-links">
+    <div class="internal-links-title">Related</div>
+    <div class="internal-links-grid">
+      <a href="/governance-scorecard/">Governance Scorecard</a>
+      <a href="/reference-kit/">Reference Kit</a>
+      <a href="/review/">Report a false positive or negative</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Reference Cases v1.0.0 · synthetic fixtures only</div>
+    <div class="footer-tag">Reproducible</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/" class="active" aria-current="page">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

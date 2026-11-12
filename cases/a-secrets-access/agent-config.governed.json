@@ -1,0 +1,7 @@
+{
+  "agent": "example-task-agent",
+  "readDeny": [".env", "*.pem", "config/settings.ini"],
+  "enforcement": "os-sandbox",
+  "canExecuteCommands": true,
+  "environment": ["NODE_ENV"]
+}
