@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://codokey.com/reference/schemas/scorecard-assessment-2.0.0.schema.json",
+  "title": "Codokey Governance Scorecard assessment export (model 2.0.0)",
+  "description": "Structure produced by exportAssessment() in assets/js/scorecard-model.js. Validating against this schema checks structure only; it says nothing about whether the self-attested answers are true.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "model",
+    "modelVersion",
+    "protocolVersion",
+    "generatedAt",
+    "disclaimer",
+    "summary",
+    "controls"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://codokey.com/reference/schemas/scorecard-assessment-2.0.0.schema.json"
+    },
+    "model": {
+      "const": "codokey-governance-scorecard"
+    },
+    "modelVersion": {
+      "const": "2.0.0"
+    },
+    "protocolVersion": {
+      "const": "1.1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "disclaimer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "grade",
+        "floor",
+        "ceiling",
+        "counts",
+        "gates",
+        "primaryRisks"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "not-assessed",
+            "provisional",
+            "determined"
+          ]
+        },
+        "grade": {
+          "enum": [
+            "C",
+            "B",
+            "A",
+            "A+",
+            null
+          ]
+        },
+        "floor": {
+          "enum": [
+            "C",
+            "B",
+            "A",
+            "A+"
+          ]
+        },
+        "ceiling": {
+          "enum": [
+            "C",
+            "B",
+            "A",
+            "A+"
+          ]
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pass",
+            "fail",
+            "unknown",
+            "total"
+          ],
+          "properties": {
+            "pass": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "fail": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "unknown": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "total": {
+              "const": 32
+            }
+          }
+        },
+        "gates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "forbiddenZoneFailures",
+            "forbiddenZoneUnknown",
+            "criticalFailed",
+            "criticalUnknown"
+          ],
+          "properties": {
+            "forbiddenZoneFailures": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "CK-OR-01",
+                  "CK-OR-02",
+                  "CK-OR-03",
+                  "CK-OR-04",
+                  "CK-KE-01",
+                  "CK-KE-02",
+                  "CK-KE-03",
+                  "CK-KE-04",
+                  "CK-KE-05",
+                  "CK-KE-06",
+                  "CK-AA-01",
+                  "CK-AA-02",
+                  "CK-AA-03",
+                  "CK-AA-04",
+                  "CK-AA-05",
+                  "CK-AA-06",
+                  "CK-RB-01",
+                  "CK-RB-02",
+                  "CK-RB-03",
+                  "CK-RB-04",
+                  "CK-RB-05",
+                  "CK-DC-01",
+                  "CK-DC-02",
+                  "CK-DC-03",
+                  "CK-DC-04",
+                  "CK-DC-05",
+                  "CK-AM-01",
+                  "CK-AM-02",
+                  "CK-AM-03",
+                  "CK-AM-04",
+                  "CK-AM-05",
+                  "CK-AM-06"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "forbiddenZoneUnknown": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "CK-OR-01",
+                  "CK-OR-02",
+                  "CK-OR-03",
+                  "CK-OR-04",
+                  "CK-KE-01",
+                  "CK-KE-02",
+                  "CK-KE-03",
+                  "CK-KE-04",
+                  "CK-KE-05",
+                  "CK-KE-06",
+                  "CK-AA-01",
+                  "CK-AA-02",
+                  "CK-AA-03",
+                  "CK-AA-04",
+                  "CK-AA-05",
+                  "CK-AA-06",
+                  "CK-RB-01",
+                  "CK-RB-02",
+                  "CK-RB-03",
+                  "CK-RB-04",
+                  "CK-RB-05",
+                  "CK-DC-01",
+                  "CK-DC-02",
+                  "CK-DC-03",
+                  "CK-DC-04",
+                  "CK-DC-05",
+                  "CK-AM-01",
+                  "CK-AM-02",
+                  "CK-AM-03",
+                  "CK-AM-04",
+                  "CK-AM-05",
+                  "CK-AM-06"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "criticalFailed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "criticalUnknown": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            }
+          }
+        },
+        "primaryRisks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "CK-OR-01",
+              "CK-OR-02",
+              "CK-OR-03",
+              "CK-OR-04",
+              "CK-KE-01",
+              "CK-KE-02",
+              "CK-KE-03",
+              "CK-KE-04",
+              "CK-KE-05",
+              "CK-KE-06",
+              "CK-AA-01",
+              "CK-AA-02",
+              "CK-AA-03",
+              "CK-AA-04",
+              "CK-AA-05",
+              "CK-AA-06",
+              "CK-RB-01",
+              "CK-RB-02",
+              "CK-RB-03",
+              "CK-RB-04",
+              "CK-RB-05",
+              "CK-DC-01",
+              "CK-DC-02",
+              "CK-DC-03",
+              "CK-DC-04",
+              "CK-DC-05",
+              "CK-AM-01",
+              "CK-AM-02",
+              "CK-AM-03",
+              "CK-AM-04",
+              "CK-AM-05",
+              "CK-AM-06"
+            ]
+          },
+          "uniqueItems": true,
+          "maxItems": 3
+        }
+      }
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 32,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "layer",
+          "severity",
+          "forbiddenZone",
+          "title",
+          "status",
+          "evidenceNote"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "CK-OR-01",
+              "CK-OR-02",
+              "CK-OR-03",
+              "CK-OR-04",
+              "CK-KE-01",
+              "CK-KE-02",
+              "CK-KE-03",
+              "CK-KE-04",
+              "CK-KE-05",
+              "CK-KE-06",
+              "CK-AA-01",
+              "CK-AA-02",
+              "CK-AA-03",
+              "CK-AA-04",
+              "CK-AA-05",
+              "CK-AA-06",
+              "CK-RB-01",
+              "CK-RB-02",
+              "CK-RB-03",
+              "CK-RB-04",
+              "CK-RB-05",
+              "CK-DC-01",
+              "CK-DC-02",
+              "CK-DC-03",
+              "CK-DC-04",
+              "CK-DC-05",
+              "CK-AM-01",
+              "CK-AM-02",
+              "CK-AM-03",
+              "CK-AM-04",
+              "CK-AM-05",
+              "CK-AM-06"
+            ]
+          },
+          "layer": {
+            "enum": [
+              "OR",
+              "KE",
+              "AA",
+              "RB",
+              "DC",
+              "AM"
+            ]
+          },
+          "severity": {
+            "enum": [
+              "critical",
+              "high",
+              "medium"
+            ]
+          },
+          "forbiddenZone": {
+            "enum": [
+              "FZ-1",
+              "FZ-2",
+              "FZ-3",
+              null
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unknown"
+            ]
+          },
+          "evidenceNote": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { createRequire } from 'node:module';
 import assert from 'node:assert/strict';
+import { validate } from '../lib/json-schema-subset.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
@@ -124,6 +125,10 @@ await t('export produces model-consistent JSON including notes', async () => {
   assert.equal(data.summary.state, 'provisional');
   assert.equal(data.controls.find(c => c.id === 'CK-OR-02').evidenceNote, 'app:example-agent inventory 2026-11');
   assert.equal(data.controls.find(c => c.id === 'CK-AM-01').status, 'unknown');
+  // The downloaded file validates against the schema its $schema field names, served by this site.
+  const schemaRes = await page.request.get(base + new URL(data.$schema).pathname);
+  assert.equal(schemaRes.status(), 200);
+  assert.deepEqual(validate(await schemaRes.json(), data), []);
 });
 
 await t('reset clears answers', async () => {

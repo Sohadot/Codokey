@@ -699,6 +699,62 @@ function controlsCsv() {
   return rows.map(r => r.map(q).join(',')).join('\n') + '\n';
 }
 
+
+// ---------------------------------------------------------------- export schema
+function exportSchema() {
+  const grade = { enum: [...M.GRADE_ORDER] };
+  const gradeOrNull = { enum: [...M.GRADE_ORDER, null] };
+  const ids = M.CONTROLS.map(c => c.id);
+  const count = { type: 'integer', minimum: 0, maximum: M.CONTROLS.length };
+  const idList = { type: 'array', items: { enum: ids }, uniqueItems: true };
+  return JSON.stringify({
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    $id: M.EXPORT_SCHEMA_URL,
+    title: `Codokey Governance Scorecard assessment export (model ${M.MODEL_VERSION})`,
+    description: 'Structure produced by exportAssessment() in assets/js/scorecard-model.js. Validating against this schema checks structure only; it says nothing about whether the self-attested answers are true.',
+    type: 'object',
+    additionalProperties: false,
+    required: ['$schema', 'model', 'modelVersion', 'protocolVersion', 'generatedAt', 'disclaimer', 'summary', 'controls'],
+    properties: {
+      $schema: { const: M.EXPORT_SCHEMA_URL },
+      model: { const: 'codokey-governance-scorecard' },
+      modelVersion: { const: M.MODEL_VERSION },
+      protocolVersion: { const: M.PROTOCOL_VERSION },
+      generatedAt: { type: 'string', format: 'date-time' },
+      disclaimer: { type: 'string', minLength: 1 },
+      summary: {
+        type: 'object', additionalProperties: false,
+        required: ['state', 'grade', 'floor', 'ceiling', 'counts', 'gates', 'primaryRisks'],
+        properties: {
+          state: { enum: ['not-assessed', 'provisional', 'determined'] },
+          grade: gradeOrNull, floor: grade, ceiling: grade,
+          counts: { type: 'object', additionalProperties: false, required: ['pass', 'fail', 'unknown', 'total'],
+            properties: { pass: count, fail: count, unknown: count, total: { const: M.CONTROLS.length } } },
+          gates: { type: 'object', additionalProperties: false, required: ['forbiddenZoneFailures', 'forbiddenZoneUnknown', 'criticalFailed', 'criticalUnknown'],
+            properties: { forbiddenZoneFailures: idList, forbiddenZoneUnknown: idList, criticalFailed: count, criticalUnknown: count } },
+          primaryRisks: { ...idList, maxItems: 3 }
+        }
+      },
+      controls: {
+        type: 'array', minItems: M.CONTROLS.length, maxItems: M.CONTROLS.length,
+        items: {
+          type: 'object', additionalProperties: false,
+          required: ['id', 'layer', 'severity', 'forbiddenZone', 'title', 'status', 'evidenceNote'],
+          properties: {
+            id: { enum: ids },
+            layer: { enum: M.LAYERS.map(l => l.id) },
+            severity: { enum: ['critical', 'high', 'medium'] },
+            forbiddenZone: { enum: [...Object.keys(M.FORBIDDEN_ZONES), null] },
+            title: { type: 'string', minLength: 1 },
+            status: { enum: ['pass', 'fail', 'unknown'] },
+            evidenceNote: { type: 'string' }
+          }
+        }
+      }
+    }
+  }, null, 2) + '\n';
+}
+
 // ---------------------------------------------------------------- normalize hand-written pages
 function htmlFiles(dir = ROOT, out = []) {
   for (const n of readdirSync(dir)) {
@@ -750,6 +806,7 @@ outputs.set('review/index.html', reviewPage());
 CASES.forEach(c => outputs.set(`cases/${c.dir}/README.md`, caseReadme(c)));
 outputs.set('reference/controls.json', controlsJson());
 outputs.set('reference/protocol-control-map.csv', controlsCsv());
+outputs.set(`reference/schemas/scorecard-assessment-${M.MODEL_VERSION}.schema.json`, exportSchema());
 
 for (const f of htmlFiles()) {
   const rel = relative(ROOT, f).split(sep).join('/');

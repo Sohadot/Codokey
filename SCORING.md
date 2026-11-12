@@ -2,7 +2,7 @@
 
 **Model version:** 2.0.0 · **Date:** 2026-11-12 · **Protocol:** 1.1
 **Implementation:** `assets/js/scorecard-model.js` (single source; also runs in Node)
-**Tests:** `tests/model.test.mjs` (18 unit tests), `tests/ui/scorecard.ui.mjs` (browser)
+**Tests:** `tests/model.test.mjs`, `tests/export-schema.test.mjs`, `tests/ui/scorecard.ui.mjs` (browser)
 
 Self-assessment reference model. Not an audit, certification, or compliance determination.
 
@@ -89,7 +89,7 @@ Reworded controls (intent preserved unless noted):
 
 ## 8. Export format
 
-`exportAssessment()` produces JSON with `model`, `modelVersion`, `protocolVersion`, `generatedAt`, `disclaimer`, `summary` (state, grade, floor, ceiling, counts, gates, primaryRisks) and `controls[]` (id, layer, severity, forbiddenZone, title, status, evidenceNote). Exports are created in the browser and saved by the user; nothing is transmitted.
+`exportAssessment()` produces JSON with `$schema` (the published schema URL `https://codokey.com/reference/schemas/scorecard-assessment-2.0.0.schema.json`, generated from the model and tested against real exports), `model`, `modelVersion`, `protocolVersion`, `generatedAt`, `disclaimer`, `summary` (state, grade, floor, ceiling, counts, gates, primaryRisks) and `controls[]` (id, layer, severity, forbiddenZone, title, status, evidenceNote). Exports are created in the browser and saved by the user; nothing is transmitted.
 
 ## 9. Limitations
 
