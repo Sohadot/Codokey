@@ -3,149 +3,801 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Governance Scorecard — 32-Check AI Code Access Self-Assessment</title>
-<meta name="description" content="Static self-assessment scorecard with 32 governance checks across six protocol layers. Grades from C (Ungoverned) to A+ (Codokey Ready). Reference model, not formal certification.">
+<title>Governance Scorecard v2.0.0 — AI Code Access Self-Assessment</title>
+<meta name="description" content="Evidence-aware self-assessment of 32 AI Code Access Governance controls with critical-control gates, explicit &quot;not assessed&quot; handling and a gap list. Runs locally; not certification.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://codokey.com/governance-scorecard/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://codokey.com/governance-scorecard/">
-<meta property="og:title" content="Governance Scorecard — Codokey Self-Assessment">
-<meta property="og:description" content="32 checks across six protocol layers. Assess your AI Code Access Governance posture.">
+<meta property="og:title" content="Governance Scorecard v2.0.0 — AI Code Access Self-Assessment">
+<meta property="og:description" content="Evidence-aware self-assessment of 32 AI Code Access Governance controls with critical-control gates, explicit &quot;not assessed&quot; handling and a gap list. Runs locally; not certification.">
 <meta property="og:site_name" content="Codokey">
-<meta property="og:image" content="https://codokey.com/assets/social-preview.svg">
-<meta property="og:image:type" content="image/svg+xml">
-<meta property="og:image:alt" content="Codokey — AI Code Access Governance. The boundary between code, keys, agents, and authority.">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Governance Scorecard — Codokey">
-<meta name="twitter:description" content="32-check self-assessment for AI Code Access Governance. Reference model, not certification.">
-<meta name="twitter:image" content="https://codokey.com/assets/social-preview.svg">
+<meta name="twitter:title" content="Governance Scorecard v2.0.0 — AI Code Access Self-Assessment">
+<meta name="twitter:description" content="Evidence-aware self-assessment of 32 AI Code Access Governance controls with critical-control gates, explicit &quot;not assessed&quot; handling and a gap list. Runs locally; not certification.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Codokey Governance Scorecard",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any (web browser)",
+  "softwareVersion": "2.0.0",
+  "url": "https://codokey.com/governance-scorecard/",
+  "isAccessibleForFree": true,
+  "description": "Local, browser-only self-assessment against the Codokey Protocol. Not certification."
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
 
-<div class="cur" id="cur"></div>
-<div class="cur-r" id="curR"></div>
-
-<nav>
+<nav aria-label="Reference files">
   <div class="nav-tabs">
     <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
     <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
     <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
     <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
     <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
-    <a class="nav-tab active" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+    <a class="nav-tab active" href="/governance-scorecard/" aria-current="page"><div class="tab-dot"></div>governance-scorecard.sh</a>
   </div>
-  <div class="nav-right"><div class="nav-badge">v1.0</div></div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
 </nav>
 
-<main>
+<main id="main">
   <div class="file-header">
-    <div class="file-path"><span>codokey / audit /</span><span class="file-name">governance-scorecard.sh</span><span class="file-lang">32 CHECKS</span></div>
-    <div class="file-stats"><span class="stat-a" id="doneCount">+0 resolved</span><span class="stat-r" id="remainCount">−32 pending</span></div>
+    <div class="file-path"><span>codokey / audit /</span><span class="file-name">governance-scorecard.sh</span><span class="file-lang">MODEL v2.0.0</span></div>
+    <div class="file-stats"><span class="stat-a"><span id="doneCount">+0 implemented</span></span><span class="stat-r"><span id="remainCount">−0 not · 32 unassessed</span></span></div>
   </div>
 
   <div class="scorecard-disclaimer">
-    <strong>Reference self-assessment only.</strong> This scorecard is a static governance reference model aligned with the <a href="/protocol/" style="color:var(--acid)">Codokey Protocol v1.0</a>. It is not a formal certification, audit, or security assessment. Grades indicate alignment with the reference model — not compliance with any regulatory standard.
+    <strong>Reference self-assessment only.</strong> Not a formal certification, audit, or security assessment, and not a compliance determination. "Implemented" records your own statement that evidence exists; this page does not verify it. Your answers stay in this browser tab — nothing is sent, stored, or tracked; reloading clears them.
+  </div>
+
+  <div class="content-wrap sc-intro">
+    <h1 class="sc-h1">Governance Scorecard <em>v2.0.0</em></h1>
+    <p class="content-body">Assess 32 controls across the six layers of the <a href="/protocol/">Codokey Protocol v1.1</a>. Each control has three states: <strong>Implemented — evidence available</strong>, <strong>Not implemented</strong>, and <strong>Not assessed</strong> (the default). Unanswered controls are never counted as implemented. Critical controls act as gates: a single failed forbidden-zone control caps the result at C, and A+ requires every control to be implemented.</p>
   </div>
 
   <div class="diff-summary-bar">
-    <span class="dsb-label">Governance completion</span>
-    <div class="dsb-bar"><div class="dsb-fill" id="pFill" style="width:0%"></div></div>
-    <span class="dsb-count" id="pCount">0 / 32</span>
-    <span style="color:var(--comment)" id="pPct">0%</span>
-    <span style="margin-left:auto;color:var(--comment);font-size:10px;">Click any line to check · Score updates automatically</span>
+    <span class="dsb-label">Assessment coverage</span>
+    <div class="dsb-bar" aria-hidden="true"><div class="dsb-fill" id="pFill" style="width:0%"></div></div>
+    <span class="dsb-count" id="pCount">0 / 32 assessed</span>
+    <span class="dsb-hint">Use Tab / arrow keys or click to answer</span>
   </div>
 
-  <div class="scorecard-output" id="scorecardOut">
-    <div class="sc-bar">
-      <div class="sc-grade" id="scGrade">C</div>
+  <p class="sc-js-required" id="scJsRequired">The result panel needs JavaScript. Without it you can still read every control, its evidence expectations, and the methodology below.</p>
+
+  <section class="scorecard-output" id="scorecardOut" hidden aria-labelledby="scTitle">
+    <div class="sc-bar" aria-live="polite" aria-atomic="true">
+      <div class="sc-grade grade-pending" id="scGrade" role="img" aria-label="Not assessed">—</div>
       <div class="sc-info">
-        <div class="sc-title" id="scTitle">Ungoverned AI Code Access</div>
-        <div class="sc-subtitle" id="scSub">Complete more checks to improve your governance score.</div>
+        <h2 class="sc-title" id="scTitle">Not assessed</h2>
+        <p class="sc-subtitle" id="scSub"></p>
       </div>
-      <div class="sc-pct" id="scPct">0%</div>
+      <dl class="sc-counts">
+        <div><dt>Implemented</dt><dd id="cntPass">0</dd></div>
+        <div><dt>Not implemented</dt><dd id="cntFail">0</dd></div>
+        <div><dt>Not assessed</dt><dd id="cntUnknown">32</dd></div>
+      </dl>
     </div>
     <div class="sc-details">
-      <div class="sc-detail"><span class="sd-label">Primary gap:</span><span class="sd-val" id="scGap">Key Exposure — 6 critical checks unresolved</span></div>
-      <div class="sc-detail"><span class="sd-label">Next action:</span><span class="sd-val" id="scNext">Exclude .env and production credentials from agent read scope</span></div>
-      <div class="sc-detail"><span class="sd-label">Reference:</span><span class="sd-val"><a href="/protocol/" style="color:var(--fg2)">Codokey Protocol v1.0</a> · Layer 02: Key Exposure</span></div>
+      <table class="sc-gates">
+        <caption>Gates</caption>
+        <tr><th scope="row">Forbidden zones (4 controls)</th><td id="gateFz">unverified</td></tr>
+        <tr><th scope="row">Critical controls (18)</th><td id="gateCrit"></td></tr>
+        <tr><th scope="row">A+ requirement</th><td id="gateAp"></td></tr>
+        <tr><th scope="row">Coverage</th><td id="scCoverage">0% assessed</td></tr>
+      </table>
+      <div class="sc-lists">
+        <div><h3 class="sc-list-h">Primary unresolved risks</h3><ol id="scRisks" class="sc-list"></ol></div>
+        <div><h3 class="sc-list-h">Verify next (not yet assessed)</h3><ol id="scVerify" class="sc-list"></ol></div>
+      </div>
+      <p class="sc-detail"><span class="sd-label">Next action:</span> <span class="sd-val" id="scNext"></span></p>
+      <div class="sc-actions">
+        <button type="button" class="btn-p" id="scExport" disabled>Export assessment (JSON)</button>
+        <button type="button" class="btn-g" id="scReset">Reset</button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--cyan)">◈</span><span class="cl-fg-name">01 — code-origin.sh</span><span style="color:var(--comment)">Provenance &amp; authorship controls</span><span class="cl-fg-count" id="g0">0/4</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">1</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI-generated code is labeled or tagged in commits and PRs</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">2</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review is explicitly required for all AI-generated merges</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">3</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI authorship is documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
-    <div class="cl-line" onclick="tick(this,0)"><div class="cl-gutter">4</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Mixed human/AI code is distinguishable in the diff history</div><span class="cl-sev sev-h">High</span></div>
-  </div>
+  <form id="scorecardForm" class="sc-form" onsubmit="return false" aria-label="Governance controls">
+  <section class="cl-file-group" aria-labelledby="grp-OR">
+    <div class="cl-fg-header"><span style="color:var(--cyan)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-OR">01 — code-origin.sh</h2><a class="cl-fg-spec" href="/protocol/code-origin/">Code Origin specification</a><span class="cl-fg-count" id="lc-OR" aria-live="off">4 controls</span></div>
+    <fieldset class="ctl" id="CK-OR-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-OR-01</span> <span class="ctl-text">AI involvement in a change is recorded in commit or pull-request metadata</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-OR-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-OR-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-OR-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Commit trailers, PR labels, or bot/app author identities that mark AI-generated or AI-assisted changes, observable on a sample of recent merged PRs.</dd>
+          <dt>Remediation</dt><dd>Adopt one machine-readable convention (for example a commit trailer or a PR label applied by the agent integration) and verify it on merged history.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SLSA-SOURCE-1.2">EV-SLSA-SOURCE-1.2</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/code-origin/">Layer 01 — Code Origin</a> · v1.0 check #1</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-OR-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-OR-01" name="note-CK-OR-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-OR-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-OR-02</span> <span class="ctl-text">Each agent acts under a distinct, attributable identity — not a shared account or a reused personal credential</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-OR-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-OR-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-OR-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Inventory mapping each agent integration to its own app, bot, or service identity, plus the human principal who delegated the task; sample audit events showing that identity.</dd>
+          <dt>Remediation</dt><dd>Provision a dedicated identity per agent integration; retire shared tokens and personal access tokens used by automation.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-OWASP-ASI-2026">EV-OWASP-ASI-2026</a>, <a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/code-origin/">Layer 01 — Code Origin</a> · v1.0 check #2</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-OR-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-OR-02" name="note-CK-OR-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-OR-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-OR-03</span> <span class="ctl-text">SDLC policy states how AI-assisted changes are disclosed and what review obligation they carry</span> <span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-OR-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-OR-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-OR-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Current, approved policy text with owner and review date.</dd>
+          <dt>Remediation</dt><dd>Add an AI-assisted change section to the SDLC policy: disclosure convention, review obligation, and exceptions process.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SSDF-PW.7">EV-SSDF-PW.7</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/code-origin/">Layer 01 — Code Origin</a> · v1.0 check #3</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-OR-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-OR-03" name="note-CK-OR-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-OR-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-OR-04</span> <span class="ctl-text">Human-authored and agent-authored contributions are distinguishable in version-control history</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-OR-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-OR-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-OR-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>History query that separates agent-authored commits (by identity or trailer) from human commits for a chosen period.</dd>
+          <dt>Remediation</dt><dd>Combine CK-OR-01 metadata with CK-OR-02 identities so history can be filtered by author type.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SLSA-SOURCE-1.2">EV-SLSA-SOURCE-1.2</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/code-origin/">Layer 01 — Code Origin</a> · v1.0 check #4</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-OR-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-OR-04" name="note-CK-OR-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  <section class="cl-file-group" aria-labelledby="grp-KE">
+    <div class="cl-fg-header"><span style="color:var(--removed-bar)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-KE">02 — key-exposure.sh</h2><a class="cl-fg-spec" href="/protocol/key-exposure/">Key Exposure specification</a><span class="cl-fg-count" id="lc-KE" aria-live="off">6 controls</span></div>
+    <fieldset class="ctl" id="CK-KE-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-01</span> <span class="ctl-text">Secret scanning is enabled on all active repositories</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Platform security settings or API output showing secret scanning enabled per repository; list of exclusions with justification.</dd>
+          <dt>Remediation</dt><dd>Enable secret scanning organization-wide; track repositories where it is unavailable and compensate with CI scanning.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-SECRET-SCANNING">EV-GH-SECRET-SCANNING</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #5</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-01" name="note-CK-KE-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-KE-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-02</span> <span class="ctl-text">Secrets are blocked before they enter the repository (server-side push protection, with client hooks as a supplement)</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Push-protection setting enabled; a test push of a synthetic secret pattern rejected; documented bypass process.</dd>
+          <dt>Remediation</dt><dd>Enable server-side push protection. Client-side pre-commit hooks can be skipped by the committer and should not be the only control.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-PUSH-PROTECTION">EV-GH-PUSH-PROTECTION</a>, <a href="/evidence/#EV-GL-SECRET-PUSH-PROTECTION">EV-GL-SECRET-PUSH-PROTECTION</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #6</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-02" name="note-CK-KE-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-KE-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-03</span> <span class="ctl-text">Secret-bearing files (.env, credential files, key material) are outside agent read scope, enforced at a technical boundary</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Agent configuration deny rules or sandbox/filesystem policy covering secret paths, plus a test showing a read attempt is refused; note whether subprocesses are covered.</dd>
+          <dt>Remediation</dt><dd>Keep secrets out of the working tree (inject at runtime from a secret manager). Where files must exist, combine tool-level deny rules with OS or sandbox isolation — tool-level exclusions alone may not cover subprocesses.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-CLAUDE-PERMISSIONS">EV-CLAUDE-PERMISSIONS</a>, <a href="/evidence/#EV-GH-CONTENT-EXCLUSION">EV-GH-CONTENT-EXCLUSION</a>, <a href="/evidence/#EV-OWASP-LLM02">EV-OWASP-LLM02</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #7</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-03" name="note-CK-KE-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-KE-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-04</span> <span class="ctl-text">Hardcoded-credential review of code and history performed within a defined interval (default: 90 days)</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Dated scan report covering full history and the follow-up record for each finding.</dd>
+          <dt>Remediation</dt><dd>Schedule a full-history scan; revoke and rotate any confirmed credential before removing it from history.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-SECRET-SCANNING">EV-GH-SECRET-SCANNING</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #8</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-04" name="note-CK-KE-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-KE-05" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-05</span> <span class="ctl-text">Credential rotation policy is documented and enforced (expiry or automated rotation)</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-05" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-05" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-05" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Policy with lifetimes per credential class; system evidence of expiry or rotation (e.g. token expiration dates).</dd>
+          <dt>Remediation</dt><dd>Set maximum lifetimes per class; prefer short-lived, automatically issued credentials for agents and CI.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-OWASP-SECRETS-CS">EV-OWASP-SECRETS-CS</a>, <a href="/evidence/#EV-GH-FG-PAT">EV-GH-FG-PAT</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #9</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-05">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-05" name="note-CK-KE-05" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-KE-06" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-KE-06</span> <span class="ctl-text">Production secrets live in a separate store that agent identities cannot read</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Production secrets accessible to an agent">FZ-1</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-KE-06" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-KE-06" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-KE-06" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Access policy of the production secret store listing principals; confirmation no agent identity is among them.</dd>
+          <dt>Remediation</dt><dd>Move production secrets to a dedicated store or protected environment and remove agent identities from its access policy.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SSDF-PO.5.1">EV-SSDF-PO.5.1</a>, <a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/key-exposure/">Layer 02 — Key Exposure</a> · v1.0 check #10</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-KE-06">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-KE-06" name="note-CK-KE-06" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  <section class="cl-file-group" aria-labelledby="grp-AA">
+    <div class="cl-fg-header"><span style="color:var(--purple)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-AA">03 — agent-authority.sh</h2><a class="cl-fg-spec" href="/protocol/agent-authority/">Agent Authority specification</a><span class="cl-fg-count" id="lc-AA" aria-live="off">6 controls</span></div>
+    <fieldset class="ctl" id="CK-AA-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-01</span> <span class="ctl-text">Each agent has a documented scope: repositories, branches, tools, and permitted actions</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Agent access policy entry per agent (see Reference Kit template) with owner and review date.</dd>
+          <dt>Remediation</dt><dd>Complete an agent access policy entry for every agent integration before it runs again.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SP80053-AC-6">EV-SP80053-AC-6</a>, <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #11</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-01" name="note-CK-AA-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AA-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-02</span> <span class="ctl-text">Agent credentials grant only the repository permissions the task requires</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Granted permission set for each agent identity compared with the documented scope (CK-AA-01); no unexplained write or admin permissions.</dd>
+          <dt>Remediation</dt><dd>Replace broad tokens with fine-grained or app installation tokens restricted to the needed repositories and permissions.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SSDF-PS.1.1">EV-SSDF-PS.1.1</a>, <a href="/evidence/#EV-SP80053-AC-6">EV-SP80053-AC-6</a>, <a href="/evidence/#EV-GH-FG-PAT">EV-GH-FG-PAT</a>, <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #12</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-02" name="note-CK-AA-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AA-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-03</span> <span class="ctl-text">MCP servers and other agent tool connections are inventoried and reviewed</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Inventory listing each server/tool, its credentials, scopes, and an approval record; an empty inventory counts if verified.</dd>
+          <dt>Remediation</dt><dd>Inventory configured tool servers per agent; remove unapproved ones; record approval and owner.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-MCP-SECURITY">EV-MCP-SECURITY</a>, <a href="/evidence/#EV-MS-ZT-DS120">EV-MS-ZT-DS120</a>, <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #13</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-03" name="note-CK-AA-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AA-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-04</span> <span class="ctl-text">Agent token scopes are reviewed on a schedule (default: quarterly) and use the shortest practical lifetime</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Dated review record; token metadata showing scopes and expiry.</dd>
+          <dt>Remediation</dt><dd>Add agent tokens to the access-review cycle; set expirations; declare minimum workflow token permissions explicitly.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-GITHUB-TOKEN">EV-GH-GITHUB-TOKEN</a>, <a href="/evidence/#EV-GH-FG-PAT">EV-GH-FG-PAT</a>, <a href="/evidence/#EV-MCP-SECURITY">EV-MCP-SECURITY</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #14</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-04" name="note-CK-AA-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AA-05" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-05</span> <span class="ctl-text">Organization-wide agent access is disabled by default; repository access is granted per repository</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Organization-wide scope for a single-repository task">FZ-2</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-05" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-05" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-05" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Agent app/token configuration showing selected-repository access rather than all repositories.</dd>
+          <dt>Remediation</dt><dd>Switch installations and tokens from &quot;all repositories&quot; to an explicit repository list.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-FG-PAT">EV-GH-FG-PAT</a>, <a href="/evidence/#EV-SP80053-AC-6">EV-SP80053-AC-6</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #15</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-05">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-05" name="note-CK-AA-05" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AA-06" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AA-06</span> <span class="ctl-text">Forbidden access zones are defined in writing and enforced technically</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AA-06" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AA-06" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AA-06" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Written forbidden-zone list and, for each zone, the technical control that enforces it (deny rule, permission, protection rule).</dd>
+          <dt>Remediation</dt><dd>Map each forbidden zone to an enforcing control; a zone enforced only by policy text remains open.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a>, <a href="/evidence/#EV-SP80053-CM-5">EV-SP80053-CM-5</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/agent-authority/">Layer 03 — Agent Authority</a> · v1.0 check #16</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AA-06">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AA-06" name="note-CK-AA-06" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  <section class="cl-file-group" aria-labelledby="grp-RB">
+    <div class="cl-fg-header"><span style="color:var(--yellow)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-RB">04 — review-boundary.sh</h2><a class="cl-fg-spec" href="/protocol/review-boundary/">Review Boundary specification</a><span class="cl-fg-count" id="lc-RB" aria-live="off">5 controls</span></div>
+    <fieldset class="ctl" id="CK-RB-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-RB-01</span> <span class="ctl-text">Merges of agent-generated changes require approval by a human other than the agent and the person who requested the change</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-RB-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-RB-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-RB-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Branch protection or ruleset export: required approvals ≥ 1, approval of the most recent push required, requester/self-approval not counted.</dd>
+          <dt>Remediation</dt><dd>Require pull-request approval on protected branches and enable &quot;approval of the most recent reviewable push&quot;; confirm the requester cannot approve.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-BRANCH-PROTECTION">EV-GH-BRANCH-PROTECTION</a>, <a href="/evidence/#EV-GL-PROTECTED-BRANCHES">EV-GL-PROTECTED-BRANCHES</a>, <a href="/evidence/#EV-SP80053-AC-5">EV-SP80053-AC-5</a>, <a href="/evidence/#EV-GH-COPILOT-AGENT-RISKS">EV-GH-COPILOT-AGENT-RISKS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/review-boundary/">Layer 04 — Review Boundary</a> · v1.0 check #17</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-RB-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-RB-01" name="note-CK-RB-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-RB-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-RB-02</span> <span class="ctl-text">Changes to secret-handling code, CI configuration, or deployment paths require review by a designated owner</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-RB-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-RB-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-RB-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Ownership file (e.g. CODEOWNERS) covering those paths and a protection rule requiring owner review.</dd>
+          <dt>Remediation</dt><dd>Assign owners to sensitive paths and require code-owner review on protected branches.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-CODEOWNERS">EV-GH-CODEOWNERS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/review-boundary/">Layer 04 — Review Boundary</a> · v1.0 check #18</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-RB-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-RB-02" name="note-CK-RB-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-RB-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-RB-03</span> <span class="ctl-text">Reviewers are briefed on failure modes typical of AI-generated changes</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-RB-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-RB-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-RB-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Training or guidance material and attendance/acknowledgement record.</dd>
+          <dt>Remediation</dt><dd>Adopt the AI-generated PR review checklist in the Reference Kit and brief reviewers on it.</dd>
+          <dt>Sources</dt><dd>No external source — Codokey recommendation (claim class 3).</dd>
+          <dt>Specification</dt><dd><a href="/protocol/review-boundary/">Layer 04 — Review Boundary</a> · v1.0 check #19</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-RB-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-RB-03" name="note-CK-RB-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-RB-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-RB-04</span> <span class="ctl-text">Review bypass is technically prevented — including for administrators — not just prohibited by policy</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-RB-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-RB-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-RB-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Protection setting that applies rules to administrators/bypass roles; list of any bypass actors with justification.</dd>
+          <dt>Remediation</dt><dd>Enable the setting that applies protection to administrators and remove standing bypass permissions.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-BRANCH-PROTECTION">EV-GH-BRANCH-PROTECTION</a>, <a href="/evidence/#EV-SP80053-CM-5">EV-SP80053-CM-5</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/review-boundary/">Layer 04 — Review Boundary</a> · v1.0 check #20</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-RB-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-RB-04" name="note-CK-RB-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-RB-05" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-RB-05</span> <span class="ctl-text">Human review gates are documented in the SDLC governance policy</span> <span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-RB-05" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-RB-05" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-RB-05" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Policy section describing each gate and its enforcing control.</dd>
+          <dt>Remediation</dt><dd>Document each gate alongside the control that enforces it.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SSDF-PW.7">EV-SSDF-PW.7</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/review-boundary/">Layer 04 — Review Boundary</a> · v1.0 check #21</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-RB-05">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-RB-05" name="note-CK-RB-05" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  <section class="cl-file-group" aria-labelledby="grp-DC">
+    <div class="cl-fg-header"><span style="color:var(--added-bar)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-DC">05 — deployment-control.sh</h2><a class="cl-fg-spec" href="/protocol/deployment-control/">Deployment Control specification</a><span class="cl-fg-count" id="lc-DC" aria-live="off">5 controls</span></div>
+    <fieldset class="ctl" id="CK-DC-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-DC-01</span> <span class="ctl-text">No agent can deploy to production without an approving human gate</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Unsupervised production deployment">FZ-3</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-DC-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-DC-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-DC-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Production environment protection: required reviewers, self-review prevented; no agent identity among allowed deployers or approvers.</dd>
+          <dt>Remediation</dt><dd>Protect the production environment with required human approvers and prevent the triggering identity from approving.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a>, <a href="/evidence/#EV-GL-DEPLOY-APPROVALS">EV-GL-DEPLOY-APPROVALS</a>, <a href="/evidence/#EV-GL-PROTECTED-ENVIRONMENTS">EV-GL-PROTECTED-ENVIRONMENTS</a>, <a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/deployment-control/">Layer 05 — Deployment Control</a> · v1.0 check #22</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-DC-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-DC-01" name="note-CK-DC-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-DC-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-DC-02</span> <span class="ctl-text">Production credentials are separated from development and agent environments</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Production secrets accessible to an agent">FZ-1</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-DC-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-DC-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-DC-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Environment-scoped secrets released only to production deployment jobs after approval; development and agent sessions hold none.</dd>
+          <dt>Remediation</dt><dd>Scope production secrets to the protected environment so they are released only after its rules pass.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SSDF-PO.5.1">EV-SSDF-PO.5.1</a>, <a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/deployment-control/">Layer 05 — Deployment Control</a> · v1.0 check #23</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-DC-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-DC-02" name="note-CK-DC-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-DC-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-DC-03</span> <span class="ctl-text">CI/CD pipeline includes secret scanning as a blocking step</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-DC-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-DC-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-DC-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Pipeline definition with a secret-scanning job marked required; a failing run blocking merge or deploy.</dd>
+          <dt>Remediation</dt><dd>Add a required secret-scanning job to the pipeline.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-SECRET-SCANNING">EV-GH-SECRET-SCANNING</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/deployment-control/">Layer 05 — Deployment Control</a> · v1.0 check #24</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-DC-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-DC-03" name="note-CK-DC-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-DC-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-DC-04</span> <span class="ctl-text">Deployment rollback procedures are documented and tested</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-DC-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-DC-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-DC-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Runbook and the date and outcome of the last rollback test.</dd>
+          <dt>Remediation</dt><dd>Write and exercise a rollback runbook for each production service.</dd>
+          <dt>Sources</dt><dd>No external source — Codokey recommendation (claim class 3).</dd>
+          <dt>Specification</dt><dd><a href="/protocol/deployment-control/">Layer 05 — Deployment Control</a> · v1.0 check #25</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-DC-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-DC-04" name="note-CK-DC-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-DC-05" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-DC-05</span> <span class="ctl-text">Infrastructure-as-code and pipeline-definition changes require review separate from application code</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-DC-05" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-DC-05" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-DC-05" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Ownership rules on IaC and workflow paths routing them to infrastructure/security owners.</dd>
+          <dt>Remediation</dt><dd>Route IaC and workflow files to dedicated owners via code-owner rules.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-CODEOWNERS">EV-GH-CODEOWNERS</a>, <a href="/evidence/#EV-SP80053-CM-5">EV-SP80053-CM-5</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/deployment-control/">Layer 05 — Deployment Control</a> · v1.0 check #26</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-DC-05">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-DC-05" name="note-CK-DC-05" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  <section class="cl-file-group" aria-labelledby="grp-AM">
+    <div class="cl-fg-header"><span style="color:var(--acid)" aria-hidden="true">◈</span><h2 class="cl-fg-name" id="grp-AM">06 — audit-memory.sh</h2><a class="cl-fg-spec" href="/protocol/audit-memory/">Audit Memory specification</a><span class="cl-fg-count" id="lc-AM" aria-live="off">6 controls</span></div>
+    <fieldset class="ctl" id="CK-AM-01" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-01</span> <span class="ctl-text">Agent actions are logged with agent identity, delegating human, timestamp, target, and outcome</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-01" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-01" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-01" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Sample audit records for an agent session containing each field (see Audit Evidence Specification).</dd>
+          <dt>Remediation</dt><dd>Enable platform audit logging and agent session logs; correlate them by session identifier.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SP80053-AU-3">EV-SP80053-AU-3</a>, <a href="/evidence/#EV-SP80053-AC-6-9">EV-SP80053-AC-6-9</a>, <a href="/evidence/#EV-SSDF-PO.3.3">EV-SSDF-PO.3.3</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #27</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-01">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-01" name="note-CK-AM-01" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AM-02" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-02</span> <span class="ctl-text">Audit logs are protected from modification or deletion by agents and the identities they use</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-02" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-02" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-02" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Log destination access policy showing agent identities lack write/delete; retention lock or append-only configuration.</dd>
+          <dt>Remediation</dt><dd>Stream logs to a store outside agent reach with write-once or retention-lock settings.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-SP80053-AU-9">EV-SP80053-AU-9</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #28</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-02">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-02" name="note-CK-AM-02" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AM-03" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-03</span> <span class="ctl-text">Log retention meets your documented requirement, including export beyond platform defaults</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-03" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-03" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-03" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Documented retention requirement and the configured retention of every log source used for reconstruction.</dd>
+          <dt>Remediation</dt><dd>Compare platform retention windows with your requirement; export logs where the platform window is shorter.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-GH-AUDIT-LOG">EV-GH-AUDIT-LOG</a>, <a href="/evidence/#EV-GL-AUDIT-EVENTS">EV-GL-AUDIT-EVENTS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #29</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-03">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-03" name="note-CK-AM-03" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AM-04" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-04</span> <span class="ctl-text">Secret exposure events trigger a documented response: revoke, rotate, scope the exposure, record</span> <span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-04" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-04" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-04" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Incident runbook for secret exposure and a record of its last exercise or use.</dd>
+          <dt>Remediation</dt><dd>Write a secret-exposure runbook that starts with revocation and rotation, then determines which sessions had the secret in scope.</dd>
+          <dt>Sources</dt><dd><a href="/evidence/#EV-OWASP-SECRETS-CS">EV-OWASP-SECRETS-CS</a></dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #30</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-04">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-04" name="note-CK-AM-04" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AM-05" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-05</span> <span class="ctl-text">Audit reviews are scheduled — not only performed after incidents</span> <span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-05" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-05" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-05" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Review calendar and the most recent review record.</dd>
+          <dt>Remediation</dt><dd>Schedule periodic review of agent activity logs.</dd>
+          <dt>Sources</dt><dd>No external source — Codokey recommendation (claim class 3).</dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #31</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-05">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-05" name="note-CK-AM-05" rows="2"></textarea>
+      </details>
+    </fieldset>
+    <fieldset class="ctl" id="CK-AM-06" data-status="unknown">
+      <legend class="ctl-head"><span class="ctl-id">CK-AM-06</span> <span class="ctl-text">Open governance gaps are tracked with owners and reviewed by engineering leadership (default: quarterly)</span> <span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></legend>
+      <div class="ctl-opts">
+      <label class="ctl-opt ctl-pass"><input type="radio" name="st-CK-AM-06" value="pass"> Implemented — evidence available</label>
+      <label class="ctl-opt ctl-fail"><input type="radio" name="st-CK-AM-06" value="fail"> Not implemented</label>
+      <label class="ctl-opt ctl-unknown"><input type="radio" name="st-CK-AM-06" value="unknown" checked> Not assessed / evidence insufficient</label>
+      </div>
+      <details class="ctl-more">
+        <summary>Evidence, remediation &amp; sources</summary>
+        <dl>
+          <dt>Acceptable evidence</dt><dd>Gap register (for example an exported scorecard result) with owners, dates, and review minutes.</dd>
+          <dt>Remediation</dt><dd>Export this assessment, assign an owner per unresolved control, and review progress on a fixed cadence.</dd>
+          <dt>Sources</dt><dd>No external source — Codokey recommendation (claim class 3).</dd>
+          <dt>Specification</dt><dd><a href="/protocol/audit-memory/">Layer 06 — Audit Memory</a> · v1.0 check #32</dd>
+        </dl>
+        <label class="ctl-note-label" for="note-CK-AM-06">Evidence note (optional — stays in this tab, included in export)</label>
+        <textarea class="ctl-note" id="note-CK-AM-06" name="note-CK-AM-06" rows="2"></textarea>
+      </details>
+    </fieldset>
+  </section>
+  </form>
 
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--removed-bar)">◈</span><span class="cl-fg-name">02 — key-exposure.sh</span><span style="color:var(--comment)">Secrets &amp; credential boundary</span><span class="cl-fg-count" id="g1">0/6</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">5</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret scanning is enabled on all active repositories</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">6</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Pre-commit hooks block secrets from entering the codebase</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">7</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Environment files (.env) are excluded from AI agent read scope</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">8</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Hardcoded credentials audit performed in the last 90 days</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">9</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">API key rotation policy is documented and enforced</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,1)"><div class="cl-gutter">10</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production .env files are in a separate, agent-inaccessible vault</div><span class="cl-sev sev-c">Critical</span></div>
-  </div>
-
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--purple)">◈</span><span class="cl-fg-name">03 — agent-authority.sh</span><span style="color:var(--comment)">Agent scope &amp; permission controls</span><span class="cl-fg-count" id="g2">0/6</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">11</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Each agent has a documented scope: repository, branch, action type</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">12</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agents operate with minimum-privilege repository access</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">13</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">MCP server connections are inventoried and reviewed</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">14</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Agent token scopes are reviewed and restricted quarterly</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">15</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Organization-wide agent access is disabled by default</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,2)"><div class="cl-gutter">16</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Forbidden access zones are defined in writing and enforced technically</div><span class="cl-sev sev-c">Critical</span></div>
-  </div>
-
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--yellow)">◈</span><span class="cl-fg-name">04 — review-boundary.sh</span><span style="color:var(--comment)">Human gate &amp; merge controls</span><span class="cl-fg-count" id="g3">0/5</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">17</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Branch protection rules require review before merge for AI PRs</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">18</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Code touching secrets paths triggers mandatory security review</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">19</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Reviewers are trained to identify AI-generated code patterns</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">20</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Review bypass is technically prevented — not just policy-prohibited</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,3)"><div class="cl-gutter">21</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Human review gates are documented in your SDLC governance policy</div><span class="cl-sev sev-m">Medium</span></div>
-  </div>
-
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--added-bar)">◈</span><span class="cl-fg-name">05 — deployment-control.sh</span><span style="color:var(--comment)">Production authority &amp; pipeline gates</span><span class="cl-fg-count" id="g4">0/5</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">22</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">No agent has direct production deployment authority without human gate</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">23</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Production credentials are separated from development environments</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">24</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">CI/CD pipeline includes secret scanning as a blocking step</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">25</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Deployment rollback procedures are tested and documented</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,4)"><div class="cl-gutter">26</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Infrastructure-as-code changes require separate review from application code</div><span class="cl-sev sev-h">High</span></div>
-  </div>
-
-  <div class="cl-file-group">
-    <div class="cl-fg-header"><span style="color:var(--acid)">◈</span><span class="cl-fg-name">06 — audit-memory.sh</span><span style="color:var(--comment)">Logging, traceability &amp; accountability</span><span class="cl-fg-count" id="g5">0/6</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">27</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">AI agent actions are logged with identity, timestamp, and scope</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">28</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit logs are immutable and protected from agent modification</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">29</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Log retention policy meets your compliance requirements</div><span class="cl-sev sev-h">High</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">30</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Secret exposure events trigger a documented incident response workflow</div><span class="cl-sev sev-c">Critical</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">31</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Audit reviews are scheduled — not only performed after incidents</div><span class="cl-sev sev-m">Medium</span></div>
-    <div class="cl-line" onclick="tick(this,5)"><div class="cl-gutter">32</div><div class="cl-marker">+</div><div class="cl-box"></div><div class="cl-text">Governance debt is tracked and reviewed quarterly by engineering leadership</div><span class="cl-sev sev-h">High</span></div>
-  </div>
+  <section class="content-wrap" id="methodology" aria-labelledby="meth-h">
+    <div class="content-section">
+      <div class="charter-label">Methodology · model v2.0.0</div>
+      <h2 class="charter-heading" id="meth-h">How the result is calculated</h2>
+      <div class="content-body">
+        <p><strong>No weights, no percentages in the grade.</strong> The grade is decided by gates on control status, not by the share of boxes ticked. Severity determines which gates a control participates in and the order of the gap list. The full specification, rationale, and test cases are in <a href="/SCORING.md">SCORING.md</a>.</p>
+        <ol>
+          <li>Every control starts as <em>Not assessed</em>. Only an explicit "Implemented" answer counts as implemented.</li>
+          <li>The model computes two bounding grades: a <strong>floor</strong> (every unassessed control treated as not implemented) and a <strong>ceiling</strong> (every unassessed control treated as implemented).</li>
+          <li>If floor and ceiling are equal, the grade is <strong>determined</strong> — known failures already settle it. Otherwise the result is <strong>provisional</strong> and no grade is stated, only the range. With nothing answered, the result is <strong>not assessed</strong>.</li>
+          <li>Gaps are listed from your answers: forbidden-zone failures first, then critical, high, and medium, in layer order.</li>
+        </ol>
+      </div>
+      <table class="ref-table">
+        <caption>Grades (applied to a fully resolved assessment)</caption>
+        <thead><tr><th scope="col">Grade</th><th scope="col">Name</th><th scope="col">Condition</th></tr></thead>
+        <tbody>
+        <tr><th scope="row"><span class="sc-grade-mini grade-ap">A+</span></th><td>Codokey Aligned</td><td>Every control is self-attested as implemented with evidence available.</td></tr>
+        <tr><th scope="row"><span class="sc-grade-mini grade-a">A</span></th><td>Controlled With Gaps</td><td>All critical controls are implemented; at least one high or medium control is not.</td></tr>
+        <tr><th scope="row"><span class="sc-grade-mini grade-b">B</span></th><td>Partially Governed</td><td>At least one critical control is not implemented, but no forbidden-zone control has failed and at least half of critical controls are implemented.</td></tr>
+        <tr><th scope="row"><span class="sc-grade-mini grade-c">C</span></th><td>Ungoverned AI Code Access</td><td>A forbidden-zone control has failed, or more than half of critical controls are not implemented.</td></tr>
+        </tbody>
+      </table>
+      <table class="ref-table">
+        <caption>Forbidden-zone gates — a failed control caps the grade at C</caption>
+        <thead><tr><th scope="col">Zone</th><th scope="col">Description</th><th scope="col">Controls</th></tr></thead>
+        <tbody>
+        <tr><th scope="row">FZ-1</th><td>Production secrets accessible to an agent</td><td><a href="/governance-scorecard/#CK-KE-06">CK-KE-06</a>, <a href="/governance-scorecard/#CK-DC-02">CK-DC-02</a></td></tr>
+        <tr><th scope="row">FZ-2</th><td>Organization-wide scope for a single-repository task</td><td><a href="/governance-scorecard/#CK-AA-05">CK-AA-05</a></td></tr>
+        <tr><th scope="row">FZ-3</th><td>Unsupervised production deployment</td><td><a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a></td></tr>
+        </tbody>
+      </table>
+      <div class="content-body">
+        <p><strong>Why "more than half of critical controls" for C.</strong> With 18 critical controls, a majority unimplemented means most of the boundary the protocol defines is absent. This threshold is a Codokey judgment, documented as such; reviewers are invited to challenge it via <a href="/review/">Open Review</a>.</p>
+        <p><strong>Changed from v1.0.</strong> v1.0 graded by percentage of ticked checks (A+ at 85%), so up to four critical checks could be unresolved at A+, and an untouched scorecard displayed "C — Ungoverned". v2.0 removes both behaviors. Grades from v1.0 are not comparable with v2.0 grades. Two checks were reworded for technical accuracy (#2 now addresses agent identity rather than duplicating #17; #6 now prefers server-side push protection over bypassable client hooks); all others keep their intent. See SCORING.md for the mapping.</p>
+        <p><strong>Limitations.</strong> The result reflects the assessor's answers. It does not inspect any system, cannot detect inaccurate answers, and says nothing about controls outside these 32. Severity assignments are Codokey judgments that have not been externally reviewed.</p>
+      </div>
+    </div>
+  </section>
 
   <div class="internal-links">
-    <div class="internal-links-title">Grade Reference</div>
+    <div class="internal-links-title">Apply the result</div>
     <div class="internal-links-grid">
-      <span style="color:var(--removed-bar)">C — Ungoverned AI Code Access (0–39%)</span>
-      <span style="color:var(--yellow)">B — Partially Governed (40–69%)</span>
-      <span style="color:var(--added-bar)">A — Controlled With Gaps (70–84%)</span>
-      <span style="color:var(--acid)">A+ — Codokey Ready (85–100%)</span>
+      <a href="/reference-kit/">Reference Kit — templates for each gap</a>
+      <a href="/reference-cases/">Reference Cases — reproducible checks</a>
+      <a href="/evidence/">Evidence Register — sources behind each control</a>
+      <a href="/protocol/">Codokey Protocol v1.1</a>
     </div>
   </div>
+
 </main>
 
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">Governance Scorecard · Codokey v1.0 · 32 Checks · Self-Assessment Reference</div>
-    <div class="footer-tag">Audit Tool</div>
+    <div class="footer-meta">Governance Scorecard · model v2.0.0 · 32 controls · Self-assessment reference</div>
+    <div class="footer-tag">Self-Assessment</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">
     <a href="/">Home</a>
@@ -154,7 +806,11 @@
     <a href="/protocol/">Protocol</a>
     <a href="/secrets-boundary/">Secrets Boundary</a>
     <a href="/agent-permissions/">Agent Permissions</a>
-    <a href="/governance-scorecard/" class="active">Scorecard</a>
+    <a href="/governance-scorecard/" class="active" aria-current="page">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
     <a href="/cost-of-inaction/">Cost of Inaction</a>
     <a href="/buyer-logic/">Buyer Logic</a>
     <a href="/briefs/">Briefs</a>
@@ -163,6 +819,7 @@
 </footer>
 
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/scorecard-model.js"></script>
 <script src="/assets/js/scorecard.js"></script>
 </body>
 </html>

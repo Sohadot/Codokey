@@ -1,0 +1,14 @@
+{
+  "$comment": "Single source for version labels. Site release and document versions are independent; see VERSIONS.md.",
+  "site": "2.0",
+  "released": "2026-11-12",
+  "protocol": "1.1",
+  "scorecardModel": "2.0.0",
+  "evidenceRegister": "1.0.0",
+  "cases": "1.0.0",
+  "validator": "1.0.0",
+  "kit": "1.0.0",
+  "review": "1.0.0",
+  "charter": "1.0",
+  "categoryDefinition": "1.1"
+}
