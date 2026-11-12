@@ -1,4 +1,5 @@
 { "runs": [
-  { "name": "complete", "command": "audit-reconstruct", "args": { "events": "events.complete.jsonl" }, "verdict": "PASS", "failing": [] },
-  { "name": "incomplete", "command": "audit-reconstruct", "args": { "events": "events.incomplete.jsonl" }, "verdict": "FAIL", "failing": ["D1", "D2", "D3", "D4"] }
+  { "name": "complete", "command": "audit-reconstruct", "args": { "events": "events.complete.jsonl", "sources": "provenance.json" }, "verdict": "PASS", "failing": [] },
+  { "name": "incomplete", "command": "audit-reconstruct", "args": { "events": "events.incomplete.jsonl", "sources": "provenance.json" }, "verdict": "FAIL", "failing": ["D1", "D2", "D3", "D4"] },
+  { "name": "complete-without-provenance", "command": "audit-reconstruct", "args": { "events": "events.complete.jsonl" }, "verdict": "FAIL", "failing": ["D4"] }
 ] }

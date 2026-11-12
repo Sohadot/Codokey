@@ -12,7 +12,9 @@ A task agent must add pagination to one API and open a pull request in one repos
 ## Assumptions
 
 - Permission names follow GitHub fine-grained permission naming; the mapping from task actions to permissions is in tools/codokey-check.mjs and should be adapted per platform.
-- Levels are ordered none < read < write < admin.
+- Levels are ordered none < read < write < admin. Any other level value is treated as excess (fail closed).
+- Repository names compare case-insensitively; wildcards or a non-list repository scope count as excess.
+- Token lifetimes must be positive finite numbers of hours; an invalid task maximum is an input error (exit 2), not a silent default.
 
 ## Synthetic inputs
 
@@ -41,7 +43,7 @@ All values are synthetic. No real credentials, repositories, or systems are used
 | B1 | FAIL if repositories is "all" or lists any repository not in the task. |
 | B2 | FAIL if any granted permission level exceeds the required level. |
 | B3 | FAIL if any tool is not declared by the task. |
-| B4 | FAIL if lifetime is missing or above the task maximum. |
+| B4 | FAIL if lifetime is missing, not a positive finite number, or above the task maximum. |
 | B5 | FAIL if a required permission is missing. |
 
 ## Evidence requirements (real-world equivalent)

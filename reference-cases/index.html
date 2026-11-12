@@ -76,7 +76,7 @@
   </div>
 
   <div class="content-wrap">
-    <div class="eyebrow">Reference Cases v1.0.0 · validator v1.0.0</div>
+    <div class="eyebrow">Reference Cases v1.0.0 · validator v1.1.0</div>
     <h1 class="spec-h1">Reference Cases</h1>
     <p class="content-body">Four reproducible cases that turn protocol controls into observable pass/fail conditions. Each case ships synthetic inputs — a governed and an ungoverned variant — and a zero-dependency validator, <code>tools/codokey-check.mjs</code>, that evaluates them. Expected outcomes are pinned in <code>cases/*/expected.json</code> and checked by the test suite.</p>
     <p class="content-body"><strong>What these are not.</strong> The validator reads declared configuration files. It does not connect to GitHub, GitLab, or any agent, does not scan live repositories, and a PASS is not certification. To use a case on a real system, export the equivalent settings into the same JSON shape — and remove secret values first.</p>
@@ -122,7 +122,7 @@ node tools/codokey-check.mjs secrets-access \
     <h3 class="spec-h3">Control expectations</h3>
     <ul class="spec-list"><li>Repository access equals the task's repositories (CK-AA-05, forbidden zone FZ-2).</li><li>No permission exceeds what the task actions need (CK-AA-02).</li><li>Only declared tools are connected (CK-AA-03).</li><li>The credential expires within the task maximum (CK-AA-04).</li><li>The grant is sufficient, so the agent is not pushed toward workarounds (CK-AA-01).</li></ul>
     <h3 class="spec-h3">Pass / fail conditions</h3>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">B1</th><td>FAIL if repositories is &quot;all&quot; or lists any repository not in the task.</td></tr><tr><th scope="row">B2</th><td>FAIL if any granted permission level exceeds the required level.</td></tr><tr><th scope="row">B3</th><td>FAIL if any tool is not declared by the task.</td></tr><tr><th scope="row">B4</th><td>FAIL if lifetime is missing or above the task maximum.</td></tr><tr><th scope="row">B5</th><td>FAIL if a required permission is missing.</td></tr></tbody></table></div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">B1</th><td>FAIL if repositories is &quot;all&quot; or lists any repository not in the task.</td></tr><tr><th scope="row">B2</th><td>FAIL if any granted permission level exceeds the required level.</td></tr><tr><th scope="row">B3</th><td>FAIL if any tool is not declared by the task.</td></tr><tr><th scope="row">B4</th><td>FAIL if lifetime is missing, not a positive finite number, or above the task maximum.</td></tr><tr><th scope="row">B5</th><td>FAIL if a required permission is missing.</td></tr></tbody></table></div>
     <h3 class="spec-h3">Reproduce</h3>
     <pre class="code-block"><code>node tools/codokey-check.mjs excess-authority \
   --task cases/b-excess-authority/task.json \
@@ -147,7 +147,7 @@ node tools/codokey-check.mjs excess-authority \
     <h3 class="spec-h3">Control expectations</h3>
     <ul class="spec-list"><li>Required approval excludes agent and requester and applies to the latest push (CK-RB-01).</li><li>Protection binds administrators (CK-RB-04).</li><li>Sensitive paths need code-owner review (CK-RB-02).</li><li>Production deployment requires an independent human reviewer; agents are not deployers (CK-DC-01, FZ-3).</li><li>Production secrets are scoped to the protected environment (CK-DC-02).</li></ul>
     <h3 class="spec-h3">Pass / fail conditions</h3>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">C1–C3, C5–C6</th><td>Policy checks: evaluate the settings themselves.</td></tr><tr><th scope="row">C4</th><td>Change check: at least the required number of qualifying approvals on the head revision, including the required code owner.</td></tr><tr><th scope="row">C7</th><td>Change check: a qualifying deployment approval exists when a deployment was triggered.</td></tr></tbody></table></div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">C1–C3, C5–C6</th><td>Declared-configuration checks. C5 also fails on non-human or agent reviewers, non-human deployers, or a deployer for whom no other eligible reviewer exists.</td></tr><tr><th scope="row">C4</th><td>Recorded-history check: enough DISTINCT independent human approvers on the head revision, including the required code owner.</td></tr><tr><th scope="row">C7</th><td>Recorded-history check: the trigger is an allowed human deployer and enough distinct eligible reviewers other than the trigger approved.</td></tr><tr><th scope="row">decision</th><td>deployAllowed is true only if a deployment was requested and every check C1–C7 passes; mergeAllowed requires C1–C4.</td></tr></tbody></table></div>
     <h3 class="spec-h3">Reproduce</h3>
     <pre class="code-block"><code>node tools/codokey-check.mjs production-path \
   --change cases/c-production-path/change.independent-approval.json \
@@ -177,16 +177,22 @@ node tools/codokey-check.mjs production-path \
     <h3 class="spec-h3">Control expectations</h3>
     <ul class="spec-list"><li>Each event has the required fields (CK-AM-01).</li><li>Each event links to a session (CK-AM-01).</li><li>Q1–Q8 are answerable for every session (CK-AM-01, CK-OR-02).</li><li>Records come from sources outside agent write access (CK-AM-02).</li></ul>
     <h3 class="spec-h3">Pass / fail conditions</h3>
-    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">D1</th><td>FAIL if any event lacks a required field.</td></tr><tr><th scope="row">D2</th><td>FAIL if any event lacks session_id.</td></tr><tr><th scope="row">D3</th><td>FAIL if any reconstruction question cannot be answered for a session.</td></tr><tr><th scope="row">D4</th><td>FAIL if any record is agent self-reported.</td></tr></tbody></table></div>
+    <div class="table-scroll"><table class="ref-table"><thead><tr><th scope="col">Check</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">D1</th><td>FAIL if any event lacks a required field, has an actor without valid type/id, or has a non-RFC 3339 timestamp.</td></tr><tr><th scope="row">D2</th><td>FAIL if any event lacks session_id.</td></tr><tr><th scope="row">D3</th><td>FAIL if any reconstruction question cannot be answered for a session.</td></tr><tr><th scope="row">D4</th><td>FAIL if no provenance manifest is supplied, or any record source is undeclared, lacks tamper protection, or is declared writable by an acting agent identity.</td></tr></tbody></table></div>
     <h3 class="spec-h3">Reproduce</h3>
     <pre class="code-block"><code>node tools/codokey-check.mjs audit-reconstruct \
-  --events cases/d-audit-reconstruct/events.complete.jsonl
+  --events cases/d-audit-reconstruct/events.complete.jsonl \
+  --sources cases/d-audit-reconstruct/provenance.json
 # expect PASS
 
 node tools/codokey-check.mjs audit-reconstruct \
-  --events cases/d-audit-reconstruct/events.incomplete.jsonl
-# expect FAIL — failing D1, D2, D3, D4</code></pre>
-    <p class="content-body"><strong>Expected outcome.</strong> complete → PASS. incomplete → FAIL on D1, D2, D3, D4.</p>
+  --events cases/d-audit-reconstruct/events.incomplete.jsonl \
+  --sources cases/d-audit-reconstruct/provenance.json
+# expect FAIL — failing D1, D2, D3, D4
+
+node tools/codokey-check.mjs audit-reconstruct \
+  --events cases/d-audit-reconstruct/events.complete.jsonl
+# expect FAIL — failing D4</code></pre>
+    <p class="content-body"><strong>Expected outcome.</strong> complete + provenance → PASS. incomplete → FAIL on D1, D2, D3, D4. complete without provenance manifest → FAIL on D4.</p>
     <p class="content-body"><strong>Real-world evidence.</strong> An export of one real session's records (platform audit log + agent session log), with secret values removed, mapped to the specification fields.</p>
     <h3 class="spec-h3">Limitations</h3>
     <ul class="spec-list"><li>Checks presence and linkage of fields, not their truthfulness.</li><li>Many agent products do not currently export &quot;readable_secret_paths&quot;; the specification marks this field as frequently unavailable.</li></ul>

@@ -1,0 +1,7 @@
+{
+  "$comment": "SYNTHETIC provenance manifest for Reference Case D. Declares, for each record source, who can write to it and how it is protected. The validator reads these declarations; it cannot verify them.",
+  "sources": [
+    { "id": "platform-audit-log", "description": "Repository platform audit log, streamed to a separate store", "writableBy": ["platform"], "tamperProtection": "retention-lock" },
+    { "id": "agent-platform-session-log", "description": "Agent vendor session log exported by the platform, not by the agent", "writableBy": ["agent-platform"], "tamperProtection": "append-only" }
+  ]
+}

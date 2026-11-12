@@ -11,9 +11,11 @@ An agent opens a pull request that changes application code and a deployment wor
 
 ## Assumptions
 
-- Identities prefixed app: or bot: are non-human and never count as approvers.
-- An approval counts only if it is on headRevision.
+- Identities prefixed app:, bot:, ci:, svc: or service:, or ending in [bot], are non-human and never count as approvers or eligible reviewers.
+- Approvals count once per distinct human (case-insensitive) and only on headRevision; the agent author and the requester never count.
+- Missing safeguard fields fail closed (e.g. an undeclared bypass list is not treated as empty).
 - Policy settings are modeled on GitHub branch protection and environments; GitLab protected branches and deployment approvals provide equivalents.
+- Policy checks read DECLARED settings and approval checks read RECORDED history. Neither proves the platform enforces them; results carry enforcementVerified: false.
 
 ## Synthetic inputs
 
@@ -39,9 +41,10 @@ All values are synthetic. No real credentials, repositories, or systems are used
 
 | Check | Condition |
 |---|---|
-| C1–C3, C5–C6 | Policy checks: evaluate the settings themselves. |
-| C4 | Change check: at least the required number of qualifying approvals on the head revision, including the required code owner. |
-| C7 | Change check: a qualifying deployment approval exists when a deployment was triggered. |
+| C1–C3, C5–C6 | Declared-configuration checks. C5 also fails on non-human or agent reviewers, non-human deployers, or a deployer for whom no other eligible reviewer exists. |
+| C4 | Recorded-history check: enough DISTINCT independent human approvers on the head revision, including the required code owner. |
+| C7 | Recorded-history check: the trigger is an allowed human deployer and enough distinct eligible reviewers other than the trigger approved. |
+| decision | deployAllowed is true only if a deployment was requested and every check C1–C7 passes; mergeAllowed requires C1–C4. |
 
 ## Evidence requirements (real-world equivalent)
 

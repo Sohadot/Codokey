@@ -11,13 +11,15 @@ After a suspected exposure, an investigator must answer eight questions about an
 
 ## Assumptions
 
-- Event format follows the Codokey Audit Evidence Specification v1.0 (kit/audit-evidence-specification.md).
-- Records with source "agent-self-report" are treated as writable by the agent and fail the tamper-protection check.
+- Event format follows the Codokey Audit Evidence Specification v1.0 (kit/audit-evidence-specification.md); actor needs a valid type and id, timestamps must be RFC 3339.
+- An event's source field is only a label. Independence is judged from a separate provenance manifest (provenance.json) declaring who can write each source and how it is tamper-protected. Without a manifest, D4 fails.
+- The manifest is itself a declaration; the validator cannot verify it.
 
 ## Synthetic inputs
 
 - events.complete.jsonl — eight correlated events from platform audit log and agent session log
-- events.incomplete.jsonl — missing delegation, scope, end event, a session-less approval, and agent self-reported records
+- events.incomplete.jsonl — missing delegation, scope, end event, a session-less approval, and records from an undeclared source
+- provenance.json — declared writers and tamper protection for each record source
 
 All values are synthetic. No real credentials, repositories, or systems are used.
 
@@ -36,10 +38,10 @@ All values are synthetic. No real credentials, repositories, or systems are used
 
 | Check | Condition |
 |---|---|
-| D1 | FAIL if any event lacks a required field. |
+| D1 | FAIL if any event lacks a required field, has an actor without valid type/id, or has a non-RFC 3339 timestamp. |
 | D2 | FAIL if any event lacks session_id. |
 | D3 | FAIL if any reconstruction question cannot be answered for a session. |
-| D4 | FAIL if any record is agent self-reported. |
+| D4 | FAIL if no provenance manifest is supplied, or any record source is undeclared, lacks tamper protection, or is declared writable by an acting agent identity. |
 
 ## Evidence requirements (real-world equivalent)
 
@@ -48,13 +50,14 @@ An export of one real session's records (platform audit log + agent session log)
 ## Reproduce
 
 ```sh
-node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl   # expect PASS
-node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.incomplete.jsonl   # expect FAIL (D1, D2, D3, D4)
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl --sources cases/d-audit-reconstruct/provenance.json   # expect PASS
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.incomplete.jsonl --sources cases/d-audit-reconstruct/provenance.json   # expect FAIL (D1, D2, D3, D4)
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl   # expect FAIL (D4)
 ```
 
 ## Expected outcome
 
-complete → PASS. incomplete → FAIL on D1, D2, D3, D4.
+complete + provenance → PASS. incomplete → FAIL on D1, D2, D3, D4. complete without provenance manifest → FAIL on D4.
 
 ## Limitations
 
