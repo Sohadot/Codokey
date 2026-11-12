@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Review — Challenge the Codokey Protocol and Scorecard</title>
+<meta name="description" content="Review package for security engineers: reproduce the Codokey reference cases, inspect the evidence register, and report false positives, false negatives and missing controls.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/review/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/review/">
+<meta property="og:title" content="Open Review — Challenge the Codokey Protocol and Scorecard">
+<meta property="og:description" content="Review package for security engineers: reproduce the Codokey reference cases, inspect the evidence register, and report false positives, false negatives and missing controls.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Open Review — Challenge the Codokey Protocol and Scorecard">
+<meta name="twitter:description" content="Review package for security engineers: reproduce the Codokey reference cases, inspect the evidence register, and report false positives, false negatives and missing controls.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Codokey Open Review",
+  "description": "Structured external review of the Codokey reference model.",
+  "url": "https://codokey.com/review/",
+  "version": "1.0.0",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / review /</span><span class="file-name">README.md</span><span class="file-lang">REVIEW v1.0.0</span></div>
+    <div class="file-stats"><span class="stat-a">+0 reviews received</span><span class="stat-r">−0 endorsements claimed</span></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="eyebrow">Open Review · package v1.0.0</div>
+    <h1 class="spec-h1">Open Review</h1>
+    <p class="content-body"><strong>No independent review of Codokey has taken place yet.</strong> This page provides what a reviewer needs to evaluate the protocol, the scorecard model, the evidence register, and the reference cases — and a structured way to report what is wrong. Reviews received will be listed in the <a href="/review/REVIEW_LOG.md">review log</a> only with the reviewer's permission.</p>
+    <h2 class="spec-h2">What to challenge</h2>
+    <div class="table-scroll"><table class="ref-table">
+      <thead><tr><th scope="col">Artifact</th><th scope="col">Questions for a reviewer</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><a href="/protocol/">Protocol v1.1</a></th><td>Are the six boundaries the right ones? What failure scenario falls between layers?</td></tr>
+        <tr><th scope="row"><a href="/governance-scorecard/#methodology">Scorecard model v2.0.0</a></th><td>Are severities and forbidden-zone gates defensible? Is "more than half of critical controls" the right C threshold? Can an unsafe organization score well?</td></tr>
+        <tr><th scope="row"><a href="/evidence/">Evidence Register v1.0.0</a></th><td>Is any passage misquoted, outdated, or stretched beyond what it supports? Is any claim in the wrong class?</td></tr>
+        <tr><th scope="row"><a href="/reference-cases/">Reference Cases</a></th><td>Construct an input the validator wrongly passes (false negative) or wrongly fails (false positive).</td></tr>
+        <tr><th scope="row"><a href="/reference-kit/">Reference Kit</a></th><td>Could a team adopt the templates as written? What is missing?</td></tr>
+      </tbody>
+    </table></div>
+    <h2 class="spec-h2">Reproduce in two minutes</h2>
+    <pre class="code-block"><code>node --test tests/*.test.mjs         # Node 18+, no dependencies
+node tools/build.mjs --check         # generated pages match their sources</code></pre>
+    <h2 class="spec-h2">Rubric</h2>
+    <p class="content-body">Classify each finding by type — false negative, false positive, missing control, severity/gate, evidence defect, claim-class error, usability — and rate impact (3 material, 2 significant, 1 minor) and confidence (high/medium/low). Full rubric: <a href="/review/RUBRIC.md">RUBRIC.md</a>. Template: <a href="/review/FEEDBACK_TEMPLATE.md">FEEDBACK_TEMPLATE.md</a>. Package overview: <a href="/review/README.md">README.md</a>.</p>
+    <h2 class="spec-h2">Send findings</h2>
+    <p class="content-body">Open an issue in the project repository using the "Review finding" form, or email <a href="mailto:inquiry@codokey.com">inquiry@codokey.com</a>. Never include real secrets or confidential configuration.</p>
+  </div>
+  <div class="internal-links">
+    <div class="internal-links-title">Related</div>
+    <div class="internal-links-grid">
+      <a href="/evidence/">Evidence Register</a>
+      <a href="/reference-cases/">Reference Cases</a>
+      <a href="/governance-scorecard/#methodology">Scoring methodology</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Open Review · package v1.0.0 · no external review recorded</div>
+    <div class="footer-tag">Review</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/" class="active" aria-current="page">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

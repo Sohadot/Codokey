@@ -1,0 +1,520 @@
+{
+  "catalog": "codokey-governance-controls",
+  "modelVersion": "2.0.0",
+  "protocolVersion": "1.1",
+  "generated": "2026-11-12",
+  "statuses": {
+    "pass": "Implemented — evidence available",
+    "fail": "Not implemented",
+    "unknown": "Not assessed / evidence insufficient"
+  },
+  "forbiddenZones": {
+    "FZ-1": "Production secrets accessible to an agent",
+    "FZ-2": "Organization-wide scope for a single-repository task",
+    "FZ-3": "Unsupervised production deployment"
+  },
+  "grades": {
+    "A+": {
+      "cls": "grade-ap",
+      "title": "Codokey Aligned",
+      "meaning": "Every control is self-attested as implemented with evidence available."
+    },
+    "A": {
+      "cls": "grade-a",
+      "title": "Controlled With Gaps",
+      "meaning": "All critical controls are implemented; at least one high or medium control is not."
+    },
+    "B": {
+      "cls": "grade-b",
+      "title": "Partially Governed",
+      "meaning": "At least one critical control is not implemented, but no forbidden-zone control has failed and at least half of critical controls are implemented."
+    },
+    "C": {
+      "cls": "grade-c",
+      "title": "Ungoverned AI Code Access",
+      "meaning": "A forbidden-zone control has failed, or more than half of critical controls are not implemented."
+    }
+  },
+  "layers": [
+    {
+      "id": "OR",
+      "number": "01",
+      "name": "Code Origin",
+      "tag": "Provenance Layer",
+      "specification": "https://codokey.com/protocol/code-origin/"
+    },
+    {
+      "id": "KE",
+      "number": "02",
+      "name": "Key Exposure",
+      "tag": "Secrets Layer",
+      "specification": "https://codokey.com/protocol/key-exposure/"
+    },
+    {
+      "id": "AA",
+      "number": "03",
+      "name": "Agent Authority",
+      "tag": "Permission Layer",
+      "specification": "https://codokey.com/protocol/agent-authority/"
+    },
+    {
+      "id": "RB",
+      "number": "04",
+      "name": "Review Boundary",
+      "tag": "Human Gate Layer",
+      "specification": "https://codokey.com/protocol/review-boundary/"
+    },
+    {
+      "id": "DC",
+      "number": "05",
+      "name": "Deployment Control",
+      "tag": "Authority Layer",
+      "specification": "https://codokey.com/protocol/deployment-control/"
+    },
+    {
+      "id": "AM",
+      "number": "06",
+      "name": "Audit Memory",
+      "tag": "Accountability Layer",
+      "specification": "https://codokey.com/protocol/audit-memory/"
+    }
+  ],
+  "controls": [
+    {
+      "id": "CK-OR-01",
+      "legacyCheck": 1,
+      "layer": "OR",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "AI involvement in a change is recorded in commit or pull-request metadata",
+      "evidence": "Commit trailers, PR labels, or bot/app author identities that mark AI-generated or AI-assisted changes, observable on a sample of recent merged PRs.",
+      "remediation": "Adopt one machine-readable convention (for example a commit trailer or a PR label applied by the agent integration) and verify it on merged history.",
+      "sources": [
+        "EV-SLSA-SOURCE-1.2"
+      ]
+    },
+    {
+      "id": "CK-OR-02",
+      "legacyCheck": 2,
+      "layer": "OR",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Each agent acts under a distinct, attributable identity — not a shared account or a reused personal credential",
+      "evidence": "Inventory mapping each agent integration to its own app, bot, or service identity, plus the human principal who delegated the task; sample audit events showing that identity.",
+      "remediation": "Provision a dedicated identity per agent integration; retire shared tokens and personal access tokens used by automation.",
+      "sources": [
+        "EV-OWASP-ASI-2026",
+        "EV-SP80053-AU-3"
+      ]
+    },
+    {
+      "id": "CK-OR-03",
+      "legacyCheck": 3,
+      "layer": "OR",
+      "severity": "medium",
+      "forbiddenZone": null,
+      "title": "SDLC policy states how AI-assisted changes are disclosed and what review obligation they carry",
+      "evidence": "Current, approved policy text with owner and review date.",
+      "remediation": "Add an AI-assisted change section to the SDLC policy: disclosure convention, review obligation, and exceptions process.",
+      "sources": [
+        "EV-SSDF-PW.7"
+      ]
+    },
+    {
+      "id": "CK-OR-04",
+      "legacyCheck": 4,
+      "layer": "OR",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Human-authored and agent-authored contributions are distinguishable in version-control history",
+      "evidence": "History query that separates agent-authored commits (by identity or trailer) from human commits for a chosen period.",
+      "remediation": "Combine CK-OR-01 metadata with CK-OR-02 identities so history can be filtered by author type.",
+      "sources": [
+        "EV-SLSA-SOURCE-1.2"
+      ]
+    },
+    {
+      "id": "CK-KE-01",
+      "legacyCheck": 5,
+      "layer": "KE",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Secret scanning is enabled on all active repositories",
+      "evidence": "Platform security settings or API output showing secret scanning enabled per repository; list of exclusions with justification.",
+      "remediation": "Enable secret scanning organization-wide; track repositories where it is unavailable and compensate with CI scanning.",
+      "sources": [
+        "EV-GH-SECRET-SCANNING"
+      ]
+    },
+    {
+      "id": "CK-KE-02",
+      "legacyCheck": 6,
+      "layer": "KE",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Secrets are blocked before they enter the repository (server-side push protection, with client hooks as a supplement)",
+      "evidence": "Push-protection setting enabled; a test push of a synthetic secret pattern rejected; documented bypass process.",
+      "remediation": "Enable server-side push protection. Client-side pre-commit hooks can be skipped by the committer and should not be the only control.",
+      "sources": [
+        "EV-GH-PUSH-PROTECTION",
+        "EV-GL-SECRET-PUSH-PROTECTION"
+      ]
+    },
+    {
+      "id": "CK-KE-03",
+      "legacyCheck": 7,
+      "layer": "KE",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Secret-bearing files (.env, credential files, key material) are outside agent read scope, enforced at a technical boundary",
+      "evidence": "Agent configuration deny rules or sandbox/filesystem policy covering secret paths, plus a test showing a read attempt is refused; note whether subprocesses are covered.",
+      "remediation": "Keep secrets out of the working tree (inject at runtime from a secret manager). Where files must exist, combine tool-level deny rules with OS or sandbox isolation — tool-level exclusions alone may not cover subprocesses.",
+      "sources": [
+        "EV-CLAUDE-PERMISSIONS",
+        "EV-GH-CONTENT-EXCLUSION",
+        "EV-OWASP-LLM02"
+      ]
+    },
+    {
+      "id": "CK-KE-04",
+      "legacyCheck": 8,
+      "layer": "KE",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Hardcoded-credential review of code and history performed within a defined interval (default: 90 days)",
+      "evidence": "Dated scan report covering full history and the follow-up record for each finding.",
+      "remediation": "Schedule a full-history scan; revoke and rotate any confirmed credential before removing it from history.",
+      "sources": [
+        "EV-GH-SECRET-SCANNING"
+      ]
+    },
+    {
+      "id": "CK-KE-05",
+      "legacyCheck": 9,
+      "layer": "KE",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Credential rotation policy is documented and enforced (expiry or automated rotation)",
+      "evidence": "Policy with lifetimes per credential class; system evidence of expiry or rotation (e.g. token expiration dates).",
+      "remediation": "Set maximum lifetimes per class; prefer short-lived, automatically issued credentials for agents and CI.",
+      "sources": [
+        "EV-OWASP-SECRETS-CS",
+        "EV-GH-FG-PAT"
+      ]
+    },
+    {
+      "id": "CK-KE-06",
+      "legacyCheck": 10,
+      "layer": "KE",
+      "severity": "critical",
+      "forbiddenZone": "FZ-1",
+      "title": "Production secrets live in a separate store that agent identities cannot read",
+      "evidence": "Access policy of the production secret store listing principals; confirmation no agent identity is among them.",
+      "remediation": "Move production secrets to a dedicated store or protected environment and remove agent identities from its access policy.",
+      "sources": [
+        "EV-SSDF-PO.5.1",
+        "EV-GH-ENVIRONMENTS"
+      ]
+    },
+    {
+      "id": "CK-AA-01",
+      "legacyCheck": 11,
+      "layer": "AA",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Each agent has a documented scope: repositories, branches, tools, and permitted actions",
+      "evidence": "Agent access policy entry per agent (see Reference Kit template) with owner and review date.",
+      "remediation": "Complete an agent access policy entry for every agent integration before it runs again.",
+      "sources": [
+        "EV-SP80053-AC-6",
+        "EV-OWASP-LLM06"
+      ]
+    },
+    {
+      "id": "CK-AA-02",
+      "legacyCheck": 12,
+      "layer": "AA",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Agent credentials grant only the repository permissions the task requires",
+      "evidence": "Granted permission set for each agent identity compared with the documented scope (CK-AA-01); no unexplained write or admin permissions.",
+      "remediation": "Replace broad tokens with fine-grained or app installation tokens restricted to the needed repositories and permissions.",
+      "sources": [
+        "EV-SSDF-PS.1.1",
+        "EV-SP80053-AC-6",
+        "EV-GH-FG-PAT",
+        "EV-OWASP-LLM06"
+      ]
+    },
+    {
+      "id": "CK-AA-03",
+      "legacyCheck": 13,
+      "layer": "AA",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "MCP servers and other agent tool connections are inventoried and reviewed",
+      "evidence": "Inventory listing each server/tool, its credentials, scopes, and an approval record; an empty inventory counts if verified.",
+      "remediation": "Inventory configured tool servers per agent; remove unapproved ones; record approval and owner.",
+      "sources": [
+        "EV-MCP-SECURITY",
+        "EV-MS-ZT-DS120",
+        "EV-OWASP-LLM06"
+      ]
+    },
+    {
+      "id": "CK-AA-04",
+      "legacyCheck": 14,
+      "layer": "AA",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Agent token scopes are reviewed on a schedule (default: quarterly) and use the shortest practical lifetime",
+      "evidence": "Dated review record; token metadata showing scopes and expiry.",
+      "remediation": "Add agent tokens to the access-review cycle; set expirations; declare minimum workflow token permissions explicitly.",
+      "sources": [
+        "EV-GH-GITHUB-TOKEN",
+        "EV-GH-FG-PAT",
+        "EV-MCP-SECURITY"
+      ]
+    },
+    {
+      "id": "CK-AA-05",
+      "legacyCheck": 15,
+      "layer": "AA",
+      "severity": "critical",
+      "forbiddenZone": "FZ-2",
+      "title": "Organization-wide agent access is disabled by default; repository access is granted per repository",
+      "evidence": "Agent app/token configuration showing selected-repository access rather than all repositories.",
+      "remediation": "Switch installations and tokens from \"all repositories\" to an explicit repository list.",
+      "sources": [
+        "EV-GH-FG-PAT",
+        "EV-SP80053-AC-6"
+      ]
+    },
+    {
+      "id": "CK-AA-06",
+      "legacyCheck": 16,
+      "layer": "AA",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Forbidden access zones are defined in writing and enforced technically",
+      "evidence": "Written forbidden-zone list and, for each zone, the technical control that enforces it (deny rule, permission, protection rule).",
+      "remediation": "Map each forbidden zone to an enforcing control; a zone enforced only by policy text remains open.",
+      "sources": [
+        "EV-OWASP-LLM06",
+        "EV-SP80053-CM-5"
+      ]
+    },
+    {
+      "id": "CK-RB-01",
+      "legacyCheck": 17,
+      "layer": "RB",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Merges of agent-generated changes require approval by a human other than the agent and the person who requested the change",
+      "evidence": "Branch protection or ruleset export: required approvals ≥ 1, approval of the most recent push required, requester/self-approval not counted.",
+      "remediation": "Require pull-request approval on protected branches and enable \"approval of the most recent reviewable push\"; confirm the requester cannot approve.",
+      "sources": [
+        "EV-GH-BRANCH-PROTECTION",
+        "EV-GL-PROTECTED-BRANCHES",
+        "EV-SP80053-AC-5",
+        "EV-GH-COPILOT-AGENT-RISKS"
+      ]
+    },
+    {
+      "id": "CK-RB-02",
+      "legacyCheck": 18,
+      "layer": "RB",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Changes to secret-handling code, CI configuration, or deployment paths require review by a designated owner",
+      "evidence": "Ownership file (e.g. CODEOWNERS) covering those paths and a protection rule requiring owner review.",
+      "remediation": "Assign owners to sensitive paths and require code-owner review on protected branches.",
+      "sources": [
+        "EV-GH-CODEOWNERS"
+      ]
+    },
+    {
+      "id": "CK-RB-03",
+      "legacyCheck": 19,
+      "layer": "RB",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Reviewers are briefed on failure modes typical of AI-generated changes",
+      "evidence": "Training or guidance material and attendance/acknowledgement record.",
+      "remediation": "Adopt the AI-generated PR review checklist in the Reference Kit and brief reviewers on it.",
+      "sources": []
+    },
+    {
+      "id": "CK-RB-04",
+      "legacyCheck": 20,
+      "layer": "RB",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Review bypass is technically prevented — including for administrators — not just prohibited by policy",
+      "evidence": "Protection setting that applies rules to administrators/bypass roles; list of any bypass actors with justification.",
+      "remediation": "Enable the setting that applies protection to administrators and remove standing bypass permissions.",
+      "sources": [
+        "EV-GH-BRANCH-PROTECTION",
+        "EV-SP80053-CM-5"
+      ]
+    },
+    {
+      "id": "CK-RB-05",
+      "legacyCheck": 21,
+      "layer": "RB",
+      "severity": "medium",
+      "forbiddenZone": null,
+      "title": "Human review gates are documented in the SDLC governance policy",
+      "evidence": "Policy section describing each gate and its enforcing control.",
+      "remediation": "Document each gate alongside the control that enforces it.",
+      "sources": [
+        "EV-SSDF-PW.7"
+      ]
+    },
+    {
+      "id": "CK-DC-01",
+      "legacyCheck": 22,
+      "layer": "DC",
+      "severity": "critical",
+      "forbiddenZone": "FZ-3",
+      "title": "No agent can deploy to production without an approving human gate",
+      "evidence": "Production environment protection: required reviewers, self-review prevented; no agent identity among allowed deployers or approvers.",
+      "remediation": "Protect the production environment with required human approvers and prevent the triggering identity from approving.",
+      "sources": [
+        "EV-GH-ENVIRONMENTS",
+        "EV-GL-DEPLOY-APPROVALS",
+        "EV-GL-PROTECTED-ENVIRONMENTS",
+        "EV-OWASP-LLM06"
+      ]
+    },
+    {
+      "id": "CK-DC-02",
+      "legacyCheck": 23,
+      "layer": "DC",
+      "severity": "critical",
+      "forbiddenZone": "FZ-1",
+      "title": "Production credentials are separated from development and agent environments",
+      "evidence": "Environment-scoped secrets released only to production deployment jobs after approval; development and agent sessions hold none.",
+      "remediation": "Scope production secrets to the protected environment so they are released only after its rules pass.",
+      "sources": [
+        "EV-SSDF-PO.5.1",
+        "EV-GH-ENVIRONMENTS"
+      ]
+    },
+    {
+      "id": "CK-DC-03",
+      "legacyCheck": 24,
+      "layer": "DC",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "CI/CD pipeline includes secret scanning as a blocking step",
+      "evidence": "Pipeline definition with a secret-scanning job marked required; a failing run blocking merge or deploy.",
+      "remediation": "Add a required secret-scanning job to the pipeline.",
+      "sources": [
+        "EV-GH-SECRET-SCANNING"
+      ]
+    },
+    {
+      "id": "CK-DC-04",
+      "legacyCheck": 25,
+      "layer": "DC",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Deployment rollback procedures are documented and tested",
+      "evidence": "Runbook and the date and outcome of the last rollback test.",
+      "remediation": "Write and exercise a rollback runbook for each production service.",
+      "sources": []
+    },
+    {
+      "id": "CK-DC-05",
+      "legacyCheck": 26,
+      "layer": "DC",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Infrastructure-as-code and pipeline-definition changes require review separate from application code",
+      "evidence": "Ownership rules on IaC and workflow paths routing them to infrastructure/security owners.",
+      "remediation": "Route IaC and workflow files to dedicated owners via code-owner rules.",
+      "sources": [
+        "EV-GH-CODEOWNERS",
+        "EV-SP80053-CM-5"
+      ]
+    },
+    {
+      "id": "CK-AM-01",
+      "legacyCheck": 27,
+      "layer": "AM",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Agent actions are logged with agent identity, delegating human, timestamp, target, and outcome",
+      "evidence": "Sample audit records for an agent session containing each field (see Audit Evidence Specification).",
+      "remediation": "Enable platform audit logging and agent session logs; correlate them by session identifier.",
+      "sources": [
+        "EV-SP80053-AU-3",
+        "EV-SP80053-AC-6-9",
+        "EV-SSDF-PO.3.3"
+      ]
+    },
+    {
+      "id": "CK-AM-02",
+      "legacyCheck": 28,
+      "layer": "AM",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Audit logs are protected from modification or deletion by agents and the identities they use",
+      "evidence": "Log destination access policy showing agent identities lack write/delete; retention lock or append-only configuration.",
+      "remediation": "Stream logs to a store outside agent reach with write-once or retention-lock settings.",
+      "sources": [
+        "EV-SP80053-AU-9"
+      ]
+    },
+    {
+      "id": "CK-AM-03",
+      "legacyCheck": 29,
+      "layer": "AM",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Log retention meets your documented requirement, including export beyond platform defaults",
+      "evidence": "Documented retention requirement and the configured retention of every log source used for reconstruction.",
+      "remediation": "Compare platform retention windows with your requirement; export logs where the platform window is shorter.",
+      "sources": [
+        "EV-GH-AUDIT-LOG",
+        "EV-GL-AUDIT-EVENTS"
+      ]
+    },
+    {
+      "id": "CK-AM-04",
+      "legacyCheck": 30,
+      "layer": "AM",
+      "severity": "critical",
+      "forbiddenZone": null,
+      "title": "Secret exposure events trigger a documented response: revoke, rotate, scope the exposure, record",
+      "evidence": "Incident runbook for secret exposure and a record of its last exercise or use.",
+      "remediation": "Write a secret-exposure runbook that starts with revocation and rotation, then determines which sessions had the secret in scope.",
+      "sources": [
+        "EV-OWASP-SECRETS-CS"
+      ]
+    },
+    {
+      "id": "CK-AM-05",
+      "legacyCheck": 31,
+      "layer": "AM",
+      "severity": "medium",
+      "forbiddenZone": null,
+      "title": "Audit reviews are scheduled — not only performed after incidents",
+      "evidence": "Review calendar and the most recent review record.",
+      "remediation": "Schedule periodic review of agent activity logs.",
+      "sources": []
+    },
+    {
+      "id": "CK-AM-06",
+      "legacyCheck": 32,
+      "layer": "AM",
+      "severity": "high",
+      "forbiddenZone": null,
+      "title": "Open governance gaps are tracked with owners and reviewed by engineering leadership (default: quarterly)",
+      "evidence": "Gap register (for example an exported scorecard result) with owners, dates, and review minutes.",
+      "remediation": "Export this assessment, assign an owner per unresolved control, and review progress on a fixed cadence.",
+      "sources": []
+    }
+  ]
+}

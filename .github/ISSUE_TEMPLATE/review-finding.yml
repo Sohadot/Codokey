@@ -1,0 +1,35 @@
+name: Review finding
+description: Report a false positive/negative, missing control, evidence defect, or other review finding.
+title: "[review] "
+labels: ["review-finding"]
+body:
+  - type: markdown
+    attributes:
+      value: "See review/RUBRIC.md for the type and impact scales. Do not include real secrets or confidential configuration."
+  - type: input
+    id: location
+    attributes: { label: "Artifact / location", description: "File and line, URL, control ID (CK-xx-nn), or case run" }
+    validations: { required: true }
+  - type: dropdown
+    id: type
+    attributes:
+      label: Finding type
+      options: ["FN — false negative", "FP — false positive", "MC — missing control", "SV — severity/gate", "EV — evidence defect", "CL — claim-class error", "US — usability", "OT — other"]
+    validations: { required: true }
+  - type: dropdown
+    id: impact
+    attributes: { label: Impact, options: ["3 — Material", "2 — Significant", "1 — Minor"] }
+    validations: { required: true }
+  - type: dropdown
+    id: confidence
+    attributes: { label: Confidence, options: ["High (reproduced)", "Medium (reasoned)", "Low (to investigate)"] }
+  - type: textarea
+    id: observed
+    attributes: { label: What you observed and how to reproduce }
+    validations: { required: true }
+  - type: textarea
+    id: correction
+    attributes: { label: Recommended correction and supporting source }
+  - type: input
+    id: commit
+    attributes: { label: Commit reviewed }
