@@ -4,6 +4,16 @@ Architectural and strategic decisions for the Codokey repository.
 
 ---
 
+## 2026-11-13 — Guided Independent Review (site 2.1)
+
+**Decision:** Publish two guided review tracks as ordinary static pages: `/review/security-challenge/` and `/review/scorecard-challenge/`. Link them from `/review/` and the footer.
+
+**Rationale:** Engineers need direct, navigable pages to examine false-safe/false-block behavior and contest scoring judgments. Both pages accept explicit, optional answers, generate a local report and provide links for manual submission. No backend, cookies, accounts, automatic submission, or new reuse grant.
+
+**Scope and limitations:** The pages do not run validators remotely or verify enforcement, and a selected response is self-reported. GitHub issues or email only receive feedback when the reviewer submits it. External review and licensing remain outstanding decisions; opening these pages does not change those statuses.
+
+---
+
 ## 2026-11-12 — Evidence, Trust & Adoption Sprint (site 2.0)
 
 **Decision:** Shift Codokey's credibility from self-declared authority to inspectable substance. Baseline findings in `docs/BASELINE_AUDIT.md`.

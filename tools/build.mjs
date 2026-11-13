@@ -40,7 +40,9 @@ export const FOOTER_LINKS = [
   ['/', 'Home'], ['/category/', 'Category'], ['/charter/', 'Charter'], ['/protocol/', 'Protocol'],
   ['/secrets-boundary/', 'Secrets Boundary'], ['/agent-permissions/', 'Agent Permissions'],
   ['/governance-scorecard/', 'Scorecard'], ['/reference-cases/', 'Reference Cases'], ['/reference-kit/', 'Reference Kit'],
-  ['/evidence/', 'Evidence Register'], ['/review/', 'Open Review'], ['/cost-of-inaction/', 'Cost of Inaction'],
+  ['/evidence/', 'Evidence Register'], ['/review/', 'Open Review'],
+  ['/review/security-challenge/', 'Security Test'], ['/review/scorecard-challenge/', 'Scorecard Test'],
+  ['/cost-of-inaction/', 'Cost of Inaction'],
   ['/buyer-logic/', 'Buyer Logic'], ['/briefs/', 'Briefs'], ['/strategic-inquiries/', 'Strategic Inquiries']
 ];
 const NAV_TABS = [
@@ -645,6 +647,12 @@ function reviewPage() {
     <div class="eyebrow">Open Review · package v${VERSIONS.review}</div>
     <h1 class="spec-h1">Open Review</h1>
     <p class="content-body"><strong>No independent review of Codokey has taken place yet.</strong> This page provides what a reviewer needs to evaluate the protocol, the scorecard model, the evidence register, and the reference cases — and a structured way to report what is wrong. Reviews received will be listed in the <a href="/review/REVIEW_LOG.md">review log</a> only with the reviewer's permission.</p>
+    <h2 class="spec-h2">Choose a review track</h2>
+    <div class="review-tracks">
+      <a class="review-track" href="/review/security-challenge/"><span class="review-track-index">01 / SECURITY</span><strong>Challenge the security checks</strong><span>Examine Cases A–D, look for false-safe outcomes, and record reproducible findings.</span><span class="review-track-link">Start security test →</span></a>
+      <a class="review-track" href="/review/scorecard-challenge/"><span class="review-track-index">02 / GOVERNANCE</span><strong>Challenge the scorecard</strong><span>Assess control severities, grade gates, unknown handling, and gaps in coverage.</span><span class="review-track-link">Start scorecard test →</span></a>
+    </div>
+    <p class="review-privacy">Both tests work in your browser. They produce a report for you to copy and submit; they do not send or store your responses automatically.</p>
     <h2 class="spec-h2">What to challenge</h2>
     <div class="table-scroll"><table class="ref-table">
       <thead><tr><th scope="col">Artifact</th><th scope="col">Questions for a reviewer</th></tr></thead>
@@ -680,6 +688,116 @@ node tools/build.mjs --check         # generated pages match their sources</code
     jsonld: articleLd({ headline: 'Codokey Open Review', description: 'Structured external review of the Codokey reference model.', path: '/review/', version: VERSIONS.review }),
     fileHeader: { path: 'codokey / review /', name: 'README.md', lang: `REVIEW v${VERSIONS.review}`, a: '+0 reviews received', r: '−0 endorsements claimed' },
     body, footerMeta: `Open Review · package v${VERSIONS.review} · no external review recorded`, footerTag: 'Review'
+  });
+}
+
+// ---------------------------------------------------------------- guided independent-review tests
+const SECURITY_RUNS = {
+  A: [
+    'node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.governed.json',
+    'node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.ungoverned.json'
+  ],
+  B: [
+    'node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.least-privilege.json',
+    'node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.excessive.json'
+  ],
+  C: [
+    'node tools/codokey-check.mjs production-path --change cases/c-production-path/change.independent-approval.json --policy cases/c-production-path/policy.governed.json',
+    'node tools/codokey-check.mjs production-path --change cases/c-production-path/change.self-approved.json --policy cases/c-production-path/policy.governed.json'
+  ],
+  D: [
+    'node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl --sources cases/d-audit-reconstruct/provenance.json',
+    'node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.incomplete.jsonl --sources cases/d-audit-reconstruct/provenance.json'
+  ]
+};
+
+const SCORECARD_CHALLENGES = [
+  { id: 'S1', title: 'Control severity', detail: `${M.CONTROLS.filter(c => c.severity === 'critical').length} critical, ${M.CONTROLS.filter(c => c.severity === 'high').length} high, and ${M.CONTROLS.filter(c => c.severity === 'medium').length} medium controls. Are any severities over- or understated?`, link: '/reference/controls.json', linkLabel: 'Inspect the control catalog' },
+  { id: 'S2', title: 'Forbidden-zone gates', detail: 'Four controls are tagged to the three forbidden zones; any known failure caps the grade at C. Is the boundary appropriate, too narrow, or too broad?', link: '/governance-scorecard/#methodology', linkLabel: 'Review the scoring method' },
+  { id: 'S3', title: 'Critical-majority threshold', detail: 'More than half of the 18 critical controls failing caps the grade at C. Does this threshold create misleading outcomes?', link: '/SCORING.md', linkLabel: 'Read the threshold rationale' },
+  { id: 'S4', title: 'A+ and B gate behavior', detail: 'A+ requires all 32 controls implemented; any known critical failure caps the grade at B or lower. Are these conditions meaningful?', link: '/governance-scorecard/#methodology', linkLabel: 'Review grade conditions' },
+  { id: 'S5', title: 'Unassessed control handling', detail: 'Unknown controls are neither passed nor failed. Where they can change the result, the model shows a floor–ceiling range. Can that still mislead an assessor?', link: '/governance-scorecard/', linkLabel: 'Try the live scorecard' },
+  { id: 'S6', title: 'Missing or overlapping controls', detail: 'Across the six layers, is a meaningful agent-authority failure not represented, or is the same outcome counted more than once?', link: '/protocol/', linkLabel: 'Review the six layers' }
+];
+
+function reviewAnswers(kind, id) {
+  const options = kind === 'security'
+    ? [['no-issue', 'No issue observed'], ['false-safe', 'Unsafe case passed'], ['false-block', 'Safe case failed'], ['uncertain', 'Needs more evidence']]
+    : [['defensible', 'Defensible'], ['challenge', 'I challenge this'], ['uncertain', 'Needs more evidence'], ['not-assessed', 'Not assessed']];
+  return `<fieldset class="review-choice" aria-describedby="context-${id}">
+      <legend>${kind === 'security' ? 'Your finding for this case' : 'Your judgment'}</legend>
+      <div class="review-options">${options.map(([value, label]) => `<label><input type="radio" name="decision-${id}" value="${value}"><span>${label}</span></label>`).join('')}</div>
+    </fieldset>`;
+}
+
+function reviewQuestion({ id, title, detail, link, linkLabel, command, limit }, kind, i) {
+  const code = command ? `<details class="review-repro"><summary>Run the supplied synthetic examples</summary>
+      <p>Clone the repository first. The first command should PASS and the second should FAIL. Neither checks a live platform.</p>
+      <pre class="review-command"><code>${command.map((c, idx) => esc(`# expect ${idx ? 'FAIL' : 'PASS'}\n${c}`)).join('\n\n')}</code></pre>
+      <button type="button" class="review-copy-command" data-copy-command>Copy commands</button>
+    </details>` : '';
+  return `<section class="review-question" data-review-question data-id="${id}" aria-labelledby="question-${id}">
+    <div class="review-question-number">${String(i + 1).padStart(2, '0')} / ${String(limit).padStart(2, '0')} · ${kind === 'security' ? `CASE ${id}` : 'SCORECARD'}</div>
+    <h2 id="question-${id}">${esc(title)}</h2>
+    <p id="context-${id}" class="review-context">${esc(detail)}</p>
+    <a class="review-source" href="${link}">${esc(linkLabel)} ↗</a>
+    ${code}
+    ${reviewAnswers(kind, id)}
+    <label class="review-note-label" for="review-note-${id}">Evidence, objection or reproduction steps <span>(optional)</span></label>
+    <textarea id="review-note-${id}" class="review-note" rows="3" maxlength="2500" placeholder="What did you test? Which rule or output was wrong? Please exclude secrets and confidential data."></textarea>
+  </section>`;
+}
+
+function reviewTestPage(kind) {
+  const security = kind === 'security';
+  const path = security ? '/review/security-challenge/' : '/review/scorecard-challenge/';
+  const title = security ? 'Security Challenge — Test Codokey Reference Cases A–D' : 'Scorecard Challenge — Review Codokey Governance Gates';
+  const description = security
+    ? 'A guided independent-review worksheet for security engineers to challenge four AI coding agent security cases and report false-safe or false-block outcomes.'
+    : 'A guided independent-review worksheet for engineers to challenge Codokey scoring severities, critical gates, unknown handling and missing controls.';
+  const questions = security
+    ? CASES.map(c => ({ id: c.letter, title: c.title, detail: c.thesis, link: `/reference-cases/#${c.slug}`, linkLabel: 'Read the full scenario and limitations', command: SECURITY_RUNS[c.letter], limit: CASES.length }))
+    : SCORECARD_CHALLENGES.map(c => ({ ...c, limit: SCORECARD_CHALLENGES.length }));
+  const body = `<div class="review-hero">
+    <a class="review-back" href="/review/">← All review tracks</a>
+    <h1 class="spec-h1">${security ? 'Security Challenge' : 'Scorecard Challenge'}</h1>
+    <p class="review-lead">${security
+      ? 'Try to disprove the validator. Inspect the four synthetic cases, then tell us where an unsafe setup might pass or a safe setup might fail.'
+      : 'Challenge the model, not the person using it. Examine six scoring decisions and identify thresholds or classifications that could mislead a security team.'}</p>
+    <div class="review-steps"><div><b>01</b><span>Inspect the source</span></div><div><b>02</b><span>Choose your judgment</span></div><div><b>03</b><span>Copy &amp; submit your report</span></div></div>
+    <p class="review-privacy"><strong>Review, not certification.</strong> No independent review is recorded yet. This worksheet does not test a live system or verify enforcement. Your answers remain in this tab until you choose to copy or download a report; nothing is submitted automatically.</p>
+  </div>
+  <div class="review-progress" aria-live="polite"><span id="reviewProgress">0 of ${questions.length} sections answered</span><div class="review-progress-track" aria-hidden="true"><div id="reviewProgressFill"></div></div></div>
+  <div class="review-body"><form id="reviewForm" data-review-kind="${kind}" data-model-version="${M.MODEL_VERSION}" data-validator-version="${VERSIONS.validator}">
+    <div class="review-meta"><h2>Before you begin</h2>
+      <p>Identify how you evaluated the material. Report the method accurately; reading the website alone is not a reproduced test.</p>
+      <div class="review-meta-grid"><label for="reviewMethod">Review method<select id="reviewMethod" name="method"><option value="page-review">Read the reference pages</option><option value="source-inspection">Inspected source code</option><option value="synthetic-run">Ran synthetic fixtures locally</option><option value="live-platform">Also checked a live platform</option></select></label>
+      <label for="reviewRevision">Reviewed commit / version (optional)<input id="reviewRevision" name="revision" maxlength="100" placeholder="Commit SHA or site version"></label></div>
+      ${security ? '<p class="review-help">To reproduce locally, use <a href="https://github.com/Sohadot/Codokey">the public source repository</a> and Node 18+. Do not submit real credentials or confidential logs. The repository has no published reuse license.</p>' : `<p class="review-help">Use the <a href="/governance-scorecard/">interactive scorecard</a>, <a href="/SCORING.md">SCORING.md</a> and the <a href="/reference/controls.json">32-control catalog</a> as your reference.</p>`}
+    </div>
+    ${questions.map((q, i) => reviewQuestion(q, kind, i)).join('\n')}
+    <section class="review-submit" aria-labelledby="review-submit-title"><h2 id="review-submit-title">Prepare your findings</h2>
+      <p>Your feedback is valuable even if you disagree with only one item. An unanswered item is reported as unanswered, never as agreement.</p>
+      <label for="reviewOverall">Overall recommendation or missing issue (optional)</label>
+      <textarea id="reviewOverall" rows="4" maxlength="3500" placeholder="Most important concern, recommended fix, or a case the model missed."></textarea>
+      <div class="review-action-row"><button type="button" class="btn-p" id="reviewGenerate" disabled>Generate review report</button><button type="reset" class="btn-g" id="reviewReset">Clear answers</button></div>
+      <p id="reviewMessage" class="review-message" role="status" aria-live="polite">Choose a judgment in at least one section to generate a report.</p>
+    </section>
+  </form>
+  <section class="review-result" id="reviewResult" aria-labelledby="review-result-title" hidden>
+    <h2 id="review-result-title">Your report is ready</h2>
+    <p>This report is generated locally. <strong>It has not been submitted or saved.</strong> Copy it and paste it into the issue form or an email.</p>
+    <pre id="reviewReportText" tabindex="0"></pre>
+    <div class="review-action-row"><button type="button" class="btn-p" id="reviewCopy">Copy report</button><button type="button" class="btn-g" id="reviewDownload">Download .txt</button></div>
+    <div class="review-send"><a class="review-send-link" href="https://github.com/Sohadot/Codokey/issues/new?template=review-finding.yml" target="_blank" rel="noopener noreferrer">Open GitHub finding form ↗</a><a class="review-send-link" href="mailto:inquiry@codokey.com?subject=Codokey%20independent%20review">Email the report ↗</a></div>
+    <p class="review-help">After opening GitHub or your email app, paste the report and submit it yourself. No external review is counted until one has actually been received.</p>
+  </section></div>
+  <div class="internal-links"><div class="internal-links-title">Continue reviewing</div><div class="internal-links-grid"><a href="/review/">Review hub</a><a href="${security ? '/review/scorecard-challenge/' : '/review/security-challenge/'}">${security ? 'Scorecard challenge' : 'Security challenge'}</a><a href="/evidence/">Evidence register</a></div></div>`;
+  return page({
+    title, description, path,
+    jsonld: articleLd({ headline: title, description, path, version: VERSIONS.review }),
+    fileHeader: { path: 'codokey / review /', name: security ? 'security-challenge.md' : 'scorecard-challenge.md', lang: `REVIEW v${VERSIONS.review}`, a: security ? '+4 reference cases' : '+6 review questions', r: '−0 results auto-submitted' },
+    body, footerMeta: 'Independent review worksheet · answers stay local until shared', footerTag: 'Review', scripts: ['/assets/js/reviewer-forms.js']
   });
 }
 
@@ -803,6 +921,8 @@ outputs.set('evidence/index.html', evidencePage());
 outputs.set('reference-cases/index.html', casesPage());
 outputs.set('reference-kit/index.html', kitPage());
 outputs.set('review/index.html', reviewPage());
+outputs.set('review/security-challenge/index.html', reviewTestPage('security'));
+outputs.set('review/scorecard-challenge/index.html', reviewTestPage('scorecard'));
 CASES.forEach(c => outputs.set(`cases/${c.dir}/README.md`, caseReadme(c)));
 outputs.set('reference/controls.json', controlsJson());
 outputs.set('reference/protocol-control-map.csv', controlsCsv());

@@ -36,4 +36,6 @@ jobs:
           npm install --no-save --no-package-lock playwright@1.48.2
           npx playwright install --with-deps chromium
       - name: Scorecard UI and responsive checks
-        run: node tests/ui/scorecard.ui.mjs
+        run: |
+          node tests/ui/scorecard.ui.mjs
+          node tests/ui/review.ui.mjs

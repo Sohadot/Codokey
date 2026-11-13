@@ -420,3 +420,74 @@ code{font-family:'JetBrains Mono',monospace;color:var(--fg);}
 p.content-body{margin-bottom:14px;}
 .spec-list a,.internal-links a,.sc-intro a,.ev-dl a{color:var(--acid);}
 .content-wrap + .content-wrap{padding-top:8px;}
+
+/* ---------- Guided external-review worksheets ---------- */
+.review-tracks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0 14px;}
+.review-track{display:flex;flex-direction:column;gap:12px;min-width:0;border:1px solid var(--border);padding:24px;color:var(--fg2);text-decoration:none;background:var(--bg2);transition:border-color .15s,background .15s;}
+.review-track:hover,.review-track:focus-visible{border-color:var(--acid);background:var(--bg3);}
+.review-track-index{font-size:10px;color:var(--cyan);letter-spacing:.1em;}
+.review-track strong{font-family:'Outfit',sans-serif;font-size:23px;line-height:1.2;color:var(--fg);}
+.review-track span:not(.review-track-index){font-size:12px;line-height:1.8;}
+.review-track .review-track-link{color:var(--acid);margin-top:auto;font-weight:600;}
+.review-privacy{margin-top:18px;padding:13px 16px;border-left:3px solid var(--yellow);background:rgba(227,179,65,.055);color:var(--fg2);font-size:11px;line-height:1.9;}
+.review-privacy strong{color:var(--yellow);}
+.review-hero{padding:42px 40px 34px;max-width:1100px;}
+.review-back{display:inline-block;margin-bottom:28px;color:var(--cyan);font-size:11px;text-decoration:none;}
+.review-back:hover,.review-source:hover{color:var(--acid);}
+.review-lead{font-size:14px;line-height:1.85;max-width:760px;color:var(--fg2);}
+.review-steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px;}
+.review-steps div{display:flex;align-items:center;gap:10px;flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);padding:12px 15px;font-size:11px;color:var(--fg2);}
+.review-steps b{color:var(--acid);font-size:15px;}
+.review-progress{position:sticky;top:42px;z-index:70;display:flex;align-items:center;gap:18px;padding:12px 40px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:11px;color:var(--fg2);}
+.review-progress-track{height:6px;background:var(--border);flex:1;max-width:360px;}
+.review-progress-track>div{height:100%;width:0;background:var(--acid);transition:width .16s ease;}
+.review-body{max-width:960px;padding:38px 40px 72px;}
+.review-meta{padding:24px;margin-bottom:24px;border:1px solid var(--border);background:var(--bg2);}
+.review-meta h2,.review-submit h2,.review-result h2{font-family:'Outfit',sans-serif;font-weight:700;font-size:25px;line-height:1.25;margin-bottom:10px;}
+.review-meta p,.review-submit p,.review-result p{font-size:12px;color:var(--fg2);line-height:1.85;}
+.review-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px;}
+.review-meta-grid label,.review-submit>label{display:block;font-size:11px;color:var(--fg2);}
+.review-meta select,.review-meta input,.review-note,.review-submit textarea{display:block;width:100%;min-width:0;padding:12px;background:var(--bg);border:1px solid #48515b;color:var(--fg);font:12px/1.6 'JetBrains Mono',monospace;margin-top:8px;border-radius:0;}
+.review-meta .review-help,.review-result .review-help{font-size:11px;margin-top:16px;}
+.review-help a{color:var(--acid);}
+.review-question{border-top:1px solid var(--border);padding:32px 0 40px;scroll-margin-top:110px;}
+.review-question-number{font-size:10px;color:var(--acid);letter-spacing:.12em;margin-bottom:10px;}
+.review-question h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;line-height:1.25;letter-spacing:-.5px;margin-bottom:12px;}
+.review-context{font-size:12px;color:var(--fg2);line-height:1.95;max-width:760px;}
+.review-source{display:inline-block;margin-top:12px;font-size:11px;color:var(--cyan);text-decoration:none;}
+.review-repro{margin:18px 0;background:var(--bg2);border:1px solid var(--border);}
+.review-repro summary{padding:12px 16px;cursor:pointer;color:var(--fg);font-size:11px;font-weight:600;}
+.review-repro[open] summary{border-bottom:1px solid var(--border);}
+.review-repro p{padding:14px 16px 0;font-size:11px;color:var(--fg2);line-height:1.8;}
+.review-command{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 16px;background:var(--terminal);color:var(--fg2);border:1px solid var(--border);padding:14px;font:11px/1.8 'JetBrains Mono',monospace;}
+.review-copy-command{margin:0 16px 16px;padding:9px 12px;border:1px solid var(--border);background:transparent;color:var(--acid);font:11px 'JetBrains Mono',monospace;cursor:pointer;}
+.review-choice{border:0;margin:22px 0 18px;min-width:0;}
+.review-choice legend{font-size:11px;color:var(--fg);font-weight:600;margin-bottom:12px;}
+.review-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.review-options label{position:relative;display:flex;align-items:center;gap:10px;min-height:48px;padding:12px 14px;border:1px solid #48515b;color:var(--fg2);font-size:11px;cursor:pointer;transition:border-color .15s,background .15s;}
+.review-options label:hover{border-color:var(--cyan);}
+.review-options label:has(input:checked){border-color:var(--acid);background:rgba(184,255,63,.065);color:var(--fg);}
+.review-options input{accent-color:var(--acid);width:16px;height:16px;flex:none;}
+.review-note-label{display:block;margin-top:4px;font-size:11px;color:var(--fg2);}
+.review-note-label span{color:var(--comment);}
+.review-note,.review-submit textarea{resize:vertical;max-height:450px;}
+.review-submit{border-top:2px solid var(--acid);padding:28px 0 16px;}
+.review-submit>label{margin-top:22px;}
+.review-action-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px;}
+.review-action-row .btn-g{margin:0;}
+.review-action-row button:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none;}
+.review-message{font-size:11px!important;margin-top:12px;color:var(--comment)!important;}
+.review-result{padding:26px;margin-top:24px;background:var(--bg2);border:1px solid var(--acid);}
+.review-result[hidden]{display:none;}
+.review-result pre{max-height:360px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:16px;padding:18px;background:var(--terminal);border:1px solid var(--border);font:11px/1.8 'JetBrains Mono',monospace;color:var(--fg2);}
+.review-send{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;}
+.review-send-link{display:inline-block;color:var(--acid);text-decoration:none;font-size:11px;padding:11px 15px;border:1px solid #617243;}
+.review-send-link:hover{background:rgba(184,255,63,.08);}
+@media(max-width:720px){
+  .review-tracks,.review-options,.review-meta-grid{grid-template-columns:1fr;}
+  .review-hero{padding:28px 20px 26px;}
+  .review-body{padding:24px 20px 48px;}
+  .review-steps div{min-width:100%;}
+  .review-progress{padding:12px 20px;}
+  .review-result{padding:18px;}
+}

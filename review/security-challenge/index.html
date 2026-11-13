@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Challenge — Test Codokey Reference Cases A–D</title>
+<meta name="description" content="A guided independent-review worksheet for security engineers to challenge four AI coding agent security cases and report false-safe or false-block outcomes.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/review/security-challenge/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/review/security-challenge/">
+<meta property="og:title" content="Security Challenge — Test Codokey Reference Cases A–D">
+<meta property="og:description" content="A guided independent-review worksheet for security engineers to challenge four AI coding agent security cases and report false-safe or false-block outcomes.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Security Challenge — Test Codokey Reference Cases A–D">
+<meta name="twitter:description" content="A guided independent-review worksheet for security engineers to challenge four AI coding agent security cases and report false-safe or false-block outcomes.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Security Challenge — Test Codokey Reference Cases A–D",
+  "description": "A guided independent-review worksheet for security engineers to challenge four AI coding agent security cases and report false-safe or false-block outcomes.",
+  "url": "https://codokey.com/review/security-challenge/",
+  "version": "1.1.0",
+  "dateModified": "2026-11-13",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.1</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / review /</span><span class="file-name">security-challenge.md</span><span class="file-lang">REVIEW v1.1.0</span></div>
+    <div class="file-stats"><span class="stat-a">+4 reference cases</span><span class="stat-r">−0 results auto-submitted</span></div>
+  </div>
+<div class="review-hero">
+    <a class="review-back" href="/review/">← All review tracks</a>
+    <h1 class="spec-h1">Security Challenge</h1>
+    <p class="review-lead">Try to disprove the validator. Inspect the four synthetic cases, then tell us where an unsafe setup might pass or a safe setup might fail.</p>
+    <div class="review-steps"><div><b>01</b><span>Inspect the source</span></div><div><b>02</b><span>Choose your judgment</span></div><div><b>03</b><span>Copy &amp; submit your report</span></div></div>
+    <p class="review-privacy"><strong>Review, not certification.</strong> No independent review is recorded yet. This worksheet does not test a live system or verify enforcement. Your answers remain in this tab until you choose to copy or download a report; nothing is submitted automatically.</p>
+  </div>
+  <div class="review-progress" aria-live="polite"><span id="reviewProgress">0 of 4 sections answered</span><div class="review-progress-track" aria-hidden="true"><div id="reviewProgressFill"></div></div></div>
+  <div class="review-body"><form id="reviewForm" data-review-kind="security" data-model-version="2.0.0" data-validator-version="1.1.1">
+    <div class="review-meta"><h2>Before you begin</h2>
+      <p>Identify how you evaluated the material. Report the method accurately; reading the website alone is not a reproduced test.</p>
+      <div class="review-meta-grid"><label for="reviewMethod">Review method<select id="reviewMethod" name="method"><option value="page-review">Read the reference pages</option><option value="source-inspection">Inspected source code</option><option value="synthetic-run">Ran synthetic fixtures locally</option><option value="live-platform">Also checked a live platform</option></select></label>
+      <label for="reviewRevision">Reviewed commit / version (optional)<input id="reviewRevision" name="revision" maxlength="100" placeholder="Commit SHA or site version"></label></div>
+      <p class="review-help">To reproduce locally, use <a href="https://github.com/Sohadot/Codokey">the public source repository</a> and Node 18+. Do not submit real credentials or confidential logs. The repository has no published reuse license.</p>
+    </div>
+    <section class="review-question" data-review-question data-id="A" aria-labelledby="question-A">
+    <div class="review-question-number">01 / 04 · CASE A</div>
+    <h2 id="question-A">Agent access to secrets</h2>
+    <p id="context-A" class="review-context">Repository access is not the same thing as credential access. Whether an agent can read a secret depends on where the secret lives and on the boundary that enforces exclusion — not on whether the agent was &quot;given the repo&quot;.</p>
+    <a class="review-source" href="/reference-cases/#agent-access-to-secrets">Read the full scenario and limitations ↗</a>
+    <details class="review-repro"><summary>Run the supplied synthetic examples</summary>
+      <p>Clone the repository first. The first command should PASS and the second should FAIL. Neither checks a live platform.</p>
+      <pre class="review-command"><code># expect PASS
+node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.governed.json
+
+# expect FAIL
+node tools/codokey-check.mjs secrets-access --repo cases/a-secrets-access/repo --agent cases/a-secrets-access/agent-config.ungoverned.json</code></pre>
+      <button type="button" class="review-copy-command" data-copy-command>Copy commands</button>
+    </details>
+    <fieldset class="review-choice" aria-describedby="context-A">
+      <legend>Your finding for this case</legend>
+      <div class="review-options"><label><input type="radio" name="decision-A" value="no-issue"><span>No issue observed</span></label><label><input type="radio" name="decision-A" value="false-safe"><span>Unsafe case passed</span></label><label><input type="radio" name="decision-A" value="false-block"><span>Safe case failed</span></label><label><input type="radio" name="decision-A" value="uncertain"><span>Needs more evidence</span></label></div>
+    </fieldset>
+    <label class="review-note-label" for="review-note-A">Evidence, objection or reproduction steps <span>(optional)</span></label>
+    <textarea id="review-note-A" class="review-note" rows="3" maxlength="2500" placeholder="What did you test? Which rule or output was wrong? Please exclude secrets and confidential data."></textarea>
+  </section>
+<section class="review-question" data-review-question data-id="B" aria-labelledby="question-B">
+    <div class="review-question-number">02 / 04 · CASE B</div>
+    <h2 id="question-B">Excessive agent authority</h2>
+    <p id="context-B" class="review-context">An agent's authority should be derived from its task. Comparing what the task requires with what the credential grants turns &quot;least privilege&quot; from a slogan into a diff.</p>
+    <a class="review-source" href="/reference-cases/#excessive-agent-authority">Read the full scenario and limitations ↗</a>
+    <details class="review-repro"><summary>Run the supplied synthetic examples</summary>
+      <p>Clone the repository first. The first command should PASS and the second should FAIL. Neither checks a live platform.</p>
+      <pre class="review-command"><code># expect PASS
+node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.least-privilege.json
+
+# expect FAIL
+node tools/codokey-check.mjs excess-authority --task cases/b-excess-authority/task.json --grant cases/b-excess-authority/grant.excessive.json</code></pre>
+      <button type="button" class="review-copy-command" data-copy-command>Copy commands</button>
+    </details>
+    <fieldset class="review-choice" aria-describedby="context-B">
+      <legend>Your finding for this case</legend>
+      <div class="review-options"><label><input type="radio" name="decision-B" value="no-issue"><span>No issue observed</span></label><label><input type="radio" name="decision-B" value="false-safe"><span>Unsafe case passed</span></label><label><input type="radio" name="decision-B" value="false-block"><span>Safe case failed</span></label><label><input type="radio" name="decision-B" value="uncertain"><span>Needs more evidence</span></label></div>
+    </fieldset>
+    <label class="review-note-label" for="review-note-B">Evidence, objection or reproduction steps <span>(optional)</span></label>
+    <textarea id="review-note-B" class="review-note" rows="3" maxlength="2500" placeholder="What did you test? Which rule or output was wrong? Please exclude secrets and confidential data."></textarea>
+  </section>
+<section class="review-question" data-review-question data-id="C" aria-labelledby="question-C">
+    <div class="review-question-number">03 / 04 · CASE C</div>
+    <h2 id="question-C">AI-generated code approaching production</h2>
+    <p id="context-C" class="review-context">A review requirement is only meaningful if the approver is independent of the agent and of the person who asked for the change, if approval applies to the final revision, and if deployment is a separate human decision.</p>
+    <a class="review-source" href="/reference-cases/#ai-generated-code-to-production">Read the full scenario and limitations ↗</a>
+    <details class="review-repro"><summary>Run the supplied synthetic examples</summary>
+      <p>Clone the repository first. The first command should PASS and the second should FAIL. Neither checks a live platform.</p>
+      <pre class="review-command"><code># expect PASS
+node tools/codokey-check.mjs production-path --change cases/c-production-path/change.independent-approval.json --policy cases/c-production-path/policy.governed.json
+
+# expect FAIL
+node tools/codokey-check.mjs production-path --change cases/c-production-path/change.self-approved.json --policy cases/c-production-path/policy.governed.json</code></pre>
+      <button type="button" class="review-copy-command" data-copy-command>Copy commands</button>
+    </details>
+    <fieldset class="review-choice" aria-describedby="context-C">
+      <legend>Your finding for this case</legend>
+      <div class="review-options"><label><input type="radio" name="decision-C" value="no-issue"><span>No issue observed</span></label><label><input type="radio" name="decision-C" value="false-safe"><span>Unsafe case passed</span></label><label><input type="radio" name="decision-C" value="false-block"><span>Safe case failed</span></label><label><input type="radio" name="decision-C" value="uncertain"><span>Needs more evidence</span></label></div>
+    </fieldset>
+    <label class="review-note-label" for="review-note-C">Evidence, objection or reproduction steps <span>(optional)</span></label>
+    <textarea id="review-note-C" class="review-note" rows="3" maxlength="2500" placeholder="What did you test? Which rule or output was wrong? Please exclude secrets and confidential data."></textarea>
+  </section>
+<section class="review-question" data-review-question data-id="D" aria-labelledby="question-D">
+    <div class="review-question-number">04 / 04 · CASE D</div>
+    <h2 id="question-D">Audit reconstruction</h2>
+    <p id="context-D" class="review-context">Logs exist in most organizations; reconstruction often fails anyway because records are not linked by session, omit the delegating human, or never captured what the agent could read.</p>
+    <a class="review-source" href="/reference-cases/#audit-reconstruction">Read the full scenario and limitations ↗</a>
+    <details class="review-repro"><summary>Run the supplied synthetic examples</summary>
+      <p>Clone the repository first. The first command should PASS and the second should FAIL. Neither checks a live platform.</p>
+      <pre class="review-command"><code># expect PASS
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.complete.jsonl --sources cases/d-audit-reconstruct/provenance.json
+
+# expect FAIL
+node tools/codokey-check.mjs audit-reconstruct --events cases/d-audit-reconstruct/events.incomplete.jsonl --sources cases/d-audit-reconstruct/provenance.json</code></pre>
+      <button type="button" class="review-copy-command" data-copy-command>Copy commands</button>
+    </details>
+    <fieldset class="review-choice" aria-describedby="context-D">
+      <legend>Your finding for this case</legend>
+      <div class="review-options"><label><input type="radio" name="decision-D" value="no-issue"><span>No issue observed</span></label><label><input type="radio" name="decision-D" value="false-safe"><span>Unsafe case passed</span></label><label><input type="radio" name="decision-D" value="false-block"><span>Safe case failed</span></label><label><input type="radio" name="decision-D" value="uncertain"><span>Needs more evidence</span></label></div>
+    </fieldset>
+    <label class="review-note-label" for="review-note-D">Evidence, objection or reproduction steps <span>(optional)</span></label>
+    <textarea id="review-note-D" class="review-note" rows="3" maxlength="2500" placeholder="What did you test? Which rule or output was wrong? Please exclude secrets and confidential data."></textarea>
+  </section>
+    <section class="review-submit" aria-labelledby="review-submit-title"><h2 id="review-submit-title">Prepare your findings</h2>
+      <p>Your feedback is valuable even if you disagree with only one item. An unanswered item is reported as unanswered, never as agreement.</p>
+      <label for="reviewOverall">Overall recommendation or missing issue (optional)</label>
+      <textarea id="reviewOverall" rows="4" maxlength="3500" placeholder="Most important concern, recommended fix, or a case the model missed."></textarea>
+      <div class="review-action-row"><button type="button" class="btn-p" id="reviewGenerate" disabled>Generate review report</button><button type="reset" class="btn-g" id="reviewReset">Clear answers</button></div>
+      <p id="reviewMessage" class="review-message" role="status" aria-live="polite">Choose a judgment in at least one section to generate a report.</p>
+    </section>
+  </form>
+  <section class="review-result" id="reviewResult" aria-labelledby="review-result-title" hidden>
+    <h2 id="review-result-title">Your report is ready</h2>
+    <p>This report is generated locally. <strong>It has not been submitted or saved.</strong> Copy it and paste it into the issue form or an email.</p>
+    <pre id="reviewReportText" tabindex="0"></pre>
+    <div class="review-action-row"><button type="button" class="btn-p" id="reviewCopy">Copy report</button><button type="button" class="btn-g" id="reviewDownload">Download .txt</button></div>
+    <div class="review-send"><a class="review-send-link" href="https://github.com/Sohadot/Codokey/issues/new?template=review-finding.yml" target="_blank" rel="noopener noreferrer">Open GitHub finding form ↗</a><a class="review-send-link" href="mailto:inquiry@codokey.com?subject=Codokey%20independent%20review">Email the report ↗</a></div>
+    <p class="review-help">After opening GitHub or your email app, paste the report and submit it yourself. No external review is counted until one has actually been received.</p>
+  </section></div>
+  <div class="internal-links"><div class="internal-links-title">Continue reviewing</div><div class="internal-links-grid"><a href="/review/">Review hub</a><a href="/review/scorecard-challenge/">Scorecard challenge</a><a href="/evidence/">Evidence register</a></div></div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Independent review worksheet · answers stay local until shared</div>
+    <div class="footer-tag">Review</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/review/security-challenge/" class="active" aria-current="page">Security Test</a>
+    <a href="/review/scorecard-challenge/">Scorecard Test</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/reviewer-forms.js"></script>
+</body>
+</html>
