@@ -61,8 +61,9 @@ function navTabs(activeTab) {
   return NAV_TABS.map(([href, label]) => `    <a class="nav-tab${href === activeTab ? ' active' : ''}" href="${href}"${href === activeTab ? ' aria-current="page"' : ''}><div class="tab-dot"></div>${label}</a>`).join('\n');
 }
 
-function head({ title, description, path, type = 'article', jsonld, robots = 'index, follow' }) {
+function head({ title, description, path, type = 'article', jsonld, robots = 'index, follow', socialImage = '/assets/social-preview.png', socialAlt = 'Codokey — AI Code Access Governance reference model.' }) {
   const url = BASE + path;
+  const imageUrl = BASE + socialImage;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,16 +78,16 @@ function head({ title, description, path, type = 'article', jsonld, robots = 'in
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="Codokey">
-<meta property="og:image" content="${BASE}/assets/social-preview.png">
-<meta property="og:image:type" content="image/png">
+<meta property="og:image" content="${imageUrl}">
+${socialImage !== '/assets/social-preview.png' ? `<meta property="og:image:secure_url" content="${imageUrl}">\n` : ''}<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta property="og:image:alt" content="${esc(socialAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${BASE}/assets/social-preview.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="twitter:image" content="${imageUrl}">
+${socialImage !== '/assets/social-preview.png' ? `<meta name="twitter:image:alt" content="${esc(socialAlt)}">\n` : ''}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/codokey.css">
 ${jsonld ? `<script type="application/ld+json">\n${JSON.stringify(jsonld, null, 2)}\n</script>\n` : ''}</head>`;
@@ -103,8 +104,8 @@ function articleLd({ headline, description, path, version, about }) {
   };
 }
 
-function page({ title, description, path, activeTab = null, fileHeader, body, footerMeta, footerTag, scripts = [], jsonld, type }) {
-  return `${head({ title, description, path, jsonld, type })}
+function page({ title, description, path, activeTab = null, fileHeader, body, footerMeta, footerTag, scripts = [], jsonld, type, socialImage, socialAlt }) {
+  return `${head({ title, description, path, jsonld, type, socialImage, socialAlt })}
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="cur" id="cur" aria-hidden="true"></div>
@@ -795,6 +796,10 @@ function reviewTestPage(kind) {
   <div class="internal-links"><div class="internal-links-title">Continue reviewing</div><div class="internal-links-grid"><a href="/review/">Review hub</a><a href="${security ? '/review/scorecard-challenge/' : '/review/security-challenge/'}">${security ? 'Scorecard challenge' : 'Security challenge'}</a><a href="/evidence/">Evidence register</a></div></div>`;
   return page({
     title, description, path,
+    socialImage: security ? '/assets/security-challenge-og-v1.png' : '/assets/scorecard-challenge-og-v1.png',
+    socialAlt: security
+      ? 'Codokey Security Challenge: Find the false safe. Four AI coding agent reference cases open for technical review.'
+      : 'Codokey Scorecard Challenge: Can the governance score survive scrutiny? Review 32 controls, 18 critical controls, and six layers.',
     jsonld: articleLd({ headline: title, description, path, version: VERSIONS.review }),
     fileHeader: { path: 'codokey / review /', name: security ? 'security-challenge.md' : 'scorecard-challenge.md', lang: `REVIEW v${VERSIONS.review}`, a: security ? '+4 reference cases' : '+6 review questions', r: '−0 results auto-submitted' },
     body, footerMeta: 'Independent review worksheet · answers stay local until shared', footerTag: 'Review', scripts: ['/assets/js/reviewer-forms.js']
