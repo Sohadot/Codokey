@@ -1,0 +1,4 @@
+{"event_id":"evt-0101","session_id":"sess-91be04","timestamp":"2026-11-03T09:00:00Z","event_type":"session.started","actor":{"type":"agent","id":"app:example-task-agent"},"target":"example-org/web","outcome":"success","source":"agent-self-report"}
+{"event_id":"evt-0102","session_id":"sess-91be04","timestamp":"2026-11-03T09:12:45Z","event_type":"change.pushed","actor":{"type":"agent","id":"app:example-task-agent"},"target":"example-org/web@refs/heads/agent/fix","outcome":"success","source":"agent-self-report"}
+{"event_id":"evt-0103","timestamp":"2026-11-03T11:30:00Z","event_type":"review.approved","actor":{"type":"human","id":"alice@example.test"},"target":"example-org/web#102","outcome":"success","source":"platform-audit-log"}
+{"event_id":"evt-0104","session_id":"sess-91be04","timestamp":"2026-11-03T12:00:00Z","event_type":"deployment.completed","actor":{"type":"pipeline","id":"ci:deploy-production"},"target":"example-org/web:production","outcome":"success"}

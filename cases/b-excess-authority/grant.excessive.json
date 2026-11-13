@@ -1,0 +1,7 @@
+{
+  "identity": "app:example-task-agent",
+  "repositories": "all",
+  "permissions": { "contents": "write", "pull_requests": "write", "administration": "write", "workflows": "write", "secrets": "read" },
+  "tools": ["filesystem-mcp", "browser-mcp"],
+  "tokenLifetimeHours": null
+}

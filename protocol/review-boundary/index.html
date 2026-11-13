@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Boundary — Codokey Protocol Layer 04 Specification</title>
+<meta name="description" content="Which human must approve before an agent's change becomes part of the protected codebase — and can that gate be skipped? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Review Boundary layer of AI Code Access Governance.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/protocol/review-boundary/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/protocol/review-boundary/">
+<meta property="og:title" content="Review Boundary — Codokey Protocol Layer 04 Specification">
+<meta property="og:description" content="Which human must approve before an agent's change becomes part of the protected codebase — and can that gate be skipped? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Review Boundary layer of AI Code Access Governance.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Review Boundary — Codokey Protocol Layer 04 Specification">
+<meta name="twitter:description" content="Which human must approve before an agent's change becomes part of the protected codebase — and can that gate be skipped? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Review Boundary layer of AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Review Boundary — Codokey Protocol Layer 04",
+  "description": "Ensure agent-generated changes reach protected branches only after approval by a human who is independent of both the agent and the person who requested the change, with stricter routing for security-sensitive paths.",
+  "url": "https://codokey.com/protocol/review-boundary/",
+  "version": "1.1",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab active" href="/protocol/" aria-current="page"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / protocol /</span><span class="file-name">04-review-boundary.md</span><span class="file-lang">LAYER 04 · v1.1</span></div>
+    <div class="file-stats"><span class="stat-a">+5 controls</span><span class="stat-r">−3 failure scenarios</span></div>
+  </div>
+
+  <article class="content-wrap spec" aria-labelledby="spec-h">
+    <p class="spec-breadcrumb"><a href="/protocol/">Codokey Protocol v1.1</a> / Layer 04</p>
+    <div class="eyebrow">Layer 04 · Human Gate Layer · Reference specification</div>
+    <h1 class="spec-h1" id="spec-h">Review Boundary</h1>
+    <p class="spec-question">Which human must approve before an agent's change becomes part of the protected codebase — and can that gate be skipped?</p>
+
+    <dl class="spec-meta">
+      <div><dt>Version</dt><dd>Protocol v1.1 · 2026-11-12</dd></div>
+      <div><dt>Scorecard controls</dt><dd>5 (3 critical)</dd></div>
+      <div><dt>Status</dt><dd>Codokey reference specification — not externally reviewed</dd></div>
+    </dl>
+
+    <section class="content-section"><h2 class="spec-h2">Security objective</h2><p class="content-body">Ensure agent-generated changes reach protected branches only after approval by a human who is independent of both the agent and the person who requested the change, with stricter routing for security-sensitive paths.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Boundary governed</h2><p class="content-body">The merge boundary between a proposed change (branch or pull request) and a protected branch that downstream builds and deployments trust.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Failure scenarios</h2>
+      <dl class="spec-threats">
+        <dt>Requester self-approval</dt><dd>A developer asks an agent to write a change and then approves the agent's pull request. One person has both requested and approved; the review requirement is satisfied in form only.</dd>
+        <dt>Administrator bypass</dt><dd>Branch protection exists but, by default on some platforms, does not apply to administrators; an admin-scoped automation merges without review.</dd>
+        <dt>Sensitive path drift</dt><dd>An agent edits a CI workflow or deployment manifest inside a large refactor; the general reviewer does not notice the authority change.</dd>
+      </dl>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Applicable agent capabilities</h2><p class="content-body">Task, MCP-connected, and autonomous agents that open pull requests or push branches. Code-review agents may assist reviewers but do not count as an approving human.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Platform-neutral principles</h2>
+      <ul class="spec-list">
+        <li>Approval must come from a human independent of the agent and of the requester.</li>
+        <li>Approval applies to the latest pushed revision, not an earlier one.</li>
+        <li>Gates are enforced by platform settings that also bind administrators.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Required controls and acceptable evidence</h2>
+      <div class="table-scroll"><table class="ref-table">
+        <caption>Controls are defined once, in the scorecard model; this table is generated from it.</caption>
+        <thead><tr><th scope="col">Control</th><th scope="col">Requirement</th><th scope="col">Severity</th><th scope="col">Acceptable evidence</th></tr></thead>
+        <tbody>
+        <tr id="CK-RB-01-spec"><th scope="row"><a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a></th><td>Merges of agent-generated changes require approval by a human other than the agent and the person who requested the change</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Branch protection or ruleset export: required approvals ≥ 1, approval of the most recent push required, requester/self-approval not counted.</td></tr>
+        <tr id="CK-RB-02-spec"><th scope="row"><a href="/governance-scorecard/#CK-RB-02">CK-RB-02</a></th><td>Changes to secret-handling code, CI configuration, or deployment paths require review by a designated owner</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Ownership file (e.g. CODEOWNERS) covering those paths and a protection rule requiring owner review.</td></tr>
+        <tr id="CK-RB-03-spec"><th scope="row"><a href="/governance-scorecard/#CK-RB-03">CK-RB-03</a></th><td>Reviewers are briefed on failure modes typical of AI-generated changes</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Training or guidance material and attendance/acknowledgement record.</td></tr>
+        <tr id="CK-RB-04-spec"><th scope="row"><a href="/governance-scorecard/#CK-RB-04">CK-RB-04</a></th><td>Review bypass is technically prevented — including for administrators — not just prohibited by policy</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Protection setting that applies rules to administrators/bypass roles; list of any bypass actors with justification.</td></tr>
+        <tr id="CK-RB-05-spec"><th scope="row"><a href="/governance-scorecard/#CK-RB-05">CK-RB-05</a></th><td>Human review gates are documented in the SDLC governance policy</td><td><span class="cl-sev sev-m"><span class="sr-only">Severity: </span>Medium</span></td><td>Policy section describing each gate and its enforcing control.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Implementation examples</h2>
+      <p class="content-body">Examples show one way to implement a control on a specific platform. They are not universally secure configurations; adapt and test them in your environment.</p>
+      <figure class="spec-example">
+        <figcaption>CODEOWNERS — route sensitive paths to designated owners (example)</figcaption>
+        <pre class="code-block"><code class="lang-text">/.github/workflows/   @example-org/platform-security
+/infra/               @example-org/platform-security
+/deploy/              @example-org/release-owners</code></pre>
+      </figure>
+      <figure class="spec-example">
+        <figcaption>Branch protection settings to verify (GitHub terminology)</figcaption>
+        <pre class="code-block"><code class="lang-text">Require a pull request before merging       : on, approvals &gt;= 1
+Require review from Code Owners             : on
+Require approval of the most recent push    : on
+Do not allow bypassing the above settings   : on</code></pre>
+      </figure>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Known limitations</h2>
+      <ul class="spec-list">
+        <li>Independent approval reduces risk but does not guarantee review quality; large agent-generated diffs strain reviewers.</li>
+        <li>Platform defaults and plan tiers change; verify settings by export, not memory.</li>
+        <li>An AI code-review agent's approval should not be counted toward required approvals.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Remediation path</h2>
+      <ol class="spec-list">
+        <li>Require independent approval and approval of the latest push (CK-RB-01).</li>
+        <li>Apply rules to administrators and remove standing bypass (CK-RB-04).</li>
+        <li>Route secret, CI, and deployment paths to owners (CK-RB-02).</li>
+        <li>Use the AI-generated PR review checklist in the Reference Kit (CK-RB-03).</li>
+        <li>Run Reference Case C against an export of your protection settings.</li>
+      </ol>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">External references</h2>
+      <p class="content-body">Claim classes: 1 = directly supported, 2 = Codokey synthesis of the source. See the <a href="/evidence/">Evidence Register</a> for passages and limitations.</p>
+      <ul class="spec-list spec-refs">
+        <li><a href="/evidence/#EV-SSDF-PW.7">EV-SSDF-PW.7</a> — National Institute of Standards and Technology, <cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite>, Practice PW.7, tasks PW.7.1 and PW.7.2. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-CM-5">EV-SP80053-CM-5</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, CM-5 Access Restrictions for Change. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-AC-5">EV-SP80053-AC-5</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, AC-5 Separation of Duties. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-GH-BRANCH-PROTECTION">EV-GH-BRANCH-PROTECTION</a> — GitHub Docs, <cite>About protected branches</cite>, Require pull request reviews before merging; Do not allow bypassing the above settings. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-CODEOWNERS">EV-GH-CODEOWNERS</a> — GitHub Docs, <cite>About code owners</cite>, About code owners; Branch protection and CODEOWNERS. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-COPILOT-AGENT-RISKS">EV-GH-COPILOT-AGENT-RISKS</a> — GitHub Docs, <cite>Risks and mitigations for GitHub Copilot cloud agent</cite>, Copilot cloud agent can push code changes to your repository. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GL-PROTECTED-BRANCHES">EV-GL-PROTECTED-BRANCHES</a> — GitLab Docs, <cite>Protected branches</cite>, Allowed to merge; Allowed to push and merge; Code Owner approval. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-SLSA-SOURCE-1.2">EV-SLSA-SOURCE-1.2</a> — OpenSSF SLSA project, <cite>SLSA Source Track: Requirements for producing source (SLSA v1.2)</cite>, Source track levels. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-OSSF-SCORECARD-CHECKS">EV-OSSF-SCORECARD-CHECKS</a> — OpenSSF, <cite>OpenSSF Scorecard — Check Documentation</cite>, Code-Review; Token-Permissions. <span class="ev-class">Class 2</span></li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Continue</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/agent-authority/">← Layer 03: Agent Authority</a>
+      <a href="/protocol/deployment-control/">Layer 05: Deployment Control →</a>
+      <a href="/governance-scorecard/#grp-RB">Assess this layer in the scorecard</a>
+      <a href="/reference-kit/">Reference Kit</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Codokey Protocol v1.1 · Layer 04 · Review Boundary</div>
+    <div class="footer-tag">Specification</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

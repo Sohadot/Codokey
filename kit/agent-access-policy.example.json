@@ -1,0 +1,24 @@
+{
+  "$comment": "Codokey Reference Kit v1.0.0 — example agent access policy entry. Synthetic values.",
+  "agent": "example-task-agent",
+  "agentClass": "task",
+  "identity": "app:example-task-agent",
+  "owner": "platform-team",
+  "delegatingHumans": ["team:web-developers"],
+  "repositories": ["example-org/web"],
+  "pushBranches": ["agent/*"],
+  "permissions": { "contents": "write", "pull_requests": "write" },
+  "tools": [],
+  "commandExecution": "sandboxed",
+  "networkEgress": ["registry.npmjs.org"],
+  "secretPathsExcluded": { "paths": [".env", "*.pem", "config/settings.ini"], "enforcement": "os-sandbox" },
+  "maxTokenLifetimeHours": 8,
+  "forbiddenZones": {
+    "FZ-1 production secrets": "production secrets held in protected environment; agent identity not in access policy",
+    "FZ-2 org-wide scope": "app installation limited to selected repositories",
+    "FZ-3 production deploy": "agent identity not an allowed deployer; environment requires human reviewer"
+  },
+  "approvedBy": "security-lead",
+  "approvedOn": "2026-11-12",
+  "nextReview": "2027-02-12"
+}

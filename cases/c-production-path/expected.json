@@ -1,0 +1,5 @@
+{ "runs": [
+  { "name": "governed-independent", "command": "production-path", "args": { "change": "change.independent-approval.json", "policy": "policy.governed.json" }, "verdict": "PASS", "failing": [] },
+  { "name": "governed-self-approved", "command": "production-path", "args": { "change": "change.self-approved.json", "policy": "policy.governed.json" }, "verdict": "FAIL", "failing": ["C4", "C7"] },
+  { "name": "ungoverned-independent", "command": "production-path", "args": { "change": "change.independent-approval.json", "policy": "policy.ungoverned.json" }, "verdict": "FAIL", "failing": ["C1", "C2", "C3", "C5", "C6", "C7"] }
+] }

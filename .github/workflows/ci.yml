@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit, case and site-integrity tests
+        run: node --test tests/*.test.mjs
+      - name: Generated files are up to date
+        run: node tools/build.mjs --check
+      - name: Independent schema cross-check (Ajv, test-only)
+        run: |
+          npm install --no-save --no-package-lock ajv@8.17.1 ajv-formats@3.0.1
+          node tests/ajv-crosscheck.mjs
+
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright (test-only, not a site dependency)
+        run: |
+          npm install --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Scorecard UI and responsive checks
+        run: node tests/ui/scorecard.ui.mjs

@@ -1,0 +1,7 @@
+{
+  "task": "Add pagination to the orders API and open a pull request",
+  "repositories": ["example-org/web"],
+  "actions": ["read-code", "push-branch", "open-pull-request"],
+  "tools": [],
+  "maxTokenLifetimeHours": 8
+}

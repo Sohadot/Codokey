@@ -1,0 +1,20 @@
+{
+  "branchProtection": {
+    "branch": "main",
+    "requiredApprovals": 1,
+    "requireLastPushApproval": false,
+    "excludeRequesterApproval": false,
+    "enforceForAdmins": false,
+    "bypassActors": ["app:release-bot"],
+    "requireCodeOwnerReview": false,
+    "codeOwnerPaths": { ".github/workflows/**": "platform-security" }
+  },
+  "environments": {
+    "production": {
+      "requiredReviewers": [],
+      "preventSelfReview": false,
+      "allowedDeployers": ["app:example-task-agent", "bob"],
+      "secretsScopedToEnvironment": false
+    }
+  }
+}

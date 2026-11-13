@@ -1,0 +1,15 @@
+{
+  "id": "PR-101",
+  "author": "app:example-task-agent",
+  "requestedBy": "alice",
+  "headRevision": "r3",
+  "paths": ["src/orders.js", "src/orders.test.js", ".github/workflows/deploy.yml"],
+  "approvals": [
+    { "by": "alice", "revision": "r3", "teams": [] },
+    { "by": "bob", "revision": "r2", "teams": ["platform-security"] },
+    { "by": "carol", "revision": "r3", "teams": ["platform-security"] }
+  ],
+  "deployTo": "production",
+  "deploymentTriggeredBy": "bob",
+  "deploymentApprovals": [ { "by": "bob" }, { "by": "dana" } ]
+}

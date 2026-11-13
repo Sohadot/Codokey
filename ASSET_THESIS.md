@@ -7,6 +7,8 @@
 
 ---
 
+> **Status note (2026-11-12).** Statements in this document about Codokey being "category-defining", "canonical", or "owning the language" of the category are strategic aspirations (claim class 3–4 in `reference/evidence-register.json`), not demonstrated facts. No adoption, citation, buyer interest or endorsement has been recorded. See `IP_AND_PROVENANCE.md` for what the asset verifiably contains.
+
 ## Core Thesis
 
 **Codokey.com is a category-defining sovereign digital asset positioned to own the language of AI Code Access Governance.**

@@ -1,63 +1,72 @@
 # Codokey
 
-**Category-defining sovereign reference infrastructure for AI Code Access Governance.**
+**Reference model for AI Code Access Governance — protocol, evidence-aware scorecard, verified evidence register, reproducible cases, and adoption templates.**
 
-Codokey.com is not merely a site about AI Code Access Governance — it is the category-defining reference infrastructure for the discipline. Static, GitHub Pages–compatible, positioned as a strategic digital asset — not a deployed security product.
+Codokey defines the boundary between AI coding agents, codebases, secrets, and production authority. It is a static reference site and documentation corpus, positioned as a strategic digital asset — **not** a deployed security product, scanner, or certification scheme.
 
-## Public Site
+## Public site
 
-| Path | Page |
-|------|------|
-| `/` | Homepage — governance gap, cost preview, reference overview |
-| `/category/` | **AI Code Access Governance** — canonical category definition (v1.1) |
-| `/charter/` | Codokey Charter v1.0 — founding doctrine, five principles |
-| `/protocol/` | Codokey Protocol v1.0 — six governance layers |
-| `/secrets-boundary/` | Eight secret classes, code-key boundary |
-| `/agent-permissions/` | Five agent classes, forbidden zones |
-| `/governance-scorecard/` | Governance Scorecard v1.0 — 32-check self-assessment |
-| `/cost-of-inaction/` | Cost of Undefined Agent Authority — governance debt analysis |
-| `/buyer-logic/` | Strategic buyer categories |
-| `/briefs/` | Reference Briefs — institutional print-ready documents (v1.2) |
+| Path | Content |
+|------|---------|
+| `/` | Overview |
+| `/category/` | Category definition (v1.2) — Codokey's proposed definition |
+| `/charter/` | Charter v1.0 — founding doctrine |
+| `/protocol/` | Protocol v1.1 — six layers |
+| `/protocol/<layer>/` | Six layer reference specifications (code-origin, key-exposure, agent-authority, review-boundary, deployment-control, audit-memory) |
+| `/governance-scorecard/` | Scorecard model v2.0.0 — 32 controls, critical gates, local-only |
+| `/evidence/` | Evidence Register v1.0.0 — sources, exact passages, claim classes |
+| `/reference-cases/` | Reference Cases A–D — reproducible pass/fail checks |
+| `/reference-kit/` | Reference Kit v1.0.0 — templates |
+| `/review/` | Open Review — package for external reviewers (no review has occurred) |
+| `/secrets-boundary/`, `/agent-permissions/` | Secret classes; agent classes and forbidden zones |
+| `/cost-of-inaction/`, `/buyer-logic/` | Doctrine and strategic reasoning |
+| `/briefs/` | Print-ready briefs (noindex) |
 | `/strategic-inquiries/` | Acquisition, licensing, partnership |
 
-Print-ready brief paths: `/briefs/charter/`, `/briefs/protocol/`, `/briefs/category-definition/`, `/briefs/buyer-brief/`
+## Verify it yourself
 
-## Repository Documentation
+Node 18+; no dependencies to install.
+
+```sh
+node --test tests/*.test.mjs        # scorecard model, export schema, reference cases, adversarial cases, site integrity
+node tests/ui/scorecard.ui.mjs      # browser test (needs Playwright + Chromium)
+node tools/build.mjs --check        # generated pages match their sources
+node tools/verify-evidence.mjs      # re-check evidence sources online
+node tools/codokey-check.mjs --help # run a reference case (see /reference-cases/)
+```
+
+## Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `assets/js/scorecard-model.js` | Single source for controls and scoring (browser + Node) |
+| `reference/` | Evidence register, control catalog (JSON/CSV), versions |
+| `cases/` | Reference case fixtures (synthetic) and expected outcomes |
+| `kit/` | Reference Kit templates |
+| `review/` | Review package, rubric, feedback template, review log |
+| `tools/build.mjs` | Generates data-driven pages and normalizes shared chrome; `--check` for CI |
+| `tools/codokey-check.mjs` | Reference-case validator |
+| `tools/verify-evidence.mjs` | Online re-verification of the evidence register |
+| `tests/` | Automated tests |
+| `docs/BASELINE_AUDIT.md` | Audit of the pre-sprint baseline |
+
+## Key documents
 
 | File | Purpose |
 |------|---------|
-| `ASSET_THESIS.md` | Core strategic thesis (v1.1) |
-| `CODOKEY_CATEGORY_DEFINITION.md` | Canonical category definition (v1.1) |
-| `CODOKEY_NARRATIVE.md` | Structural shift narrative (v1.1) |
-| `PROJECT_DOCTRINE.md` | Project operating principles (v1.1) |
-| `CODOKEY_CHARTER.md` | Charter source document (v1.0) |
-| `CODOKEY_PROTOCOL.md` | Protocol source document (v1.0) |
-| `BUYER_LOGIC.md` | Buyer category analysis (v1.1) |
-| `BUYER_BRIEF.md` | Executive acquisition brief (v1.1) |
-| `SEO_POLICY.md` | Search and indexing policy |
-| `CONTENT_STANDARD.md` | Voice, tone, and quality bar |
-| `MONETIZATION_PRINCIPLES.md` | Revenue philosophy |
-| `QUALITY_GATE.md` | Pre-publish checklist |
-| `DECISION_LOG.md` | Architectural decisions |
+| `SCORING.md` | Scorecard specification, rationale, breaking changes |
+| `VERSIONS.md` | Version scheme and current versions |
+| `IP_AND_PROVENANCE.md` | What is original, branded, or generally available; reuse status |
+| `LICENSING_PROPOSAL.md` | Proposed file-level licensing — **not operative, grants no rights** |
+| `docs/PR2_HARDENING.md` | Pre-merge defect record with regression tests |
+| `CODOKEY_PROTOCOL.md`, `CODOKEY_CHARTER.md`, `CODOKEY_CATEGORY_DEFINITION.md` | Source documents |
+| `ASSET_THESIS.md`, `BUYER_BRIEF.md`, `BUYER_LOGIC.md`, `CODOKEY_NARRATIVE.md`, `MONETIZATION_PRINCIPLES.md` | Strategic positioning (aspirational claims are marked as such) |
+| `SEO_POLICY.md`, `CONTENT_STANDARD.md`, `QUALITY_GATE.md`, `DECISION_LOG.md`, `PROJECT_DOCTRINE.md` | Operating standards |
 
 ## Deploy
 
-Static site — no build step required.
+Static site; no build step is required to serve it. GitHub Pages from the repository root with `.nojekyll` and `CNAME`. After editing a data source (model, register, layer or case content), run `node tools/build.mjs` and commit the regenerated files.
 
-1. Push to GitHub
-2. Enable GitHub Pages (source: main branch, root `/`)
-3. Optional: configure `CNAME` for `codokey.com`
+## Ownership & inquiries
 
-## Positioning
-
-Codokey is **not** a working security product unless an actual tool exists. It is:
-
-- Category-defining reference infrastructure
-- A charter and protocol
-- A self-assessment scorecard
-- A strategic digital asset
-- Future-ready governance infrastructure
-
-## License & Inquiries
-
-Privately held sovereign digital asset. Strategic inquiries: inquiry@codokey.com
+Privately held digital asset of Sohadot. No reuse license has been published yet (see `IP_AND_PROVENANCE.md`). Strategic inquiries: inquiry@codokey.com

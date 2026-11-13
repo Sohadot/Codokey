@@ -12,24 +12,25 @@
 <meta property="og:title" content="The Cost of Undefined Agent Authority">
 <meta property="og:description" content="Undefined agent authority is not only a security gap — it is a future control failure. Strategic cost analysis for AI Code Access Governance.">
 <meta property="og:site_name" content="Codokey">
-<meta property="og:image" content="https://codokey.com/assets/social-preview.svg">
-<meta property="og:image:type" content="image/svg+xml">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:alt" content="Codokey — AI Code Access Governance. The boundary between code, keys, agents, and authority.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cost of Undefined Agent Authority — Codokey">
 <meta name="twitter:description" content="Every unscoped agent session creates governance debt. The cost of undefined agent authority.">
-<meta name="twitter:image" content="https://codokey.com/assets/social-preview.svg">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/codokey.css">
 <link rel="stylesheet" href="/assets/css/print-brief.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="cur" id="cur"></div>
-<div class="cur-r" id="curR"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
 
-<nav>
+<nav aria-label="Reference files">
   <div class="nav-tabs">
     <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
     <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
@@ -38,12 +39,12 @@
     <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
     <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
   </div>
-  <div class="nav-right"><div class="nav-badge">v1.3</div></div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
 </nav>
 
-<main>
+<main id="main">
   <div class="file-header">
-    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">DOCTRINE PILLAR · v1.4</span></div>
+    <div class="file-path"><span>codokey / analysis /</span><span class="file-name">undefined-agent-authority.diff</span><span class="file-lang">DOCTRINE PILLAR</span></div>
     <div class="file-stats"><span class="stat-a">+6 governed paths</span><span class="stat-r">−7 failure modes</span></div>
   </div>
 
@@ -84,7 +85,7 @@
       <div class="cost-pillar">
         <div class="cost-pillar-num">06</div>
         <div class="cost-pillar-title">Category Ownership Risk</div>
-        <div class="cost-pillar-text">The organization or platform that defines the boundary first owns the language of the category — permission structure, audit framework, enterprise trust vocabulary. <strong>The company that owns the language of agent authority can shape how the market understands the risk.</strong> Defer definition and a competitor defines it for you. See <a href="/buyer-logic/">buyer logic</a>.</div>
+        <div class="cost-pillar-text">The organization or platform that defines the boundary first shapes the language of the category — permission structure, audit framework, enterprise trust vocabulary. <strong>Whoever articulates agent authority clearly can shape how the market understands the risk.</strong> Defer definition and a competitor defines it for you. See <a href="/buyer-logic/">buyer logic</a>.</div>
       </div>
     </div>
   </div>
@@ -188,7 +189,7 @@
         </div>
         <div class="ref-stack-row">
           <div class="ref-stack-label"><a href="/briefs/" style="color:var(--acid)">Briefs</a></div>
-          <div class="ref-stack-desc">Evidence layer for citation, review, and strategic inquiry</div>
+          <div class="ref-stack-desc">Print-ready doctrine for citation and review</div>
         </div>
       </div>
     </div>
@@ -197,7 +198,7 @@
       <div class="charter-label">Measure Posture</div>
       <div class="charter-heading">From cost analysis to assessment.</div>
       <div class="content-body">
-        <p>Use the <a href="/governance-scorecard/">Governance Scorecard v1.0</a> against the <a href="/protocol/">Codokey Protocol</a>. Thirty-two checks — self-assessment reference model, not certification.</p>
+        <p>Use the <a href="/governance-scorecard/">Governance Scorecard v2.0.0</a> against the <a href="/protocol/">Codokey Protocol</a>. Thirty-two controls with critical-control gates — self-assessment reference model, not certification.</p>
         <p style="margin-top:24px;"><a class="btn-p" href="/governance-scorecard/">→ Run Scorecard</a> <a class="btn-g" href="/charter/">Read Charter</a></p>
       </div>
     </div>
@@ -207,7 +208,7 @@
 <footer class="site-footer">
   <div class="footer-top">
     <a class="footer-logo" href="/">Codo<span>key</span></a>
-    <div class="footer-meta">Cost of Undefined Agent Authority · v1.4 · AI Code Access Governance</div>
+    <div class="footer-meta">Cost of Undefined Agent Authority · Doctrine · AI Code Access Governance</div>
     <div class="footer-tag">Doctrine Pillar</div>
   </div>
   <nav class="footer-nav" aria-label="Site navigation">
@@ -218,7 +219,11 @@
     <a href="/secrets-boundary/">Secrets Boundary</a>
     <a href="/agent-permissions/">Agent Permissions</a>
     <a href="/governance-scorecard/">Scorecard</a>
-    <a href="/cost-of-inaction/" class="active">Cost of Inaction</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/" class="active" aria-current="page">Cost of Inaction</a>
     <a href="/buyer-logic/">Buyer Logic</a>
     <a href="/briefs/">Briefs</a>
     <a href="/strategic-inquiries/">Strategic Inquiries</a>

@@ -1,0 +1,4 @@
+{ "runs": [
+  { "name": "least-privilege", "command": "excess-authority", "args": { "task": "task.json", "grant": "grant.least-privilege.json" }, "verdict": "PASS", "failing": [] },
+  { "name": "excessive", "command": "excess-authority", "args": { "task": "task.json", "grant": "grant.excessive.json" }, "verdict": "FAIL", "failing": ["B1", "B2", "B3", "B4"] }
+] }

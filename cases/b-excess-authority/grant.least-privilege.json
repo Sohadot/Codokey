@@ -1,0 +1,7 @@
+{
+  "identity": "app:example-task-agent",
+  "repositories": ["example-org/web"],
+  "permissions": { "contents": "write", "pull_requests": "write" },
+  "tools": [],
+  "tokenLifetimeHours": 8
+}

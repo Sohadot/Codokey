@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deployment Control — Codokey Protocol Layer 05 Specification</title>
+<meta name="description" content="Can an agent-produced change reach production, and who authorizes that step? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Deployment Control layer of AI Code Access Governance.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/protocol/deployment-control/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/protocol/deployment-control/">
+<meta property="og:title" content="Deployment Control — Codokey Protocol Layer 05 Specification">
+<meta property="og:description" content="Can an agent-produced change reach production, and who authorizes that step? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Deployment Control layer of AI Code Access Governance.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Deployment Control — Codokey Protocol Layer 05 Specification">
+<meta name="twitter:description" content="Can an agent-produced change reach production, and who authorizes that step? Objective, failure scenarios, required controls, acceptable evidence, examples and limitations for the Deployment Control layer of AI Code Access Governance.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Deployment Control — Codokey Protocol Layer 05",
+  "description": "Separate the authority to propose and merge code from the authority to release it, so that production deployment always passes a human approval that the triggering identity cannot grant itself, and production credentials are released only after that approval.",
+  "url": "https://codokey.com/protocol/deployment-control/",
+  "version": "1.1",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab active" href="/protocol/" aria-current="page"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / protocol /</span><span class="file-name">05-deployment-control.md</span><span class="file-lang">LAYER 05 · v1.1</span></div>
+    <div class="file-stats"><span class="stat-a">+5 controls</span><span class="stat-r">−3 failure scenarios</span></div>
+  </div>
+
+  <article class="content-wrap spec" aria-labelledby="spec-h">
+    <p class="spec-breadcrumb"><a href="/protocol/">Codokey Protocol v1.1</a> / Layer 05</p>
+    <div class="eyebrow">Layer 05 · Authority Layer · Reference specification</div>
+    <h1 class="spec-h1" id="spec-h">Deployment Control</h1>
+    <p class="spec-question">Can an agent-produced change reach production, and who authorizes that step?</p>
+
+    <dl class="spec-meta">
+      <div><dt>Version</dt><dd>Protocol v1.1 · 2026-11-12</dd></div>
+      <div><dt>Scorecard controls</dt><dd>5 (3 critical)</dd></div>
+      <div><dt>Status</dt><dd>Codokey reference specification — not externally reviewed</dd></div>
+    </dl>
+
+    <section class="content-section"><h2 class="spec-h2">Security objective</h2><p class="content-body">Separate the authority to propose and merge code from the authority to release it, so that production deployment always passes a human approval that the triggering identity cannot grant itself, and production credentials are released only after that approval.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Boundary governed</h2><p class="content-body">The release boundary between a trusted branch and production systems, including the credentials that deployment jobs use.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Failure scenarios</h2>
+      <dl class="spec-threats">
+        <dt>Merge-equals-deploy</dt><dd>A pipeline deploys every merge to production automatically; once an agent change is merged, no further human decision exists.</dd>
+        <dt>Agent as deployer</dt><dd>An agent identity is listed among identities allowed to deploy to production or can trigger and approve the same deployment.</dd>
+        <dt>Credential pre-release</dt><dd>Production secrets are available to every job in the pipeline, including jobs that run on unreviewed agent branches.</dd>
+      </dl>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Applicable agent capabilities</h2><p class="content-body">Autonomous and pipeline-integrated agents; also any agent whose merged changes trigger continuous deployment.</p></section>
+    <section class="content-section"><h2 class="spec-h2">Platform-neutral principles</h2>
+      <ul class="spec-list">
+        <li>Automation and autonomy are different: automated deployment is acceptable when a human has authorized the release.</li>
+        <li>Production credentials are released after, and because of, approval.</li>
+        <li>The identity that triggers a deployment cannot approve it.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Required controls and acceptable evidence</h2>
+      <div class="table-scroll"><table class="ref-table">
+        <caption>Controls are defined once, in the scorecard model; this table is generated from it.</caption>
+        <thead><tr><th scope="col">Control</th><th scope="col">Requirement</th><th scope="col">Severity</th><th scope="col">Acceptable evidence</th></tr></thead>
+        <tbody>
+        <tr id="CK-DC-01-spec"><th scope="row"><a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a></th><td>No agent can deploy to production without an approving human gate</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Unsupervised production deployment">FZ-3</span></td><td>Production environment protection: required reviewers, self-review prevented; no agent identity among allowed deployers or approvers.</td></tr>
+        <tr id="CK-DC-02-spec"><th scope="row"><a href="/governance-scorecard/#CK-DC-02">CK-DC-02</a></th><td>Production credentials are separated from development and agent environments</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span> <span class="cl-sev sev-fz" title="Production secrets accessible to an agent">FZ-1</span></td><td>Environment-scoped secrets released only to production deployment jobs after approval; development and agent sessions hold none.</td></tr>
+        <tr id="CK-DC-03-spec"><th scope="row"><a href="/governance-scorecard/#CK-DC-03">CK-DC-03</a></th><td>CI/CD pipeline includes secret scanning as a blocking step</td><td><span class="cl-sev sev-c"><span class="sr-only">Severity: </span>Critical</span></td><td>Pipeline definition with a secret-scanning job marked required; a failing run blocking merge or deploy.</td></tr>
+        <tr id="CK-DC-04-spec"><th scope="row"><a href="/governance-scorecard/#CK-DC-04">CK-DC-04</a></th><td>Deployment rollback procedures are documented and tested</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Runbook and the date and outcome of the last rollback test.</td></tr>
+        <tr id="CK-DC-05-spec"><th scope="row"><a href="/governance-scorecard/#CK-DC-05">CK-DC-05</a></th><td>Infrastructure-as-code and pipeline-definition changes require review separate from application code</td><td><span class="cl-sev sev-h"><span class="sr-only">Severity: </span>High</span></td><td>Ownership rules on IaC and workflow paths routing them to infrastructure/security owners.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Implementation examples</h2>
+      <p class="content-body">Examples show one way to implement a control on a specific platform. They are not universally secure configurations; adapt and test them in your environment.</p>
+      <figure class="spec-example">
+        <figcaption>GitHub Actions — deployment job bound to a protected environment (example; reviewers configured in environment settings)</figcaption>
+        <pre class="code-block"><code class="lang-yaml">jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - run: ./deploy.sh</code></pre>
+      </figure>
+      <figure class="spec-example">
+        <figcaption>GitLab CI — deployment to a protected environment (example; approvals configured in project settings)</figcaption>
+        <pre class="code-block"><code class="lang-yaml">deploy_production:
+  stage: deploy
+  script: ./deploy.sh
+  environment:
+    name: production</code></pre>
+      </figure>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Known limitations</h2>
+      <ul class="spec-list">
+        <li>Some platforms restrict deployment-approval features by plan or repository visibility.</li>
+        <li>Emergency paths (hotfixes, break-glass) need their own recorded authorization; this layer does not define them.</li>
+        <li>Supply-chain integrity of the deployed artifact (build provenance) is adjacent and not covered by these controls.</li>
+      </ul>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">Remediation path</h2>
+      <ol class="spec-list">
+        <li>Gate production deployments on human approval with self-review prevented (CK-DC-01).</li>
+        <li>Scope production secrets to the protected environment (CK-DC-02).</li>
+        <li>Make secret scanning a required pipeline step (CK-DC-03).</li>
+        <li>Route IaC and pipeline changes to infrastructure owners (CK-DC-05).</li>
+      </ol>
+    </section>
+    <section class="content-section"><h2 class="spec-h2">External references</h2>
+      <p class="content-body">Claim classes: 1 = directly supported, 2 = Codokey synthesis of the source. See the <a href="/evidence/">Evidence Register</a> for passages and limitations.</p>
+      <ul class="spec-list spec-refs">
+        <li><a href="/evidence/#EV-SSDF-PO.5.1">EV-SSDF-PO.5.1</a> — National Institute of Standards and Technology, <cite>Secure Software Development Framework (SSDF) Version 1.1 (NIST SP 800-218)</cite>, Practice PO.5, task PO.5.1. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-SP80053-CM-5">EV-SP80053-CM-5</a> — National Institute of Standards and Technology, <cite>Security and Privacy Controls for Information Systems and Organizations (NIST SP 800-53 Rev. 5)</cite>, CM-5 Access Restrictions for Change. <span class="ev-class">Class 2</span></li>
+        <li><a href="/evidence/#EV-OWASP-LLM06">EV-OWASP-LLM06</a> — OWASP Gen AI Security Project, <cite>LLM06:2025 Excessive Agency (OWASP Top 10 for LLM Applications 2025)</cite>, Description; Prevention and Mitigation Strategies 4 (Minimize extension permissions), 6 (Require user approval), 7 (Complete mediation). <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-SECRET-SCANNING">EV-GH-SECRET-SCANNING</a> — GitHub Docs, <cite>About secret scanning</cite>, About secret scanning. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-CODEOWNERS">EV-GH-CODEOWNERS</a> — GitHub Docs, <cite>About code owners</cite>, About code owners; Branch protection and CODEOWNERS. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GH-ENVIRONMENTS">EV-GH-ENVIRONMENTS</a> — GitHub Docs, <cite>Managing environments for deployment</cite>, Required reviewers; Prevent self-review; Environment secrets. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GL-DEPLOY-APPROVALS">EV-GL-DEPLOY-APPROVALS</a> — GitLab Docs, <cite>Deployment approvals</cite>, Overview; Allow self-approval. <span class="ev-class">Class 1</span></li>
+        <li><a href="/evidence/#EV-GL-PROTECTED-ENVIRONMENTS">EV-GL-PROTECTED-ENVIRONMENTS</a> — GitLab Docs, <cite>Protected environments</cite>, Protecting environments — Allowed to deploy. <span class="ev-class">Class 1</span></li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="internal-links">
+    <div class="internal-links-title">Continue</div>
+    <div class="internal-links-grid">
+      <a href="/protocol/review-boundary/">← Layer 04: Review Boundary</a>
+      <a href="/protocol/audit-memory/">Layer 06: Audit Memory →</a>
+      <a href="/governance-scorecard/#grp-DC">Assess this layer in the scorecard</a>
+      <a href="/reference-kit/">Reference Kit</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Codokey Protocol v1.1 · Layer 05 · Deployment Control</div>
+    <div class="footer-tag">Specification</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>

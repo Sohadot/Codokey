@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reference Kit — AI Agent Access Policy &amp; Review Templates</title>
+<meta name="description" content="Vendor-neutral templates for AI Code Access Governance: agent access policy, repository checklist, secrets-exposure review, AI PR review, production authorization and audit evidence specification.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codokey.com/reference-kit/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codokey.com/reference-kit/">
+<meta property="og:title" content="Reference Kit — AI Agent Access Policy &amp; Review Templates">
+<meta property="og:description" content="Vendor-neutral templates for AI Code Access Governance: agent access policy, repository checklist, secrets-exposure review, AI PR review, production authorization and audit evidence specification.">
+<meta property="og:site_name" content="Codokey">
+<meta property="og:image" content="https://codokey.com/assets/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Codokey — AI Code Access Governance reference model.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reference Kit — AI Agent Access Policy &amp; Review Templates">
+<meta name="twitter:description" content="Vendor-neutral templates for AI Code Access Governance: agent access policy, repository checklist, secrets-exposure review, AI PR review, production authorization and audit evidence specification.">
+<meta name="twitter:image" content="https://codokey.com/assets/social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/codokey.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Codokey Reference Kit",
+  "description": "Templates for governing AI coding agent access.",
+  "url": "https://codokey.com/reference-kit/",
+  "version": "1.0.0",
+  "dateModified": "2026-11-12",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Codokey",
+    "url": "https://codokey.com/"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="cur" id="cur" aria-hidden="true"></div>
+<div class="cur-r" id="curR" aria-hidden="true"></div>
+
+<nav aria-label="Reference files">
+  <div class="nav-tabs">
+    <a class="nav-tab" href="/"><div class="tab-dot"></div>codokey.com</a>
+    <a class="nav-tab" href="/charter/"><div class="tab-dot"></div>charter.md</a>
+    <a class="nav-tab" href="/protocol/"><div class="tab-dot"></div>protocol.md</a>
+    <a class="nav-tab" href="/secrets-boundary/"><div class="tab-dot"></div>secrets-boundary.diff</a>
+    <a class="nav-tab" href="/agent-permissions/"><div class="tab-dot"></div>agent-permissions.json</a>
+    <a class="nav-tab" href="/governance-scorecard/"><div class="tab-dot"></div>governance-scorecard.sh</a>
+  </div>
+  <div class="nav-right"><div class="nav-badge" title="Site release">site v2.0</div></div>
+</nav>
+
+<main id="main">
+  <div class="file-header">
+    <div class="file-path"><span>codokey / kit /</span><span class="file-name">README.md</span><span class="file-lang">KIT v1.0.0</span></div>
+    <div class="file-stats"><span class="stat-a">+7 resources</span><span class="stat-r">−0 vendor lock-in</span></div>
+  </div>
+
+  <div class="content-wrap">
+    <div class="eyebrow">Reference Kit v1.0.0 · 2026-11-12</div>
+    <h1 class="spec-h1">Reference Kit</h1>
+    <p class="content-body">Templates and specifications an engineering or security team can use directly, whether or not it ever engages with Codokey. Each resource is plain text (Markdown or JSON), names the scorecard controls it supports, and states its limitations.</p>
+    <div class="table-scroll"><table class="ref-table">
+      <thead><tr><th scope="col">Resource</th><th scope="col">Purpose</th><th scope="col">Controls</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><a href="/kit/agent-access-policy.md">Agent access policy</a></th><td>Declare each agent's identity, repositories, permissions, tools, lifetime and forbidden zones before it runs. JSON example included.</td><td><a href="/governance-scorecard/#CK-AA-01">CK-AA-01</a>, <a href="/governance-scorecard/#CK-AA-02">CK-AA-02</a>, <a href="/governance-scorecard/#CK-AA-05">CK-AA-05</a>, <a href="/governance-scorecard/#CK-OR-02">CK-OR-02</a></td></tr>
+        <tr><th scope="row"><a href="/kit/repository-access-boundary-checklist.md">Repository access-boundary checklist</a></th><td>Twelve checks to run before enabling an agent on a repository.</td><td><a href="/governance-scorecard/#CK-AA-05">CK-AA-05</a>, <a href="/governance-scorecard/#CK-KE-03">CK-KE-03</a>, <a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a>, <a href="/governance-scorecard/#CK-RB-04">CK-RB-04</a></td></tr>
+        <tr><th scope="row"><a href="/kit/secrets-exposure-review.md">Secrets-exposure review</a></th><td>Contain first, then determine which agent sessions had a secret in reach.</td><td><a href="/governance-scorecard/#CK-AM-04">CK-AM-04</a>, <a href="/governance-scorecard/#CK-KE-05">CK-KE-05</a></td></tr>
+        <tr><th scope="row"><a href="/kit/ai-pr-review-checklist.md">AI-generated PR review checklist</a></th><td>What the independent approver checks on agent pull requests — authority changes first.</td><td><a href="/governance-scorecard/#CK-RB-01">CK-RB-01</a>, <a href="/governance-scorecard/#CK-RB-02">CK-RB-02</a>, <a href="/governance-scorecard/#CK-RB-03">CK-RB-03</a></td></tr>
+        <tr><th scope="row"><a href="/kit/production-authorization-checklist.md">Production authorization checklist</a></th><td>Confirm the human gate between merge and production.</td><td><a href="/governance-scorecard/#CK-DC-01">CK-DC-01</a>, <a href="/governance-scorecard/#CK-DC-02">CK-DC-02</a>, <a href="/governance-scorecard/#CK-KE-06">CK-KE-06</a></td></tr>
+        <tr><th scope="row"><a href="/kit/audit-evidence-specification.md">Audit evidence specification</a></th><td>The minimum records to answer eight reconstruction questions about an agent session (original Codokey proposal).</td><td><a href="/governance-scorecard/#CK-AM-01">CK-AM-01</a>, <a href="/governance-scorecard/#CK-AM-02">CK-AM-02</a>, <a href="/governance-scorecard/#CK-AM-03">CK-AM-03</a></td></tr>
+        <tr><th scope="row"><a href="/reference/controls.json">Control catalog (JSON)</a> · <a href="/reference/protocol-control-map.csv">map (CSV)</a></th><td>All 32 controls with layer, severity, forbidden zone, evidence, remediation and sources — for import into your own tracker.</td><td>all</td></tr>
+      </tbody>
+    </table></div>
+    <h2 class="spec-h2">How the pieces fit</h2>
+    <ol class="spec-list">
+      <li>Write an <strong>agent access policy</strong> entry per agent, then compare it with granted credentials (Reference Case B).</li>
+      <li>Run the <strong>repository checklist</strong> before enabling an agent on a repository.</li>
+      <li>Give approvers the <strong>PR review checklist</strong>; confirm deployment with the <strong>production checklist</strong> (Reference Case C).</li>
+      <li>Configure logging to the <strong>audit evidence specification</strong> (Reference Case D); use the <strong>secrets-exposure review</strong> when something leaks.</li>
+      <li>Record status in the <a href="/governance-scorecard/">scorecard</a> and export it as your gap register.</li>
+    </ol>
+    <h2 class="spec-h2">Terms and status</h2>
+    <p class="content-body">Version 1.0.0. Not externally reviewed. Templates are vendor-neutral with platform-specific notes; they are not certification criteria or legal advice. Reuse terms have not yet been published — until a license is published, contact <a href="mailto:inquiry@codokey.com">inquiry@codokey.com</a> before redistributing.</p>
+  </div>
+  <div class="internal-links">
+    <div class="internal-links-title">Related</div>
+    <div class="internal-links-grid">
+      <a href="/reference-cases/">Reference Cases</a>
+      <a href="/protocol/">Protocol specifications</a>
+      <a href="/evidence/">Evidence Register</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="footer-logo" href="/">Codo<span>key</span></a>
+    <div class="footer-meta">Reference Kit v1.0.0 · vendor-neutral templates</div>
+    <div class="footer-tag">Adoption</div>
+  </div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/">Home</a>
+    <a href="/category/">Category</a>
+    <a href="/charter/">Charter</a>
+    <a href="/protocol/">Protocol</a>
+    <a href="/secrets-boundary/">Secrets Boundary</a>
+    <a href="/agent-permissions/">Agent Permissions</a>
+    <a href="/governance-scorecard/">Scorecard</a>
+    <a href="/reference-cases/">Reference Cases</a>
+    <a href="/reference-kit/" class="active" aria-current="page">Reference Kit</a>
+    <a href="/evidence/">Evidence Register</a>
+    <a href="/review/">Open Review</a>
+    <a href="/cost-of-inaction/">Cost of Inaction</a>
+    <a href="/buyer-logic/">Buyer Logic</a>
+    <a href="/briefs/">Briefs</a>
+    <a href="/strategic-inquiries/">Strategic Inquiries</a>
+  </nav>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+
+</body>
+</html>
