@@ -76,7 +76,7 @@
   </div>
 
   <div class="content-wrap">
-    <div class="eyebrow">Reference Cases v1.0.0 · validator v1.1.0</div>
+    <div class="eyebrow">Reference Cases v1.0.0 · validator v1.1.1</div>
     <h1 class="spec-h1">Reference Cases</h1>
     <p class="content-body">Four reproducible cases that turn protocol controls into observable pass/fail conditions. Each case ships synthetic inputs — a governed and an ungoverned variant — and a zero-dependency validator, <code>tools/codokey-check.mjs</code>, that evaluates them. Expected outcomes are pinned in <code>cases/*/expected.json</code> and checked by the test suite.</p>
     <p class="content-body"><strong>What these are not.</strong> The validator reads declared configuration files. It does not connect to GitHub, GitLab, or any agent, does not scan live repositories, and a PASS is not certification. To use a case on a real system, export the equivalent settings into the same JSON shape — and remove secret values first.</p>

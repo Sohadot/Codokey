@@ -4,7 +4,7 @@
 
 Each defect has a regression test. "Before" means the test was run against the PR #2 head prior to this change (`c52ce54`). Result: **29 of 36** adversarial tests failed; the other 7 already passed and remain as guards. "After" means the fixed code, where all pass.
 
-## Validator (`tools/codokey-check.mjs` 1.0.0 → 1.1.0)
+## Validator (`tools/codokey-check.mjs` 1.0.0 → 1.1.0 → 1.1.1)
 
 | ID | Defect (confirmed) | Correction | Test(s) in `tests/adversarial.test.mjs` |
 |---|---|---|---|
@@ -23,6 +23,8 @@ Each defect has a regression test. "Before" means the test was run against the P
 | V-C7 | Results did not distinguish **recorded configuration from verified enforcement** | Every check carries `basis: declared-configuration` or `recorded-history`; results carry `enforcementVerified: false`; CLI prints the basis | `V-C7` |
 | V-D1 | **D4 inferred independence from the source string**: any label other than `agent-self-report` passed | D4 requires a separate provenance manifest (`--sources`); each source must be declared, tamper-protected, and not writable by an acting agent. Without a manifest D4 fails | `V-D1`, `V-D1b`, `V-D1c` |
 | V-D2 | `actor: {}` and unparseable timestamps passed the required-field check | Actor type/id and RFC 3339 timestamps validated | `V-D2`, `V-D2b` |
+| V-A1 | Case A accepted `enforcement: "not-in-workspace"` while secret-bearing files were present in the workspace (a self-contradicting declaration) | A2 accepts "not-in-workspace" only when no secret-bearing file is found | `V-A1` (second pass, 2026-11-13) |
+| V-D1d | A provenance manifest declaring a source writable by anyone (`"*"`, `any`, `all`, …) passed D4 | Open-write sources fail D4 | `V-D1d` (second pass, 2026-11-13) |
 | V-D3 | Q8 accepted a deployment approval for a **different revision** than the one deployed | Approval must match the deployed revision | `V-D3` |
 
 The declared-configuration limitation is unchanged and is now stated in every result. The validator reads files; it does not connect to any platform, and a PASS is not live security verification.

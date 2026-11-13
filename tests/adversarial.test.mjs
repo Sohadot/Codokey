@@ -202,3 +202,20 @@ test('V-C6c CLI exits 2 (input error) on inconsistent configuration, not 0 or 1'
   writeFileSync(join(dir, 'change.json'), JSON.stringify(ch));
   assert.throws(() => execFileSync('node', [join(ROOT, 'tools/codokey-check.mjs'), 'production-path', '--change', join(dir, 'change.json'), '--policy', join(C, 'c-production-path/policy.governed.json')], { stdio: 'pipe' }), e => e.status === 2);
 });
+
+// ---------------------------------------------------------------- second-pass review (2026-11-13)
+import { checkSecretsAccess } from '../tools/codokey-check.mjs';
+
+test('V-A1 "not-in-workspace" enforcement is rejected when secret-bearing files ARE in the workspace', () => {
+  const agent = { readDeny: ['.env', '*.pem', 'config/settings.ini'], enforcement: 'not-in-workspace', canExecuteCommands: true, environment: [] };
+  const r = checkSecretsAccess(join(C, 'a-secrets-access/repo'), agent);
+  assert.ok(failing(r).includes('A2'));
+});
+
+test('V-D1d a source declared writable by anyone ("*") fails D4', () => {
+  const manifest = { sources: [
+    { id: 'agent-platform-session-log', writableBy: ['*'], tamperProtection: 'append-only' },
+    { id: 'platform-audit-log', writableBy: ['platform'], tamperProtection: 'retention-lock' }
+  ] };
+  assert.ok(failing(checkAuditReconstruction(completeEvents, manifest)).includes('D4'));
+});

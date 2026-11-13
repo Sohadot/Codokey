@@ -85,7 +85,7 @@ Paths are relative to the repository root at the PR #2 head. A future version wo
 
 ## 4. Decision points the owner must settle before adoption
 
-1. **Versions covered.** Proposed: only the versions published at adoption (kit 1.0.0, validator 1.1.0, model 2.0.0, schema 2.0.0). Later versions could use different terms.
+1. **Versions covered.** Proposed: only the versions published at adoption (kit 1.0.0, validator 1.1.1, model 2.0.0, schema 2.0.0). Later versions could use different terms.
 2. **Severity and gating method.** The scoring method is an idea or method, so copyright does not protect it either way. Licensing `scorecard-model.js` only affects reuse of the code and text.
 3. **`tools/content/cases.mjs`.** The case READMEs (Tier A) are generated from this reserved source. Either license `cases.mjs` under CC BY 4.0 as well, or accept that adapters edit the README output rather than the source.
 4. **Evidence register.** Option: license only the Codokey-authored fields (`supports`, `codokeyApplication`, `limitations`, `claimClass`, `codokeyClaims`) under CC BY 4.0, explicitly excluding `passage`. Recommended to keep reserved for now: this avoids a CC BY-SA interaction with quoted OWASP text and keeps the curated compilation as an asset.

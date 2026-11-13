@@ -19,7 +19,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-export const CHECK_VERSION = '1.1.0';
+export const CHECK_VERSION = '1.1.1';
 
 // ---------- helpers ----------
 export function globToRegExp(glob) {
@@ -77,8 +77,9 @@ export function checkSecretsAccess(repoDir, agent) {
     { id: 'A1', control: 'CK-KE-03', title: 'Every secret-bearing file in the workspace is covered by a read-deny rule',
       pass: readable.length === 0, detail: readable.length ? 'Readable by the agent: ' + readable.join(', ') : `${secretFiles.length} secret-bearing file(s) covered` },
     { id: 'A2', control: 'CK-KE-03', title: 'Exclusion is enforced at a boundary that also covers subprocesses',
-      pass: agent.enforcement === 'os-sandbox' || agent.enforcement === 'not-in-workspace',
-      detail: `enforcement = ${agent.enforcement || 'undeclared'}${agent.canExecuteCommands ? ' (agent can execute commands)' : ''}` },
+      // "not-in-workspace" is only credible when no secret-bearing file is actually present.
+      pass: agent.enforcement === 'os-sandbox' || (agent.enforcement === 'not-in-workspace' && secretFiles.length === 0),
+      detail: `enforcement = ${agent.enforcement || 'undeclared'}${agent.canExecuteCommands ? ' (agent can execute commands)' : ''}${agent.enforcement === 'not-in-workspace' && secretFiles.length ? ' — contradicted: secret-bearing files are present in the workspace' : ''}` },
     { id: 'A3', control: 'CK-KE-06', title: 'No production credential is present in the agent environment',
       pass: !(agent.environment || []).some(v => /PROD/i.test(v)), detail: 'environment variables: ' + ((agent.environment || []).join(', ') || 'none') }
   ];
@@ -314,7 +315,11 @@ export function checkAuditReconstruction(events, manifest) {
       if (!d) { provenanceProblems.push(`${src || '(missing)'}: not declared in manifest`); continue; }
       if (!TAMPER_PROTECTION.includes(d.tamperProtection)) provenanceProblems.push(`${src}: tamperProtection=${JSON.stringify(d.tamperProtection)}`);
       if (!Array.isArray(d.writableBy)) provenanceProblems.push(`${src}: writableBy not declared`);
-      else { const w = d.writableBy.filter(x => agentIds.has(norm(x))); if (w.length) provenanceProblems.push(`${src}: writable by acting agent ${w.join(', ')}`); }
+      else {
+        const open = d.writableBy.filter(x => /^(\*|any|anyone|all|everyone|public)$/i.test(String(x).trim()));
+        if (open.length) provenanceProblems.push(`${src}: writable by anyone (${open.join(', ')})`);
+        const w = d.writableBy.filter(x => agentIds.has(norm(x))); if (w.length) provenanceProblems.push(`${src}: writable by acting agent ${w.join(', ')}`);
+      }
     }
   }
   const checks = [
