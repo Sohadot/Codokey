@@ -79,10 +79,8 @@
   form.addEventListener('input', update);
   form.addEventListener('change', update);
   form.addEventListener('reset', () => {
-    queueMicrotask(() => {
-      document.querySelector('#reviewOverall').value = '';
-      update();
-    });
+    // A reset event fires BEFORE native fields are reset. Wait until default action finishes.
+    setTimeout(update, 0);
   });
 
   generate.addEventListener('click', () => {

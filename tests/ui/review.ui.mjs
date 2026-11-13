@@ -77,6 +77,7 @@ await test('security: download emits actual report text, then changes invalidate
   assert.equal(await page.locator('#reviewResult').isHidden(), true);
   assert.equal(await page.locator('#reviewProgress').innerText(), '2 of 4 sections answered');
   await page.locator('#reviewReset').click();
+  await page.waitForFunction(() => document.getElementById('reviewGenerate').disabled);
   assert.ok(await page.locator('#reviewGenerate').isDisabled());
   assert.equal(await page.locator('#reviewProgress').innerText(), '0 of 4 sections answered');
 });
