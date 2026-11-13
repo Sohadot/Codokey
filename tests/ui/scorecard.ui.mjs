@@ -25,7 +25,8 @@ const base = `http://127.0.0.1:${server.address().port}`;
 let passed = 0;
 async function t(name, fn) { try { await fn(); passed++; console.log('ok   ' + name); } catch (e) { console.log('FAIL ' + name + '\n     ' + e.message); process.exitCode = 1; } }
 
-const browser = await chromium.launch();
+const browser = await chromium.launch(process.env.CODOKEY_CHROMIUM_PATH
+  ? { executablePath: process.env.CODOKEY_CHROMIUM_PATH } : {});
 const ctx = await browser.newContext({ acceptDownloads: true });
 const external = [];
 await ctx.route('**/*', route => {

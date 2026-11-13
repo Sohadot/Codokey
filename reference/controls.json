@@ -2,7 +2,7 @@
   "catalog": "codokey-governance-controls",
   "modelVersion": "2.0.0",
   "protocolVersion": "1.1",
-  "generated": "2026-11-12",
+  "generated": "2026-11-13",
   "statuses": {
     "pass": "Implemented — evidence available",
     "fail": "Not implemented",

@@ -1,10 +1,17 @@
 # Independent Review Package
 
-**Version 1.0.0 · prepared 2026-11-12**
+**Version 1.1.0 · updated 2026-11-13**
 
 This package lets an external security engineer evaluate Codokey without relying on anything Codokey says about itself.
 
 **Status: no independent review has taken place.** The [review log](REVIEW_LOG.md) is empty. Nothing on codokey.com should be read as reviewed, endorsed, or validated by any third party.
+
+## Guided browser review (no command line required to provide feedback)
+
+- [Security Challenge](https://codokey.com/review/security-challenge/) — examine Cases A–D, record a possible false-safe/false-block result and supporting evidence.
+- [Scorecard Challenge](https://codokey.com/review/scorecard-challenge/) — challenge severities, forbidden-zone gates, the critical-majority threshold, unknown handling and omissions.
+
+Each worksheet generates a plain-text report in the reviewer's browser; no answers are automatically transmitted or stored. Choose **Copy report** and paste the text into the **What you observed and how to reproduce** field in the [GitHub review finding form](https://github.com/Sohadot/Codokey/issues/new?template=review-finding.yml), or attach the downloaded report to an email sent manually to inquiry@codokey.com. The page cannot verify that someone ran a check, and submitting a finding does not imply endorsement. Never include real credentials, sensitive logs or confidential configuration.
 
 ## What is in scope
 

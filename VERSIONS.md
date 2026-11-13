@@ -4,14 +4,14 @@ Machine-readable source: `reference/versions.json`. Tests fail if the model, reg
 
 | Item | Version | Date | Notes |
 |---|---|---|---|
-| Site release (nav badge "site v2.0") | 2.0 | 2026-11-12 | Release label for the website as a whole, not a document version |
+| Site release (nav badge "site v2.1") | 2.1 | 2026-11-13 | Guided public reviewer worksheets; site version is not the scorecard version |
 | Codokey Protocol | 1.1 | 2026-11-12 | Adds six layer specifications; layers unchanged from 1.0 |
 | Governance Scorecard model | 2.0.0 | 2026-11-12 | Breaking change in grade interpretation — see `SCORING.md` §7 |
 | Evidence Register | 1.0.0 | verified 2026-11-12 | `reference/evidence-register.json` |
 | Reference Cases / validator | 1.0.0 / 1.1.1 | 2026-11-12 | `cases/`, `tools/codokey-check.mjs`; validator 1.1.1 hardens Cases A–D (see `docs/PR2_HARDENING.md`) |
 | Scorecard export schema | 2.0.0 | 2026-11-12 | `reference/schemas/scorecard-assessment-2.0.0.schema.json` (generated; versioned with the model) |
 | Reference Kit | 1.0.0 | 2026-11-12 | `kit/` |
-| Review package | 1.0.0 | 2026-11-12 | `review/` |
+| Review package | 1.1.0 | 2026-11-13 | `review/`; two browser-only challenge worksheets, no automatic submission or external endorsement |
 | Charter | 1.0 | 2026-06-01 | |
 | Category Definition | 1.2 | 2026-11-12 | 1.2 removes the unsupported "canonical reference" status claim |
 | Narrative, Asset Thesis, Buyer Logic, Buyer Brief | 1.1 | 2026-06-01 | Status notes added 2026-11-12; content otherwise unchanged except corrected claims |
@@ -30,3 +30,4 @@ Machine-readable source: `reference/versions.json`. Tests fail if the model, reg
 | 1.0 | 2026-06-01 | Multi-page static site |
 | 1.1–1.4 | 2026-06-01 | Category, evidence-pack briefs, doctrine sprints (labels were used inconsistently on pages) |
 | 2.0 | 2026-11-12 | Evidence, trust & adoption sprint — see `DECISION_LOG.md` |
+| 2.1 | 2026-11-13 | Reviewer experience: security and scorecard challenge pages, local-only structured feedback |
